@@ -32,32 +32,32 @@ function Home() {
     }}>
       
       {/* Hero Section */}
-      <Box sx={{ width: '100%', maxWidth: '1400px' }}>
+      <Box sx={{ width: '85%', maxWidth: '1400px' }}>
         <HeroSection />
       </Box>
 
       {/* Solutions Section */}
-      <Box sx={{ width: '100%', maxWidth: '1400px' }}>
+      <Box sx={{ width: '85%', maxWidth: '1400px' }}>
         <SolutionsSection />
       </Box>
 
       {/* About Section */}
-      <Box sx={{ width: '100%', maxWidth: '1400px' }}>
+      <Box sx={{ width: '85%', maxWidth: '1400px' }}>
         <AboutSection />
       </Box>
 
       {/* Education Section */}
-      <Box sx={{ width: '100%', maxWidth: '1400px' }}>
+      <Box sx={{ width: '85%', maxWidth: '1400px' }}>
         <EducationSection />
       </Box>
 
       {/* Services Section */}
-      <Box sx={{ width: '100%', maxWidth: '1400px' }}>
+      <Box sx={{ width: '85%', maxWidth: '1400px' }}>
         <ServicesSection />
       </Box>
 
       {/* Portfolio Section */}
-      <Box sx={{ width: '100%', maxWidth: '1400px' }}>
+      <Box sx={{ width: '85%', maxWidth: '1400px' }}>
         <PortfolioSection />
       </Box>
 
@@ -67,7 +67,7 @@ function Home() {
       </Box>
 
       {/* Contact Section */}
-      <Box sx={{ width: '100%', maxWidth: '1400px' }}>
+      <Box sx={{ width: '85%', maxWidth: '1400px' }}>
         <ContactSection />
       </Box>
 

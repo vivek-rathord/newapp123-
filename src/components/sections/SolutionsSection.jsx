@@ -24,8 +24,9 @@ const SolutionsGrid = styled(Grid)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'stretch',
-  gap: '30px',
-  maxWidth: '1200px',
+  gap: '50px',
+  width:'100%',
+  maxWidth: '1600px',
   margin: '0 auto',
   [theme.breakpoints.down('lg')]: {
     flexDirection: 'column',
@@ -37,9 +38,9 @@ const SolutionsGrid = styled(Grid)(({ theme }) => ({
 const SolutionCard = styled(Card)(({ theme, variant }) => ({
   backgroundColor: variant === 'dark' ? themeColors.deepBlack : themeColors.pureWhite,
   color: variant === 'dark' ? themeColors.pureWhite : themeColors.deepBlack,
-  borderRadius: '20px',
-  padding: '50px 40px',
-  width: '500px',
+  borderRadius: '40px',
+  padding: '40px 10px',
+  width: '600px',
   minHeight: '350px',
   display: 'flex',
   flexDirection: 'column',
@@ -47,10 +48,10 @@ const SolutionCard = styled(Card)(({ theme, variant }) => ({
   boxShadow: '0 15px 50px rgba(0,0,0,0.1)',
   transition: 'all 0.4s ease',
   border: variant === 'light' ? '2px solid #f0f0f0' : 'none',
-  '&:hover': {
-    transform: 'translateY(-15px)',
-    boxShadow: '0 25px 60px rgba(0,0,0,0.15)',
-  },
+  // '&:hover': {
+  //   transform: 'translateY(-15px)',
+  //   boxShadow: '0 25px 60px rgba(0,0,0,0.15)',
+  // },
   [theme.breakpoints.down('md')]: {
     width: '90%',
     minHeight: '300px',
@@ -62,7 +63,7 @@ const SolutionTitle = styled(Typography)(({ theme }) => ({
   fontSize: '2rem',
   fontWeight: 'bold',
   marginBottom: '20px',
-  textAlign: 'center',
+  textAlign: 'left',
   [theme.breakpoints.down('md')]: {
     fontSize: '1.6rem',
   }
@@ -71,7 +72,7 @@ const SolutionTitle = styled(Typography)(({ theme }) => ({
 const SolutionText = styled(Typography)(({ theme }) => ({
   fontSize: '16px',
   lineHeight: '1.6',
-  textAlign: 'center',
+  textAlign: 'left',
   marginBottom: '30px',
   color: 'inherit',
   opacity: 0.8,
@@ -80,12 +81,12 @@ const SolutionText = styled(Typography)(({ theme }) => ({
 const SolutionButton = styled(Button)(({ theme, variant }) => ({
   backgroundColor: variant === 'dark' ? themeColors.pureWhite : themeColors.deepBlack,
   color: variant === 'dark' ? themeColors.deepBlack : themeColors.pureWhite,
-  padding: '15px 40px',
+  padding: '10px 40px',
   borderRadius: '10px',
   fontSize: '16px',
   fontWeight: '600',
   textTransform: 'none',
-  width: '100%',
+  width: 'content-fit',
   transition: 'all 0.3s ease',
   '&:hover': {
     backgroundColor: themeColors.orangeColor,
@@ -98,12 +99,12 @@ function SolutionsSection() {
   return (
     <SolutionsContainer>
       <SolutionsGrid container>
-        <Grid item xs={12} md={6} display="flex" justifyContent="center">
+        <Grid item xs={1} md={6} display="flex" justifyContent="center">
           <SolutionCard 
             variant="dark" 
              data-aos-delay="200"
           >
-            <CardContent sx={{ textAlign: 'center', display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between' }}>
+            <CardContent sx={{ textAlign: 'left', display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between' }}>
               <Box>
                 <SolutionTitle>Solutions</SolutionTitle>
                 <SolutionText>
@@ -126,7 +127,7 @@ function SolutionsSection() {
             data-aos="fade-left" 
             data-aos-delay="300"
           >
-            <CardContent sx={{ textAlign: 'center', display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between' }}>
+            <CardContent sx={{ textAlign: 'left', display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between' }}>
               <Box>
                 <SolutionTitle>Learning</SolutionTitle>
                 <SolutionText>

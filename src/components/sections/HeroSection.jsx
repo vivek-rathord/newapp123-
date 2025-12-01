@@ -17,10 +17,9 @@ const HeroContainer = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   gap: '25px',
-  marginTop: '40px',
   textTransform: 'capitalize',
   textAlign: 'center',
-  padding: '60px 0px',
+  padding: '20px 0px',
   minHeight: '70vh',
   width: '100%',
   [theme.breakpoints.down('md')]: {
@@ -34,7 +33,7 @@ const HeroContainer = styled(Box)(({ theme }) => ({
 const OrangeSpan = styled(Typography)(({ theme }) => ({
   backgroundColor: themeColors.orangeColor,
   color: themeColors.pureWhite,
-  padding: '10px 20px',
+  padding: '8px 20px',
   borderRadius: '25px',
   fontSize: '15px',
   letterSpacing: '1.5px',
@@ -49,7 +48,7 @@ const OrangeSpan = styled(Typography)(({ theme }) => ({
 }));
 
 const HeroTitle = styled(Typography)(({ theme }) => ({
-  fontSize: '3.5rem',
+  fontSize: '2.9rem',
   fontWeight: 'bold',
   lineHeight: '1.1',
   background: 'linear-gradient(135deg, #111111 0%, #000000ff 100%)',
@@ -95,21 +94,49 @@ const ButtonContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
-const PrimaryButton = styled(Button)(({ theme }) => ({
+// const PrimaryButton = styled(Button)(({ theme }) => ({
+//   backgroundColor: themeColors.deepBlack,
+//   color: themeColors.pureWhite,
+//   padding: '15px 40px',
+//   borderRadius: '10px',
+//   fontSize: '16px',
+//   fontWeight: '600',
+//   textTransform: 'none',
+//   transition: 'all 0.4s ease',
+//  '&:hover': {
+//   backgroundColor: themeColors.orangeColor,
+//   color: themeColors.pureWhite,
+//   transform: 'translateY(-1px)',
+//   boxShadow: '0 15px 35px rgba(255, 85, 50, 0.3)',
+// },
+
+//  // ensure hover off returns to default
+//   '&:not(:hover)': {
+//     backgroundColor: themeColors.deepBlack,
+//     color: themeColors.pureWhite,
+//     transform: 'translateY(0)',
+//     boxShadow: 'none',
+//   }
+// }));
+const PrimaryButton = styled(Button)(() => ({
   backgroundColor: themeColors.deepBlack,
   color: themeColors.pureWhite,
-  padding: '15px 40px',
-  borderRadius: '10px',
-  fontSize: '16px',
-  fontWeight: '600',
-  textTransform: 'none',
-  transition: 'all 0.4s ease',
-  '&:hover': {
-    backgroundColor: themeColors.orangeColor,
-    transform: 'translateY(-3px)',
-    boxShadow: '0 15px 35px rgba(255, 85, 50, 0.3)',
-  }
+  padding: "15px 40px",
+  borderRadius: "10px",
+  fontSize: "16px",
+  fontWeight: "600",
+  textTransform: "none",
+  transition: "all 0.4s ease",
+
+  "&:hover": {
+    backgroundColor: themeColors.darkGray,
+    color: themeColors.pureWhite,
+    transform: "translateY(-1px)",
+    boxShadow: "0 15px 35px rgba(0,0,0,0.3)",
+  },
 }));
+
+
 
 const SecondaryButton = styled(Button)(({ theme }) => ({
   backgroundColor: 'transparent',
@@ -165,27 +192,27 @@ function HeroSection() {
         data-aos-delay="400"
         data-aos-duration="1000"
       >
-        From digital branding and website design to student training, we help
-        businesses grow online and train future IT professionals with
-        real-world skills.
+    From digital branding and website design to student training, we help businesses scale their online presence and prepare the next generation of skilled IT professionals through practical learning experiences.
       </HeroText>
-
+{/* 
       <ButtonContainer 
         data-aos="fade-up" 
         data-aos-delay="500"
         data-aos-duration="1000"
       >
         <Link to="/services" style={{ textDecoration: 'none' }}>
-          <PrimaryButton>
-            Our Services
-          </PrimaryButton>
+      
+      <PrimaryButton component={Link} to="/services">
+  Our Services
+</PrimaryButton>
+
         </Link>
         <Link to="/education" style={{ textDecoration: 'none' }}>
           <SecondaryButton>
             Our Courses
           </SecondaryButton>
         </Link>
-      </ButtonContainer>
+      </ButtonContainer> */}
     </HeroContainer>
   );
 }

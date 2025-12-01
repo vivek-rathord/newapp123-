@@ -55,7 +55,7 @@ const BlogsTitle = styled(Typography)(({ theme }) => ({
 const BlogsGrid = styled(Grid)(({ theme }) => ({
   display: 'flex',
   flexWrap: 'wrap',
-  gap: '30px',
+  gap: '50px',
   justifyContent: 'center',
   paddingTop: '50px',
   [theme.breakpoints.down('md')]: {
@@ -67,7 +67,7 @@ const BlogsGrid = styled(Grid)(({ theme }) => ({
 }));
 
 const BlogCard = styled(Card)(({ theme }) => ({
-  width: '350px',
+  width: '390px',
   display: 'flex',
   flexDirection: 'column',
   textAlign: 'left',

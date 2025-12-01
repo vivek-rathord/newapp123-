@@ -29,7 +29,7 @@ const themeColors = {
 // Navbar Container - aapke CSS ke exact according
 const NavbarWrapper = styled(AppBar)(({ theme }) => ({
   position: "relative",
-  width: "90%",
+  width: "85%",
   margin: "auto",
   top: "10px",
   zIndex: 10,
@@ -84,7 +84,10 @@ const NavButton = styled(Button)(({ theme }) => ({
   textTransform: "none",
   fontSize: "16px",
   "&:hover": {
-    backgroundColor: themeColors.darkGray,
+     backgroundColor: themeColors.orangeColor,
+    color: themeColors.pureWhite,          
+    transform: "translateY(-3px) scale(1.01)",
+    boxShadow: "0 8px 20px rgba(0,0,0,0.3)",
   },
   
   [theme.breakpoints.down('md')]: {

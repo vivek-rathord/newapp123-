@@ -7,7 +7,7 @@
    orangeColor: '#FF5532',
    deepBlack: '#111111',
    darkGray: '#575757',
-   p0ureWhite: '#FFFFFF',
+   pureWhite: '#FFFFFF',
  };
  
  const ServicesContainer = styled(Box)(({ theme }) => ({
@@ -30,7 +30,7 @@
    color: '#CECFCA',
    fontSize: '6rem',
    fontWeight: '700',
-   letterSpacing: '3px',
+   letterSpacing: '8px',
    padding: '20px 0px',
    background: ' rgba(206, 207, 202, 1)',
    backgroundClip: 'text',
@@ -49,7 +49,7 @@
    top: '50%',
    left: '50%',
    transform: 'translate(-50%, -50%)',
-   padding: '8px 20px',
+   padding: '4px 20px',
    backgroundColor: themeColors.orangeColor,
    color: themeColors.pureWhite,
    borderRadius: '25px',
@@ -102,6 +102,7 @@
  const ActiveService = styled(Card)(({ theme }) => ({
    background: themeColors.pureWhite,
    padding: '30px',
+   width:'600px',
    borderRadius: '15px',
    boxShadow: '0 15px 50px rgba(0,0,0,0.1)',
    marginBottom: '20px',
@@ -195,7 +196,7 @@
    return (
      <ServicesContainer>
        <SectionHeading data-aos="zoom-in">
-         <SectionTitle>SOLUTIONS</SectionTitle>
+         <SectionTitle>EDUCATION</SectionTitle>
          <SectionSubtitle>What We Do</SectionSubtitle>
        </SectionHeading>
  
@@ -209,7 +210,7 @@
              <ActiveService data-aos="zoom-in" data-aos-delay="300">
                <ServiceTitle>01. Creative Design Solutions</ServiceTitle>
                <ServiceText>
-                 Forem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a.
+                Forem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. 
                </ServiceText>
              </ActiveService>
  
@@ -229,7 +230,7 @@
        <ButtonContainer data-aos="fade-up" data-aos-delay="500">
          <Link to="/services" style={{ textDecoration: 'none' }}>
            <BlackButton>
-             Explore All Services
+             Explore All Courses
            </BlackButton>
          </Link>
        </ButtonContainer>

@@ -85,8 +85,8 @@ const ImageContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   '& img': {
-    width: '80%',
-    maxWidth: '900px',
+    width: '100%',
+    maxWidth: '90%',
     borderRadius: '20px',
     boxShadow: '0 20px 60px rgba(0,0,0,0.1)',
     transition: 'all 0.5s ease',

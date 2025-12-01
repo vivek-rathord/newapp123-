@@ -20,16 +20,17 @@ body{
 
   a:hover {
 text-underline-offset: 10px;
-color: var(--orange-color);
+/* color: var(--orange-color); */
+/* color: white; */
 transition: all 0.2s ease;
 }
-button{
+/* button{
   border: none;
   padding: 10px 20px;
   border-radius: 20px;
   cursor: pointer;
   letter-spacing: 1px;
-}
+} */
 .black-bg-button{
   background-color: var(--deep-black);
   border: none;
@@ -51,7 +52,7 @@ button{
   padding: 90px 0px;
 }
 span{
-  background-color: var(--orange-color);
+  /* background-color: var(--orange-color); */
   border: none;
   color: var(--pure-white);
   padding: 5px 10px;
