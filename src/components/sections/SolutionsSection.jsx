@@ -102,7 +102,8 @@ function SolutionsSection() {
         <Grid item xs={1} md={6} display="flex" justifyContent="center">
           <SolutionCard 
             variant="dark" 
-             data-aos-delay="200"
+            data-aos="fade-right" 
+            data-aos-delay="300"
           >
             <CardContent sx={{ textAlign: 'left', display: 'flex', flexDirection: 'column', height: '100%', justifyContent: 'space-between' }}>
               <Box>

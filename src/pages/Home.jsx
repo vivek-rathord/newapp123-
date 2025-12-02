@@ -42,7 +42,7 @@ function Home() {
       </Box>
 
       {/* About Section */}
-      <Box sx={{ width: '85%', maxWidth: '1400px' }}>
+      <Box sx={{ width: '95%', maxWidth: '1400px' }}>
         <AboutSection />
       </Box>
 

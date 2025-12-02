@@ -80,8 +80,13 @@ const BlogCard = styled(Card)(({ theme }) => ({
     transform: 'translateY(-15px)',
     boxShadow: '0 25px 70px rgba(0,0,0,0.15)',
   },
+  '&:nth-of-type(2)': {
+  width: '390px',
+  height:'430px',
+},
+
   '&:nth-child(1), &:nth-child(3)': {
-    marginTop: '80px',
+    marginTop: '90px',
     [theme.breakpoints.down('md')]: {
       marginTop: '0px',
     }
@@ -90,6 +95,7 @@ const BlogCard = styled(Card)(({ theme }) => ({
     width: '90%',
     marginBottom: '30px',
   }
+  
 }));
 
 const BlogImage = styled(Box)(({ theme }) => ({

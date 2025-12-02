@@ -102,7 +102,8 @@
  const ActiveService = styled(Card)(({ theme }) => ({
    background: themeColors.pureWhite,
    padding: '30px',
-   width:'600px',
+   width:'100%',
+   maxWidth:'600px',
    borderRadius: '15px',
    boxShadow: '0 15px 50px rgba(0,0,0,0.1)',
    marginBottom: '20px',
