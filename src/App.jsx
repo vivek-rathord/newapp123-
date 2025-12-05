@@ -22,8 +22,6 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/Blogs" element={<Blogs />} />
           <Route path="/Singlecourse" element={<Singlecourse />} />
-
-          {/* <Route path="/contactform" element={<Contactform />} />  */}
         </Routes>
       </main>
       <Footer />

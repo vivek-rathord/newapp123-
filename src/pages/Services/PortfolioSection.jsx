@@ -4,7 +4,6 @@ import { Box, Typography, Button, Card, CardContent, Grid, styled } from "@mui/m
 import imager from "../../assets/Images/heroimg.jpg";
 import arrowright from "../../assets/Images/arrow-right.png";
 
-// Add imports at the top and use imager & arrowright in the component 
 const themeColors = {
   orangeColor: '#FF5532',
   deepBlack: '#111111',

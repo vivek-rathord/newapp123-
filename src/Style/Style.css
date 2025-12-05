@@ -1369,7 +1369,7 @@
 /* --- MEDIA QUERIES --- */
 /*  extra small devices */
 @media (max-width:448px) {
-  .navbar{
+  /* .navbar{
     width: 100%;
   }
  
@@ -1383,9 +1383,9 @@
   .phonebtn {
     display: block !important;
     width: 100%;
-  }
+  } */
   /* MOBILE MENU HIDDEN */
-  .navbar .nav-links {
+  /* .navbar .nav-links {
     width: 100%;
     position: absolute;
     top: 70px;
@@ -1397,7 +1397,7 @@
     border-radius: 12px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     display: none; 
-  }
+  } */
 
   .herosection,
   .Headingtxt {
