@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import Aos from "aos";
 import 'aos/dist/aos.css';
  import { blogAPI } from "../services/api";
-import './Blogs.css';import BlogList from "../components/Blog/BlogList";
+import './Blogs.css';
+import BlogList from "../components/blog/BlogList";
 
  
 function Blogs() {
