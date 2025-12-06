@@ -4,15 +4,15 @@ import Aos from "aos";
 import 'aos/dist/aos.css';
 
 // Import All Sections from components/sections folder
-import HeroSection from "../components/sections/HeroSection";
-import SolutionsSection from "../components/sections/SolutionsSection";
-import AboutSection from "../components/sections/AboutSection";
-import EducationSection from "../components/sections/EducationSection";
-import ServicesSection from "../components/sections/ServicesSection";
-import PortfolioSection from "../components/sections/PortfolioSection";
-import BlogsSection from "../components/sections/BlogsSection";
-import ContactSection from "../components/sections/ContactSection";
-
+import HeroSection from "./Home/HeroSection";
+import SolutionsSection from "./Home/SolutionsSection";
+import AboutSection from "./Home/AboutSection";
+import EducationSection from "./Home/EducationSection";
+import ServicesSection from "./Home/ServicesSection";
+import PortfolioSection from "./Home/PortfolioSection";
+import SimpleFaq from "./Home/FaqAccordion";
+import BlogsSection from "./Home/BlogsSection";
+import ContactSection from "./Home/ContactSection";
 function Home() {
   useEffect(() => {
     Aos.init({ 
@@ -64,6 +64,11 @@ function Home() {
       {/* Blogs Section */}
       <Box sx={{ width: '100%', maxWidth: '1400px' }}>
         <BlogsSection />
+      </Box>
+
+       {/* Faq Section */}
+      <Box sx={{ width: '100%', maxWidth: '1400px' }}>
+        <SimpleFaq />
       </Box>
 
       {/* Contact Section */}

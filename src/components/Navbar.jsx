@@ -1,17 +1,6 @@
  import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  AppBar,
-  Toolbar,
-  Box,
-  Button,
-  Drawer,
-  List,
-  ListItem,
-  IconButton,
-  Typography,
-  styled
-} from "@mui/material";
+import { AppBar, Toolbar, Box, Button, Drawer, List, ListItem, IconButton, Typography, styled} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import logo from "../assets/Images/logo.png";
 
@@ -94,7 +83,6 @@ const NavButton = styled(Button)(({ theme }) => ({
     display: "none",
   }
 }));
-
 const MobileNavButton = styled(Button)(({ theme }) => ({
   backgroundColor: themeColors.deepBlack,
   color: themeColors.offWhite,
@@ -104,20 +92,40 @@ const MobileNavButton = styled(Button)(({ theme }) => ({
   fontSize: "16px",
   width: "100%",
   marginTop: "10px",
-  "&:hover": {
-    backgroundColor: themeColors.darkGray,
+
+  // Active effect
+  "&:active": {
+    backgroundColor: themeColors.orangeColor,
+    color: themeColors.pureWhite,
+    transform: "scale(0.97)",
   },
-  
-  [theme.breakpoints.up('md')]: {
-    display: "none !important",
-  }
+  "&.MuiButton-root": {
+    color: themeColors.offWhite,
+    fontSize: "16px",
+    fontWeight: 500,
+  },
+
+  // For icons (safe)
+  "& .MuiButton-startIcon, & .MuiButton-endIcon": {
+    color: themeColors.offWhite,
+  },
+
+  "&:focus": {
+    backgroundColor: themeColors.orangeColor,
+    color: themeColors.pureWhite,
+  },
+
+  [theme.breakpoints.up("md")]: {
+    display: "none",
+  },
 }));
+
 
 const Hamburger = styled(IconButton)(({ theme }) => ({
   display: "none",
   cursor: "pointer",
   fontSize: "28px",
-  color: themeColors.deepBlack,
+  color: themeColors.deepBlack, 
   
   [theme.breakpoints.down('md')]: {
     display: "flex",
@@ -131,7 +139,8 @@ const MobileDrawer = styled(Drawer)(({ theme }) => ({
     borderRadius: "12px",
     marginTop: "70px",
     marginRight: "20px",
-    width: "200px",
+    width: "300px",
+    height:'auto',
     boxShadow: "0 5px 20px rgba(0,0,0,0.15)",
   },
 }));
