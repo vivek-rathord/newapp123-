@@ -1,7 +1,7 @@
- import React from "react";
-import { Link } from "react-router-dom";
-import { Box, Typography, Button, Card, CardContent, Grid, styled } from "@mui/material";
-import imager from "../../assets/Images/heroimg.jpg";
+ import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Box, Typography, Button, Card, CardContent, Grid, styled, CircularProgress } from "@mui/material";
+import { blogAPI } from "../../services/api";
 
 const themeColors = {
   orangeColor: '#FF5532',
@@ -81,10 +81,9 @@ const BlogCard = styled(Card)(({ theme }) => ({
     boxShadow: '0 25px 70px rgba(0,0,0,0.15)',
   },
   '&:nth-of-type(2)': {
-  width: '390px',
-  height:'430px',
-},
-
+    width: '390px',
+    height:'430px',
+  },
   '&:nth-child(1), &:nth-child(3)': {
     marginTop: '90px',
     [theme.breakpoints.down('md')]: {
@@ -95,7 +94,6 @@ const BlogCard = styled(Card)(({ theme }) => ({
     width: '90%',
     marginBottom: '30px',
   }
-  
 }));
 
 const BlogImage = styled(Box)(({ theme }) => ({
@@ -179,7 +177,62 @@ const BlackButton = styled(Button)(({ theme }) => ({
   }
 }));
 
+const LoadingContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  minHeight: '400px',
+  width: '100%',
+}));
+
 function BlogsSection() {
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
+
+  const fetchBlogs = async () => {
+    try {
+      setLoading(true);
+      const response = await blogAPI.getAllBlogs();
+      const blogData = response.data.data || response.data || [];
+      setBlogs(blogData.slice(0, 3)); // Get first 3 blogs
+    } catch (err) {
+      console.error('Error fetching blogs:', err);
+      setBlogs([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getImageUrl = (blog) => {
+    if (blog.image) {
+      return blog.image;
+    }
+    return 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&h=250&fit=crop';
+  };
+
+  const handleBlogClick = (blogId) => {
+    navigate(`/blogs/${blogId}`);
+  };
+
+  const handleReadAllBlogs = () => {
+    navigate('/blogs');
+  };
+
+  if (loading) {
+    return (
+      <BlogsContainer>
+        <LoadingContainer>
+          <CircularProgress sx={{ color: themeColors.orangeColor }} />
+        </LoadingContainer>
+      </BlogsContainer>
+    );
+  }
+
   return (
     <BlogsContainer>
       <HeadingContainer data-aos="fade-up">
@@ -190,61 +243,33 @@ function BlogsSection() {
       </HeadingContainer>
 
       <BlogsGrid>
-        <BlogCard data-aos="fade-up" data-aos-duration="2000" data-aos-delay="100">
-          <BlogImage>
-            <img src={imager} alt="blog-1" />
-          </BlogImage>
-          <BlogContent>
-            <BlogCardTitle>
-              How can typography be used effectively in branding and social media graphics?
-            </BlogCardTitle>
-            <BlogButtonContainer>
-              <Link to='/Blogs' style={{ textDecoration: 'none' }}>
+        {blogs.map((blog, index) => (
+          <BlogCard 
+            key={blog.id}
+            data-aos="fade-up" 
+            data-aos-duration="2000" 
+            data-aos-delay={100 + index * 50}
+            onClick={() => handleBlogClick(blog.id)}
+          >
+            <BlogImage>
+              <img src={getImageUrl(blog)} alt={blog.title} />
+            </BlogImage>
+            <BlogContent>
+              <BlogCardTitle>
+                {blog.title}
+              </BlogCardTitle>
+              <BlogButtonContainer>
                 <BlogButton>Read Full Blog</BlogButton>
-              </Link>
-            </BlogButtonContainer>
-          </BlogContent>
-        </BlogCard>
-
-        <BlogCard data-aos="fade-up" data-aos-duration="2000" data-aos-delay="150">
-          <BlogImage>
-            <img src={imager} alt="blog-2" />
-          </BlogImage>
-          <BlogContent>
-            <BlogCardTitle>
-              How can typography be used effectively in branding and social media graphics?
-            </BlogCardTitle>
-            <BlogButtonContainer>
-              <Link to='/Blogs' style={{ textDecoration: 'none' }}>
-                <BlogButton>Read Full Blog</BlogButton>
-              </Link>
-            </BlogButtonContainer>
-          </BlogContent>
-        </BlogCard>
-
-        <BlogCard data-aos="fade-up" data-aos-duration="2000" data-aos-delay="200">
-          <BlogImage>
-            <img src={imager} alt="blog-3" />
-          </BlogImage>
-          <BlogContent>
-            <BlogCardTitle>
-              How can typography be used effectively in branding and social media graphics?
-            </BlogCardTitle>
-            <BlogButtonContainer>
-              <Link to='/Blogs' style={{ textDecoration: 'none' }}>
-                <BlogButton>Read Full Blog</BlogButton>
-              </Link>
-            </BlogButtonContainer>
-          </BlogContent>
-        </BlogCard>
+              </BlogButtonContainer>
+            </BlogContent>
+          </BlogCard>
+        ))}
       </BlogsGrid>
 
       <ButtonContainer data-aos="fade-up" data-aos-delay="300">
-        <Link to='/Blogs' style={{ textDecoration: 'none' }}>
-          <BlackButton>
-            Read All Blogs
-          </BlackButton>
-        </Link>
+        <BlackButton onClick={handleReadAllBlogs}>
+          Read All Blogs
+        </BlackButton>
       </ButtonContainer>
     </BlogsContainer>
   );
