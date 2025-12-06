@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Aos from "aos";
 import 'aos/dist/aos.css';
-import BlogList from "../components/Blog/BlogList";
-import { blogAPI } from "../services/api";
-import './Blogs.css';
+ import { blogAPI } from "../services/api";
+import './Blogs.css';import BlogList from "../components/Blog/BlogList";
 
+ 
 function Blogs() {
     const [blogs, setBlogs] = useState([]);
     const [loading, setLoading] = useState(true);
