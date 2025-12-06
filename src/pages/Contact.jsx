@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
-import "../Style/style.css";
+import "../Style/Style.css";
 import { Link, useNavigate } from "react-router-dom";
 import Aos from "aos";
 import 'aos/dist/aos.css';
