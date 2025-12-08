@@ -1,80 +1,66 @@
 import React, { useEffect } from "react";
 import { Box } from "@mui/material";
 import Aos from "aos";
-import 'aos/dist/aos.css';
+import "aos/dist/aos.css";
 
-// Import All Sections from components/sections folder
-import ServicesHero from "./Services/ServicesHero";
-import CreativeService from "./Services/CreativeService";
-import WebService from "./Services/Webdevelopment";
-import DigitalIdentityCard from "./Services/Build";
-import PortfolioSection from "./Services/PortfolioSection";
-import WhyChooseUs from "./Services/WhyChooseUs";
+// Import All Sections from components/Services folder
+import ServicesHero from "../components/Services/ServicesHero";
+import CreativeService from "../components/Services/CreativeService";
+import WebService from "../components/Services/Webdevelopment";
+import DigitalIdentityCard from "../components/Services/Build";
+import PortfolioSection from "../components/Services/PortfolioSection";
+import WhyChooseUs from "../components/Services/WhyChooseUs";
 
-
-
-function Home() {
+function Services() {
   useEffect(() => {
     Aos.init({
       duration: 1000,
       once: true,
-      offset: 100
+      offset: 100,
     });
   }, []);
 
   return (
-    <Box sx={{
-      overflow: 'hidden',
-      width: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center'
-    }}>
-
+    <Box
+      sx={{
+        overflow: "hidden",
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
       {/* Hero Section */}
-      <Box sx={{ width: '85%', maxWidth: '1400px' }}>
+      <Box sx={{ width: "85%", maxWidth: "1400px" }}>
         <ServicesHero />
       </Box>
 
-      {/* hero Section image*/}
-      <Box sx={{ width: '85%', maxWidth: '1400px' }}>
-        {/* < /> */}
+      {/* Creative Solutions */}
+      <Box sx={{ width: "85%", maxWidth: "1400px" }}>
+        <CreativeService />
       </Box>
 
-{/* creative solutions */}
-      <Box sx={{ width: '85%', maxWidth: '1400px' }}>
-         <CreativeService /> 
+      {/* Web Development Solutions */}
+      <Box sx={{ width: "85%", maxWidth: "1400px" }}>
+        <WebService />
       </Box>
 
-{/* web development solutions */}
- <Box sx={{ width: '85%', maxWidth: '1400px' }}>
-         <WebService /> 
+      {/* Digital Identity Section */}
+      <Box sx={{ width: "85%", maxWidth: "1400px" }}>
+        <DigitalIdentityCard />
       </Box>
-
-{/* creative solutions */}
-      <Box sx={{ width: '85%', maxWidth: '1400px' }}>
-         <CreativeService /> 
-      </Box>
-
-      {/* IDENTITY */}
-      <Box sx={{ width: '85%', maxWidth: '1400px' }}>
-         <DigitalIdentityCard /> 
-      </Box>
-
-
 
       {/* Portfolio Section */}
-      <Box sx={{ width: '85%', maxWidth: '1400px' }}>
+      <Box sx={{ width: "85%", maxWidth: "1400px" }}>
         <PortfolioSection />
       </Box>
 
-        {/* why us Section */}
-      <Box sx={{ width: '85%', maxWidth: '1400px' }}>
+      {/* Why Choose Us Section */}
+      <Box sx={{ width: "85%", maxWidth: "1400px" }}>
         <WhyChooseUs />
       </Box>
-
     </Box>
   );
 }
 
-export default Home;
+export default Services;
