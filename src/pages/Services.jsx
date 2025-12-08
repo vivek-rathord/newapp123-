@@ -11,8 +11,6 @@ import DigitalIdentityCard from "./Services/Build";
 import PortfolioSection from "./Services/PortfolioSection";
 import WhyChooseUs from "./Services/WhyChooseUs";
 
-
-
 function Home() {
   useEffect(() => {
     Aos.init({

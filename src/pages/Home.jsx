@@ -38,22 +38,14 @@ function Home() {
 
       {/* Solutions Section */}
       <Box sx={{ width: '85%', maxWidth: '1400px' }}>
-        <SolutionsSection />
-      </Box>
+                <EducationSection />
 
-      {/* About Section */}
-      <Box sx={{ width: '95%', maxWidth: '1400px' }}>
-        <AboutSection />
-      </Box>
-
-      {/* Education Section */}
-      <Box sx={{ width: '85%', maxWidth: '1400px' }}>
-        <EducationSection />
       </Box>
 
       {/* Services Section */}
+       {/* Solutions Section */}
       <Box sx={{ width: '85%', maxWidth: '1400px' }}>
-        <ServicesSection />
+        <SolutionsSection />
       </Box>
 
       {/* Portfolio Section */}
@@ -75,6 +67,8 @@ function Home() {
       <Box sx={{ width: '85%', maxWidth: '1400px' }}>
         <ContactSection />
       </Box>
+
+      
 
     </Box>
   );
