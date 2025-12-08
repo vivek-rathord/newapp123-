@@ -58,7 +58,7 @@ const PortfolioTitle = styled(Typography)(({ theme }) => ({
   textAlign: 'center',
   [theme.breakpoints.down('md')]: {
     fontSize: '2rem',
-  }
+  },
 }));
 
 const PortfolioGrid = styled(Grid)(({ theme }) => ({
@@ -105,6 +105,14 @@ const PortfolioCard = styled(Card)(({ theme }) => ({
     background: 'linear-gradient(45deg, rgba(255,85,50,0.3), rgba(17,17,17,0.3))',
     opacity: 0,
     transition: 'opacity 0.5s ease',
+  },
+    [theme.breakpoints.down('md')]: {
+    padding: '180px 20px 30px', // reduce padding for medium screens
+    minHeight: '350px',          // reduce height
+  },
+  [theme.breakpoints.down('sm')]: {
+    padding: '100px 15px 20px', // reduce padding for small screens
+    minHeight: '200px',          // reduce height
   },
 }));
 

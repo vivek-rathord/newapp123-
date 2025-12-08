@@ -56,6 +56,12 @@
    fontSize: '16px',
    fontWeight: '600',
    whiteSpace: 'nowrap',
+   [theme.breakpoints.down('sm')]: {
+   padding:'2px 10px',         
+   fontSize:'12px',
+   marginTop:'30px',
+}
+
  }));
  
  const ContentTitle = styled(Typography)(({ theme }) => ({

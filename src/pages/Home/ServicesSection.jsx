@@ -44,20 +44,25 @@
    }
  }));
  
- const SectionSubtitle = styled(Typography)(({ theme }) => ({
-   position: 'absolute',
-   top: '50%',
-   left: '50%',
-   transform: 'translate(-50%, -50%)',
-   padding: '4px 20px',
-   backgroundColor: themeColors.orangeColor,
-   color: themeColors.pureWhite,
-   borderRadius: '25px',
-   fontSize: '16px',
-   fontWeight: '600',
-   whiteSpace: 'nowrap',
- }));
- 
+const SectionSubtitle = styled(Typography)(({ theme }) => ({
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  padding: '4px 20px',
+  backgroundColor: themeColors.orangeColor,
+  color: themeColors.pureWhite,
+  borderRadius: '25px',
+  fontSize: '16px',
+  fontWeight: '600',
+  whiteSpace: 'nowrap',
+  [theme.breakpoints.down('sm')]: {
+    padding: '2px 10px',
+    fontSize: '12px',
+    marginTop: '30px',
+  }, 
+})); 
+
  const ContentTitle = styled(Typography)(({ theme }) => ({
    fontSize: '2.5rem',
    fontWeight: 'bold',

@@ -105,6 +105,11 @@ const PortfolioCard = styled(Card)(({ theme }) => ({
     opacity: 0,
     transition: 'opacity 0.5s ease',
   },
+    [theme.breakpoints.down('sm')]: {
+    padding: '180px 20px 30px',
+    minHeight: '300px',
+    height: '300px',
+  }
 }));
 
 const CardTitle = styled(Typography)(({ theme }) => ({

@@ -48,10 +48,6 @@ const SolutionCard = styled(Card)(({ theme, variant }) => ({
   boxShadow: '0 15px 50px rgba(0,0,0,0.1)',
   transition: 'all 0.4s ease',
   border: variant === 'light' ? '2px solid #f0f0f0' : 'none',
-  // '&:hover': {
-  //   transform: 'translateY(-15px)',
-  //   boxShadow: '0 25px 60px rgba(0,0,0,0.15)',
-  // },
   [theme.breakpoints.down('md')]: {
     width: '90%',
     minHeight: '300px',
