@@ -1,0 +1,50 @@
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #3b82f6;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: 
+    width 0.3s ease,
+    height 0.3s ease,
+    border-color 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.cursor-hidden {
+  opacity: 0;
+}
+
+.cursor-clicked {
+  width: 15px;
+  height: 15px;
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.cursor-hover {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(59, 130, 246, 0.1);
+  border-color: #3b82f6;
+}
+
+/* For different elements */
+a:hover ~ .custom-cursor,
+button:hover ~ .custom-cursor {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(59, 130, 246, 0.1);
+}
+
+/* Media query for mobile/touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .custom-cursor {
+    display: none;
+  }
+}   

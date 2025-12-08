@@ -1,74 +1,65 @@
-import React from 'react'
-import Blogimg from "../assets/Images/heroimg.jpg";
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import Aos from "aos";
 import 'aos/dist/aos.css';
+ import { blogAPI } from "../services/api";
+import './Blogs.css';
+import BlogList from "../components/blog/BlogList";
+
+ 
 function Blogs() {
-    Aos.init();
+    const [blogs, setBlogs] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        Aos.init({ duration: 800, once: true });
+    }, []);
+
+    useEffect(() => {
+        fetchBlogs();
+    }, []);
+
+    const fetchBlogs = async () => {
+        try {
+            setLoading(true);
+            const response = await blogAPI.getAllBlogs();
+            setBlogs(response.data.data || response.data);
+            setError(null);
+        } catch (err) {
+            console.error('Error fetching blogs:', err);
+            setError('Failed to load blogs');
+            setBlogs([]);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleBlogClick = (blogId) => {
+        navigate(`/blogs/${blogId}`);
+    };
+
     return (
-        <div className='blog container' >
+        <div className='blog-page container' >
             <div className="Headingtxt container" data-aos="fade-up" data-aos-delay="150">
                 <span>Blogs</span>
                 <h2>Thinks We Think, learn & share</h2>
-                <p>Whether you’re looking to kickstart your learning journey  need tailored It solutions for you business, We’re just a message away. Reach out with your queries, ideas, or collaborating requests. We’ll get back to you as soon as possible</p>
+                <p>Whether you're looking to kickstart your learning journey or need tailored IT solutions for your business, we're just a message away. Reach out with your queries, ideas, or collaboration requests. We'll get back to you as soon as possible.</p>
             </div>
+            
+            {loading && <div className="loading">Loading blogs...</div>}
+            {error && <div className="error-message">{error}</div>}
+            
+            {!loading && blogs.length > 0 && (
+                <BlogList blogs={blogs} onBlogClick={handleBlogClick} data-aos="fade-up" data-aos-delay="200" />
+            )}
 
-            {/* Blog Container 1*/}
-            <div className="blogcards container">
-                <div className="card big">
-                    <img src={Blogimg} alt="Blog 1" />
-                    <div className="card-content">
-                        <h4>How can typography be used effectively in branding and social media graphics?</h4>
-                        <button>Read Full Blog</button>
-                    </div>
+            {!loading && blogs.length === 0 && !error && (
+                <div className="no-blogs">
+                    <p>No blogs available at the moment.</p>
                 </div>
-
-                <div className="right-side">
-                    <div className="card small">
-                        <img src={Blogimg} alt="Blog 2" />
-                        <div class="card-content">
-                            <h4>How can typography be used effectively in branding and social media graphics?</h4>
-                            <button>Read Full Blog</button>
-                        </div>
-                    </div>
-
-                    <div className="card small">
-                        <img src={Blogimg} alt="Blog 3" />
-                        <div className="card-content">
-                            <h4>How can typography be used effectively in branding and social media graphics?</h4>
-                            <button>Read Full Blog</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Blog Container 2*/}
-  <div className="blogcards container reverse">
-                <div className="card big">
-                    <img src={Blogimg} alt="Blog 1" />
-                    <div className="card-content">
-                        <h4>How can typography be used effectively in branding and social media graphics?</h4>
-                        <button>Read Full Blog</button>
-                    </div>
-                </div>
-
-                <div className="right-side">
-                    <div className="card small">
-                        <img src={Blogimg} alt="Blog 2" />
-                        <div class="card-content">
-                            <h4>How can typography be used effectively in branding and social media graphics?</h4>
-                            <button>Read Full Blog</button>
-                        </div>
-                    </div>
-
-                    <div className="card small">
-                        <img src={Blogimg} alt="Blog 3" />
-                        <div className="card-content">
-                            <h4>How can typography be used effectively in branding and social media graphics?</h4>
-                            <button>Read Full Blog</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            )}
         </div>
     )
 }

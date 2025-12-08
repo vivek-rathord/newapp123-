@@ -110,6 +110,7 @@ const PortfolioCard = styled(Card)(({ theme }) => ({
     minHeight: '300px',
     height: '300px',
   }
+
 }));
 
 const CardTitle = styled(Typography)(({ theme }) => ({

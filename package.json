@@ -16,6 +16,8 @@
     "@mui/icons-material": "^7.3.5",
     "@mui/material": "^7.3.5",
     "aos": "^2.3.4",
+    "axios": "^1.13.2",
+    "framer-motion": "^12.23.25",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.9.5"

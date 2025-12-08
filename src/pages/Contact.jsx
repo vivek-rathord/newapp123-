@@ -1,5 +1,10 @@
-import React, { useEffect } from "react";
+
 import { Box } from "@mui/material";
+import React, { useRef, useState, useEffect } from "react";
+import emailjs from "@emailjs/browser";
+import "../Style/Style.css";
+import { Link, useNavigate } from "react-router-dom";
+
 import Aos from "aos";
 import 'aos/dist/aos.css';
 
@@ -41,15 +46,6 @@ function Contact() {
       <Box sx={{ width: '85%', maxWidth: '1400px' }}>
         <GetInTouchSection />
       </Box>
-
-
-
-
-
-
-
-
-
 
 
     </Box>
