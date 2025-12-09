@@ -46,6 +46,8 @@ const OrangeSpan = styled(Typography)(({ theme }) => ({
   letterSpacing: '1px',
   fontWeight: '600',
   display: 'inline-block',
+  [theme.breakpoints.down('sm')]: { fontSize: '.7rem' },
+
 }));
 
 const PortfolioTitle = styled(Typography)(({ theme }) => ({
@@ -69,7 +71,7 @@ const PortfolioGrid = styled(Grid)(({ theme }) => ({
   marginBottom: '50px',
   [theme.breakpoints.down('sm')]: {
     gridTemplateColumns: '1fr',
-    gap: '25px',
+    gap: '35px',
   }
 }));
 
@@ -107,11 +109,11 @@ const PortfolioCard = styled(Card)(({ theme }) => ({
     transition: 'opacity 0.5s ease',
   },
     [theme.breakpoints.down('md')]: {
-    padding: '180px 20px 30px', // reduce padding for medium screens
-    minHeight: '350px',          // reduce height
+    padding: '180px 20px 30px', // reduce padding 
+    minHeight: '350px',          
   },
   [theme.breakpoints.down('sm')]: {
-    padding: '100px 15px 20px', // reduce padding for small screens
+    padding: '20px 15px 20px', // reduce padding for small screens
     minHeight: '200px',          // reduce height
   },
 }));
@@ -122,6 +124,9 @@ const CardTitle = styled(Typography)(({ theme }) => ({
   fontWeight: '600',
   position: 'relative',
   zIndex: 2,
+   [theme.breakpoints.down('sm')]: {
+    fontSize:"20px",
+  },
 }));
 
 const CardText = styled(Typography)(({ theme }) => ({
@@ -131,6 +136,9 @@ const CardText = styled(Typography)(({ theme }) => ({
   position: 'relative',
   zIndex: 2,
   opacity: 0.9,
+   [theme.breakpoints.down('sm')]: {
+    fontSize:"15px",
+  },
 }));
 
 const CardButtonContainer = styled(Box)(({ theme }) => ({
@@ -168,7 +176,10 @@ const CardButton = styled(Button)(({ theme }) => ({
   },
   '&:hover::after': {
     width: '100%',
-  }
+  },
+   [theme.breakpoints.down('sm')]: {
+    fontSize:"12px",
+  },
 }));
 
 const ButtonContainer = styled(Box)(({ theme }) => ({
@@ -190,7 +201,9 @@ const BlackButton = styled(Button)(({ theme }) => ({
     backgroundColor: themeColors.orangeColor,
     transform: 'translateY(-3px)',
     boxShadow: '0 15px 35px rgba(255, 85, 50, 0.3)',
-  }
+  },
+  [theme.breakpoints.down('sm')]: {fontSize:"13px" },
+
 }));
 
 function PortfolioSection() {

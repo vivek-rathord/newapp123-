@@ -45,6 +45,7 @@ const OrangeSpan = styled(Typography)(({ theme }) => ({
   letterSpacing: '1px',
   fontWeight: '600',
   display: 'inline-block',
+  [theme.breakpoints.down('sm')]: { fontSize: '.7rem' },
 }));
 
 const PortfolioTitle = styled(Typography)(({ theme }) => ({
@@ -55,9 +56,12 @@ const PortfolioTitle = styled(Typography)(({ theme }) => ({
   WebkitBackgroundClip: 'text',
   color: 'transparent',
   textAlign: 'center',
-  [theme.breakpoints.down('md')]: {
-    fontSize: '2rem',
-  }
+[theme.breakpoints.down('md')]: {
+      fontSize: '2rem',
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '2rem',
+    }
 }));
 
 const PortfolioGrid = styled(Grid)(({ theme }) => ({
@@ -105,10 +109,13 @@ const PortfolioCard = styled(Card)(({ theme }) => ({
     opacity: 0,
     transition: 'opacity 0.5s ease',
   },
-    [theme.breakpoints.down('sm')]: {
-    padding: '180px 20px 30px',
-    minHeight: '300px',
-    height: '300px',
+    [theme.breakpoints.down('md')]: {
+    padding: '180px 20px 30px', // reduce padding 
+    minHeight: '350px',          
+  },
+  [theme.breakpoints.down('sm')]: {
+    padding: '20px 15px 20px', // reduce padding for small screens
+    minHeight: '200px',          // reduce height
   }
 
 }));
@@ -119,6 +126,9 @@ const CardTitle = styled(Typography)(({ theme }) => ({
   fontWeight: '600',
   position: 'relative',
   zIndex: 2,
+  [theme.breakpoints.down('sm')]: {
+    fontSize:"20px",
+  },
 }));
 
 const CardText = styled(Typography)(({ theme }) => ({
@@ -128,6 +138,9 @@ const CardText = styled(Typography)(({ theme }) => ({
   position: 'relative',
   zIndex: 2,
   opacity: 0.9,
+   [theme.breakpoints.down('sm')]: {
+    fontSize:"15px",
+  },
 }));
 
 const CardButtonContainer = styled(Box)(({ theme }) => ({
@@ -165,7 +178,10 @@ const CardButton = styled(Button)(({ theme }) => ({
   },
   '&:hover::after': {
     width: '100%',
-  }
+  },
+   [theme.breakpoints.down('sm')]: {
+    fontSize:"12px",
+  },
 }));
 
 const ButtonContainer = styled(Box)(({ theme }) => ({
@@ -187,7 +203,9 @@ const BlackButton = styled(Button)(({ theme }) => ({
     backgroundColor: themeColors.orangeColor,
     transform: 'translateY(-3px)',
     boxShadow: '0 15px 35px rgba(255, 85, 50, 0.3)',
-  }
+  },
+  [theme.breakpoints.down('sm')]: {fontSize:"13px" },
+
 }));
 
 function PortfolioSection() {

@@ -44,6 +44,10 @@ const OrangeSpan = styled(Typography)(({ theme }) => ({
     '0%': { transform: 'scale(1)' },
     '50%': { transform: 'scale(1.05)' },
     '100%': { transform: 'scale(1)' },
+  },
+    [theme.breakpoints.down('sm')]: {
+  fontSize: '13px',
+
   }
 }));
 

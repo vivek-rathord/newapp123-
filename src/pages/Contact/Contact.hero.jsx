@@ -12,85 +12,85 @@ const themeColors = {
 
 // Main Container
 const HeroContainer = styled(Box)(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  textAlign: "center",
-  gap: "20px",
-  padding: "30px 20px",
-  marginTop: "20px",
-  textTransform: "capitalize",
-  [theme.breakpoints.up("sm")]: {
-    padding: "50px 30px",
-  },
-  [theme.breakpoints.up("md")]: {
-    padding: "70px 0",
-  },
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '25px',
+  textTransform: 'capitalize',
+  textAlign: 'center',
+  padding: '20px 0px',
+  minHeight: '70vh',
+  width: '100%',
+  [theme.breakpoints.down('md')]: {
+    padding: '40px 0px',
+    minHeight: '60vh',
+    marginTop: '20px',
+    gap: '20px',
+  }
 }));
 
 // Orange Span 
 const OrangeSpan = styled(Typography)(({ theme }) => ({
   backgroundColor: themeColors.orangeColor,
   color: themeColors.pureWhite,
-  padding: "5px 20px",
-  borderRadius: "25px",
-  fontSize: "14px",
-  letterSpacing: "1.5px",
-  fontWeight: "600",
-  display: "inline-block",
-  [theme.breakpoints.up("sm")]: {
-    fontSize: "15px",
+  padding: '8px 20px',
+  borderRadius: '25px',
+  fontSize: '15px',
+  letterSpacing: '1.5px',
+  fontWeight: '600',
+  display: 'inline-block',
+  animation: 'pulse 2s infinite ease-in-out',
+  '@keyframes pulse': {
+    '0%': { transform: 'scale(1)' },
+    '50%': { transform: 'scale(1.05)' },
+    '100%': { transform: 'scale(1)' },
   },
-  [theme.breakpoints.up("md")]: {
-    fontSize: "16px",
-  },
+    [theme.breakpoints.down('sm')]: {
+  fontSize: '13px',
+
+  }
 }));
 
 // H1 Title
 // H1 Title
 const HeroTitle = styled(Typography)(({ theme }) => ({
-  fontWeight: 700,
-  textAlign: "center",
-  lineHeight: "1.2",
-  width: "90%",         // full width on small screens
-  fontSize: "1.5rem",   // base font size for very small screens
-  [theme.breakpoints.up("xs")]: {
-    fontSize: "1.6rem",
-    width: "90%",
+  fontSize: '2.9rem',
+  fontWeight: 'bold',
+  lineHeight: '1.1',
+  background: 'linear-gradient(135deg, #111111 0%, #000000ff 100%)',
+  backgroundClip: 'text',
+  WebkitBackgroundClip: 'text',
+  color: 'transparent',
+  textAlign: 'center',
+  maxWidth: '800px',
+  margin: '0 auto',
+  [theme.breakpoints.down('md')]: {
+    fontSize: '2.2rem',
+    width: '100%',
   },
-  [theme.breakpoints.up("sm")]: {
-    fontSize: "2rem",
-    width: "80%",        
-  },
-  [theme.breakpoints.up("md")]: {
-    fontSize: "2.5rem",
-    width: "70%",       
-  },
-  [theme.breakpoints.up("lg")]: {
-    fontSize: "3rem",
-    width: "60%",     
-  },
-  [theme.breakpoints.up("xl")]: {
-    fontSize: "2.5rem",
-    width: "30%", 
-  },
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '1.8rem',
+  }
 }));
 
 
 // Paragraph
 const HeroText = styled(Typography)(({ theme }) => ({
-  width: "90%",
-  maxWidth: "600px",
+  width: '50%',
   color: themeColors.darkGray,
-  fontSize: "14px",
-  lineHeight: "1.4",
-  [theme.breakpoints.up("sm")]: {
-    fontSize: "15px",
+  fontSize: '18px',
+  lineHeight: '1.7',
+  textAlign: 'center',
+  margin: '0 auto',
+  [theme.breakpoints.down('md')]: {
+    width: '90%',
+    fontSize: '16px',
   },
-  [theme.breakpoints.up("md")]: {
-    fontSize: "16px",
-    lineHeight: "1.5",
-  },
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+    fontSize: '15px',
+  }
 }));
 
 function ContactHero() {

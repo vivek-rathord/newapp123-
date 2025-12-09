@@ -106,11 +106,12 @@ const scrollRight3 = () => scrollRef3.current.scrollBy({ left: 400, behavior: "s
 
             {/* Card 1 */}
             <Box sx={{
-              width: { xs: "100%", md: "48%" },
-              minHeight: 270,
+                           width: { xs:"90%", sm:"60%", md:"400px" },
+
+              minHeight: 200,
               flexShrink: 0,
               borderRadius: 4,
-              padding: "25px 30px",
+              padding: "20px 30px",
               backgroundColor: themeColors.pureWhite,
               scrollSnapAlign: "start",
               boxShadow: "0px 4px 14px rgba(0,0,0,0.15)",
@@ -157,7 +158,7 @@ const scrollRight3 = () => scrollRef3.current.scrollBy({ left: 400, behavior: "s
 
             {/* Card 4 */}
             <Box sx={{
-              width: { xs: "100%", md: "48%" },
+              width: { xs:"90%", sm:"60%", md:"380px" },
               minHeight: 270,
               flexShrink: 0,
               borderRadius: 4,

@@ -38,9 +38,10 @@ const SectionTitle = styled(Typography)(({ theme }) => ({
   background: 'rgba(206, 207, 202, 1)',
   backgroundClip: 'text',
   WebkitBackgroundClip: 'text',
+  textTransform:"uppercase",
   color: 'transparent',
   [theme.breakpoints.down('md')]: { fontSize: '4rem' },
-  [theme.breakpoints.down('sm')]: { fontSize: '3rem' },
+  [theme.breakpoints.down('sm')]: { fontSize: '2.5rem', marginBottom:"60px", },
 }));
 
 const SectionSubtitle = styled(Typography)(({ theme }) => ({
@@ -55,6 +56,8 @@ const SectionSubtitle = styled(Typography)(({ theme }) => ({
   fontSize: '16px',
   fontWeight: '600',
   whiteSpace: 'nowrap',
+  //  [theme.breakpoints.down('md')]: { fontSize: '4rem' },
+  [theme.breakpoints.down('sm')]: { fontSize: '.7rem' },
 }));
 
 const ContentTitle = styled(Typography)(({ theme }) => ({
@@ -141,7 +144,9 @@ const BlackButton = styled(Button)(({ theme }) => ({
     backgroundColor: themeColors.orangeColor,
     transform: 'translateY(-3px)',
     boxShadow: '0 15px 35px rgba(255, 85, 50, 0.3)',
-  }
+  },
+  [theme.breakpoints.down('sm')]: {fontSize:"13px" },
+
 }));
 
 function SolutionSection() {

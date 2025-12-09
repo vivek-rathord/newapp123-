@@ -26,6 +26,8 @@ const OrangeTag = styled(Typography)(({ theme }) => ({
     letterSpacing: '1px',
     fontWeight: '600',
     display: 'inline-block',
+  [theme.breakpoints.down('sm')]: { fontSize: '.7rem' },
+
 }));
 
 const FAQTitle = styled(Typography)(({ theme }) => ({
@@ -88,6 +90,9 @@ const AccordionHeading = styled(Typography)(({ theme }) => ({
     fontSize: "18px",
     fontWeight: 600,
     color: themeColors.deepBlack,
+     [theme.breakpoints.down('sm')]: {
+        fontSize: '14px',
+    }
 }));
 
 const AccordionText = styled(Typography)(({ theme }) => ({

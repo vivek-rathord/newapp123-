@@ -275,7 +275,8 @@ const HowWeWork = () => {
                 width: "fit-content",
                 fontFamily: '"Outfit", sans-serif',
                 boxShadow: "0 4px 12px rgba(255, 85, 50, 0.3)",
-              }}
+              }
+            }
             >
               How We Work
             </Typography>

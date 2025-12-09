@@ -38,6 +38,7 @@ const HeadingContainer = styled(Box)(({ theme }) => ({
     letterSpacing: "1px",
     display: "inline-block",
   },
+
   h2: {
     fontSize: "2.7rem",
     fontWeight: 700,
@@ -45,16 +46,27 @@ const HeadingContainer = styled(Box)(({ theme }) => ({
     background: `linear-gradient(135deg, ${themeColors.deepBlack}, ${themeColors.darkGray})`,
     WebkitBackgroundClip: "text",
     color: "transparent",
+
+    [theme.breakpoints.down('md')]: {
+      fontSize: '2.2rem',
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '2rem',
+    }
   },
+
   p: {
     color: themeColors.darkGray,
     fontSize: "16px",
     lineHeight: 1.6,
-    maxWidth: "550px",
+    maxWidth: "600px",
     margin: "0 auto",
     opacity: 0.9,
   },
+
 }));
+
+
 
 const ServiceCard = styled(Box)(({ theme }) => ({
   padding: "28px",
@@ -68,7 +80,6 @@ const ServiceCard = styled(Box)(({ theme }) => ({
     transform: "translateY(-8px)",
     boxShadow: "0 25px 70px rgba(0,0,0,0.18)",
   },
-
   h3: {
     fontSize: "22px",
     fontWeight: 700,
@@ -98,15 +109,25 @@ function WebService() {
       </HeadingContainer>
 
       {/* FLEX LAYOUT */}
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
-          gap: "40px",
-          flexWrap: "wrap",
-        }}
-      >
+           <Box
+       sx={{
+         display: "flex",
+         justifyContent: {
+           xs: "center",
+           sm: "center",
+           md: "space-between",
+           lg: "center",
+         },
+         alignItems: {
+           xs: "center",
+           sm: "center",
+           md: "flex-start",
+           lg: "center",
+         },
+         gap: "40px",
+         flexWrap: "wrap",
+       }}
+     >
         {/* LEFT SERVICES */}
         <Box sx={{ flex: 1, minWidth: "350px" }}>
 

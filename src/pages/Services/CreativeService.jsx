@@ -22,7 +22,7 @@ const SectionContainer = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
     padding: "40px 20px",
     borderRadius: "40px",
-  },
+  }
 }));
 
 const HeadingContainer = styled(Box)(({ theme }) => ({
@@ -39,6 +39,7 @@ const HeadingContainer = styled(Box)(({ theme }) => ({
     letterSpacing: "1px",
     display: "inline-block",
   },
+
   h2: {
     fontSize: "2.7rem",
     fontWeight: 700,
@@ -46,7 +47,15 @@ const HeadingContainer = styled(Box)(({ theme }) => ({
     background: `linear-gradient(135deg, ${themeColors.deepBlack}, ${themeColors.darkGray})`,
     WebkitBackgroundClip: "text",
     color: "transparent",
+
+    [theme.breakpoints.down('md')]: {
+      fontSize: '2.2rem',
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '2rem',
+    }
   },
+
   p: {
     color: themeColors.darkGray,
     fontSize: "16px",
@@ -55,7 +64,9 @@ const HeadingContainer = styled(Box)(({ theme }) => ({
     margin: "0 auto",
     opacity: 0.9,
   },
+
 }));
+
 
 // NEW CARD STYLE like PortfolioCard
 const ServiceCard = styled(Box)(({ theme }) => ({
@@ -70,7 +81,6 @@ const ServiceCard = styled(Box)(({ theme }) => ({
     transform: "translateY(-8px)",
     boxShadow: "0 25px 70px rgba(0,0,0,0.18)",
   },
-
   h3: {
     fontSize: "22px",
     fontWeight: 700,
@@ -85,6 +95,7 @@ const ServiceCard = styled(Box)(({ theme }) => ({
     color: themeColors.darkGray,
     fontSize: "15px",
   },
+
 }));
 
 function CreativeService() {
@@ -104,8 +115,18 @@ function CreativeService() {
       <Box
         sx={{
           display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
+          justifyContent: {
+            xs: "center",
+            sm: "center",
+            md: "space-between",
+            lg: "center",
+          },
+          alignItems: {
+            xs: "center",
+            sm: "center",
+            md: "flex-start",
+            lg: "center",
+          },
           gap: "40px",
           flexWrap: "wrap",
         }}
@@ -114,7 +135,7 @@ function CreativeService() {
         <Box sx={{ flex: 1, minWidth: "350px" }}>
 
           {/* Branding */}
-          <ServiceCard data-aos="fade-right" sx={{ backgroundColor:themeColors.pureWhite }}>
+          <ServiceCard data-aos="fade-right" sx={{ backgroundColor: themeColors.pureWhite }}>
             <Box display="flex" alignItems="center" mb={1}  >
               <img
                 src={brand}
@@ -172,13 +193,25 @@ function CreativeService() {
             alt="Creative Design"
             data-aos="fade-left"
             sx={{
-              width: "100%",
-              height: "450px",
-              borderRadius: "40px",
+              width: {
+                xs: "100%",
+                sm: "100%",
+                md: "100%",
+                lg: "90%",
+              },
+              height: {
+                xs: "260px",
+                sm: "320px",
+                md: "400px",
+                lg: "500px",
+              },
+              borderRadius: "30px",
               objectFit: "cover",
               boxShadow: "0 20px 50px rgba(0,0,0,0.25)",
+              transition: "0.4s",
             }}
           />
+
         </Box>
       </Box>
     </SectionContainer>

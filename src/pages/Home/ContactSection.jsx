@@ -46,6 +46,13 @@ const ContactContainer = styled(Box)(({ theme }) => ({
     margin: '60px 0px',
     borderRadius: '30px',
   }
+  ,
+  [theme.breakpoints.down('sm')]: {
+    height: '300px',
+    padding: '0px 30px',
+    margin: '60px 0px',
+    borderRadius: '30px',
+  },
 }));
 
 const OrangeSpan = styled(Typography)(({ theme }) => ({
@@ -59,6 +66,8 @@ const OrangeSpan = styled(Typography)(({ theme }) => ({
   display: 'inline-block',
   position: 'relative',
   zIndex: 2,
+  [theme.breakpoints.down('sm')]: { fontSize: '.7rem' },
+
 }));
 
 const ContactTitle = styled(Typography)(({ theme }) => ({
@@ -76,7 +85,10 @@ const ContactTitle = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
     width: '100%',
     fontSize: '1.6rem',
-  }
+  },
+  [theme.breakpoints.down('sm')]: {
+    fontSize:"15px",
+  },
 }));
 
 const ContactButton = styled(Button)(({ theme }) => ({
@@ -111,7 +123,9 @@ const ContactButton = styled(Button)(({ theme }) => ({
   },
   '&:hover::before': {
     left: '100%',
-  }
+  },
+  [theme.breakpoints.down('sm')]: {fontSize:"13px" },
+
 }));
 
 function ContactSection() {

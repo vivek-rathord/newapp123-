@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { Box, Typography, Button, Card, Grid, styled } from "@mui/material";
 import imager from "../../assets/Images/heroimg.jpg";
+import { Padding } from "@mui/icons-material";
 
 const themeColors = {
   orangeColor: '#FF5532',
@@ -20,7 +21,7 @@ const ServicesContainer = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
     padding: '60px 0px',
     minHeight: '1000px',
-  }
+  } 
 }));
 
 const SectionHeading = styled(Box)(({ theme }) => ({
@@ -40,7 +41,7 @@ const SectionTitle = styled(Typography)(({ theme }) => ({
   WebkitBackgroundClip: 'text',
   color: 'transparent',
   [theme.breakpoints.down('md')]: { fontSize: '4rem' },
-  [theme.breakpoints.down('sm')]: { fontSize: '3rem' },
+   [theme.breakpoints.down('sm')]: { fontSize: '2.5rem', marginBottom:"60px", },
 }));
 
 const SectionSubtitle = styled(Typography)(({ theme }) => ({
@@ -55,6 +56,8 @@ const SectionSubtitle = styled(Typography)(({ theme }) => ({
   fontSize: '16px',
   fontWeight: '600',
   whiteSpace: 'nowrap',
+  [theme.breakpoints.down('sm')]: { fontSize: '.7rem' },
+
 }));
 
 const ContentTitle = styled(Typography)(({ theme }) => ({
@@ -141,7 +144,9 @@ const BlackButton = styled(Button)(({ theme }) => ({
     backgroundColor: themeColors.orangeColor,
     transform: 'translateY(-3px)',
     boxShadow: '0 15px 35px rgba(255, 85, 50, 0.3)',
-  }
+  },
+  [theme.breakpoints.down('sm')]: {fontSize:"13px" },
+
 }));
 
 function EducationSection() {

@@ -57,9 +57,7 @@ const GridContainer = styled(Box)({
 });
 
 // Box for each feature
-const WhyUsBox = styled(Box)({
-  // margin:'0 auto',
-  // width:'450px',
+const WhyUsBox = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
@@ -73,8 +71,17 @@ const WhyUsBox = styled(Box)({
   "& img": {
     width: "40px",
     height: "40px",
-    objectFit: "contain",
     marginBottom: "10px",
+
+    [theme.breakpoints.down("md")]: {
+      width: "32px",
+      height: "32px",
+    },
+
+    [theme.breakpoints.down("sm")]: {
+      width: "30px",
+      height: "30px",
+    },
   },
 
   "& h5": {
@@ -88,10 +95,10 @@ const WhyUsBox = styled(Box)({
     lineHeight: 1.5,
     margin: 0,
     color: themeColors.darkGray,
-     width: "60%", 
-    textAlign:'center',
+    width: "60%",
+    textAlign: "center",
   },
-});
+}));
 
 const WhyChooseUs = () => {
   useEffect(() => {
@@ -104,7 +111,13 @@ const WhyChooseUs = () => {
         Why Netcoder
       </OrangeSpan>
 
-      <Heading variant="h4" data-aos="fade-up" data-aos-delay="200">
+      <Heading variant="h4" data-aos="fade-up" data-aos-delay="200"   sx={{
+    fontSize: {
+      xs: "2rem",
+      sm: "2.2rem",
+      md: "2.2rem", 
+    }
+  }}>
         What Makes us the right tech partner for you?
       </Heading>
 

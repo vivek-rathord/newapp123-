@@ -57,7 +57,7 @@ const GridContainer = styled(Box)({
 });
 
 // Feature box
-const WhyUsBox = styled(Box)({
+const WhyUsBox = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
@@ -66,20 +66,30 @@ const WhyUsBox = styled(Box)({
   borderRadius: "20px",
   minHeight: "180px",
   transition: "transform 0.3s",
-  "&:hover": {
-    transform: "translateY(-5px)",
-  },
+  "&:hover": { transform: "translateY(-5px)" },
+
   "& img": {
     width: "40px",
     height: "40px",
-    objectFit: "contain",
     marginBottom: "10px",
+
+    [theme.breakpoints.down("md")]: {
+      width: "32px",
+      height: "32px",
+    },
+
+    [theme.breakpoints.down("sm")]: {
+      width: "30px",
+      height: "30px",
+    },
   },
+
   "& h5": {
     fontSize: "22px",
     margin: "10px 0",
     fontWeight: 600,
   },
+
   "& p": {
     fontSize: "14px",
     lineHeight: 1.5,
@@ -87,11 +97,8 @@ const WhyUsBox = styled(Box)({
     color: themeColors.darkGray,
     width: "60%",
     textAlign: "center",
-    "@media (max-width: 600px)": {
-      width: "100%",
-    },
   },
-});
+}));
 
 const WhyChooseUs = () => {
   useEffect(() => {

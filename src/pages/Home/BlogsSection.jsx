@@ -174,7 +174,9 @@ const BlackButton = styled(Button)(({ theme }) => ({
     backgroundColor: themeColors.orangeColor,
     transform: 'translateY(-3px)',
     boxShadow: '0 15px 35px rgba(255, 85, 50, 0.3)',
-  }
+  },
+  [theme.breakpoints.down('sm')]: {fontSize:"12px" },
+
 }));
 
 const LoadingContainer = styled(Box)(({ theme }) => ({

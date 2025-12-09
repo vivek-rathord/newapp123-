@@ -22,49 +22,85 @@ const HeroContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  textAlign: "center",
-  gap: "20px",
-  padding: "30px 0",
-  marginTop: "20px",
+  justifyContent: "center",
+  gap: "25px",
   textTransform: "capitalize",
+  textAlign: "center",
+  padding: "20px 0px",
+  minHeight: "70vh",
+  width: "100%",
+
+  [theme.breakpoints.down("md")]: {
+    padding: "40px 0px",
+    minHeight: "60vh",
+    marginTop: "20px",
+    gap: "20px",
+  }
 }));
+
 
 // Orange Span with pulse animation
 const OrangeSpan = styled(Typography)(({ theme }) => ({
   backgroundColor: themeColors.orangeColor,
   color: themeColors.pureWhite,
-  padding: "5px 20px",
+  padding: "8px 20px",
   borderRadius: "25px",
   fontSize: "15px",
   letterSpacing: "1.5px",
   fontWeight: "600",
   display: "inline-block",
   animation: `${pulse} 2s infinite ease-in-out`,
+
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "13px",
+  }
 }));
+
 
 // H1 Title
 const HeroTitle = styled(Typography)(({ theme }) => ({
-  fontSize: "2.5rem",
-  fontWeight: "700",
-  textAlign: "center",
+   fontSize: '2.9rem',
+  fontWeight: 'bold',
+  lineHeight: '1.1',
+  background: 'linear-gradient(135deg, #111111 0%, #000000ff 100%)',
+  backgroundClip: 'text',
+  WebkitBackgroundClip: 'text',
+  color: 'transparent',
+  textAlign: 'center',
+  maxWidth: '800px',
+  margin: '0 auto',
+  [theme.breakpoints.down('md')]: {
+    fontSize: '2.2rem',
+    width: '100%',
+  },
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '1.8rem',
+  }
 }));
 
 // Paragraph
 const HeroText = styled(Typography)(({ theme }) => ({
-  width: "40vw",
+ width: '50%',
   color: themeColors.darkGray,
-  fontSize: "16px",
-  lineHeight: "1.6",
-  [theme.breakpoints.down("md")]: {
-    width: "85vw",
+  fontSize: '18px',
+  lineHeight: '1.7',
+  textAlign: 'center',
+  margin: '0 auto',
+  [theme.breakpoints.down('md')]: {
+    width: '90%',
+    fontSize: '16px',
   },
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+    fontSize: '15px',
+  }
 }));
 
 // Image as background
 const ImageContainer = styled(Box)(({ theme }) => ({
   width: "80vw", 
   height: "320px", 
-  // minHeight:'200px',
+
   borderRadius: "40px",
   backgroundImage: `url(${Group44})`,
   backgroundSize: "cover",       // cover entire container

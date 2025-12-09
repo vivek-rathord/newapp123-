@@ -36,6 +36,10 @@ const FooterWrapper = styled(Box)(({ theme }) => ({
   width: "80%",
   margin: "auto",
   backgroundColor: themeColors.offWhite,
+     [theme.breakpoints.down('sm')]: {
+      justifyContent:"flex-start",
+      padding:"0px",
+    }
 }));
 
 const FooterBox = styled(Box)(({ theme }) => ({
