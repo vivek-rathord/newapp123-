@@ -1,0 +1,165 @@
+/* Material UI Color Palette & Theme Guide */
+
+:root {
+  /* Primary Colors */
+  --color-primary: #FF5532;        /* Orange - Primary accent */
+  --color-primary-light: #ff7f50;  /* Light Orange */
+  
+  /* Text Colors */
+  --color-text-primary: #111111;   /* Deep Black - Main text */
+  --color-text-secondary: #575757; /* Dark Gray - Secondary text */
+  --color-text-tertiary: #CECFCA;  /* Light Gray - Tertiary text */
+  
+  /* Background Colors */
+  --color-bg-primary: #ffffff;     /* Pure White */
+  --color-bg-secondary: #f8f9fa;   /* Off-white */
+  --color-bg-tertiary: #f5f7fa;    /* Light Blue-gray */
+  
+  /* Special Colors */
+  --color-success: #4caf50;
+  --color-warning: #ff9800;
+  --color-error: #f44336;
+  --color-info: #2196f3;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.15);
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.5s ease;
+  
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+  
+  /* Typography */
+  --font-family: 'Outfit', sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.85rem;
+  --font-size-base: 0.95rem;
+  --font-size-lg: 1.1rem;
+  --font-size-xl: 1.3rem;
+  --font-size-2xl: 2.2rem;
+  --font-size-3xl: 3rem;
+}
+
+/* Gradient Definitions */
+.gradient-primary {
+  background: linear-gradient(135deg, #FF5532 0%, #ff7f50 100%);
+}
+
+.gradient-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+.gradient-page {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+/* Material UI Button Variants */
+.btn-primary {
+  background: linear-gradient(135deg, #FF5532 0%, #ff7f50 100%);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(255, 85, 50, 0.25);
+  transition: all var(--transition-base);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 85, 50, 0.35);
+}
+
+.btn-secondary {
+  background: white;
+  color: #111111;
+  border: 1px solid #e8eef7;
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.btn-secondary:hover {
+  background: #f8f9fa;
+  border-color: #FF5532;
+}
+
+/* Material UI Card Elevation */
+.card-elevation-1 {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.card-elevation-2 {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+/* Typography Classes */
+.heading-1 {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  letter-spacing: -1px;
+  line-height: 1.2;
+}
+
+.heading-2 {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  letter-spacing: -0.5px;
+  line-height: 1.3;
+}
+
+.heading-3 {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.4;
+}
+
+.body-text {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.caption-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  line-height: 1.5;
+}
+
+/* Color Utility Classes */
+.text-primary {
+  color: var(--color-text-primary);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
+.text-accent {
+  color: var(--color-primary);
+}
+
+.bg-primary {
+  background-color: var(--color-bg-primary);
+}
+
+.bg-secondary {
+  background-color: var(--color-bg-secondary);
+}

@@ -1,0 +1,113 @@
+ @keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px);
+  }
+  50% {
+    transform: translateY(-40px) translateX(-10px);
+  }
+  75% {
+    transform: translateY(-20px) translateX(-5px);
+  }
+}
+
+@keyframes floatReverse {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+  }
+  25% {
+    transform: translateY(-15px) translateX(-15px);
+  }
+  50% {
+    transform: translateY(-30px) translateX(15px);
+  }
+  75% {
+    transform: translateY(-15px) translateX(5px);
+  }
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+  }
+  33% {
+    transform: translateY(-25px) translateX(8px);
+  }
+  66% {
+    transform: translateY(-10px) translateX(-8px);
+  }
+}
+
+.bubble {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.bubble-1 {
+  width: 80px;
+  height: 80px;
+  top: 10%;
+  left: 10%;
+  animation: float 8s infinite;
+}
+
+.bubble-2 {
+  width: 120px;
+  height: 120px;
+  top: 60%;
+  right: 15%;
+  animation: floatReverse 12s infinite;
+}
+
+.bubble-3 {
+  width: 60px;
+  height: 60px;
+  bottom: 20%;
+  left: 20%;
+  animation: floatSlow 10s infinite;
+}
+
+.bubble-4 {
+  width: 100px;
+  height: 100px;
+  top: 20%;
+  right: 25%;
+  animation: float 15s infinite;
+}
+
+.bubble-5 {
+  width: 70px;
+  height: 70px;
+  bottom: 10%;
+  right: 10%;
+  animation: floatReverse 9s infinite;
+}
+
+.bubble-6 {
+  width: 90px;
+  height: 90px;
+  top: 70%;
+  left: 5%;
+  animation: floatSlow 11s infinite;
+}
+
+.bubble-7 {
+  width: 50px;
+  height: 50px;
+  top: 40%;
+  left: 15%;
+  animation: float 7s infinite;
+}
+
+.bubble-8 {
+  width: 110px;
+  height: 110px;
+  bottom: 30%;
+  right: 30%;
+  animation: floatReverse 14s infinite;
+}
