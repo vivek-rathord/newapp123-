@@ -116,8 +116,8 @@ export default function Courses() {
               scrollSnapAlign: "start",
               boxShadow: "0px 4px 14px rgba(0,0,0,0.15)",
             }}>
-              <Link to={'/graphicdesign'} style={{textDecoration: 'none'}}>
-                <Typography variant="h6" sx={{color: '#111111'}}>Graphic Design</Typography>
+              <Link to={'/graphicdesign'} style={{ textDecoration: 'none' }}>
+                <Typography variant="h6" sx={{ color: '#111111' }}>Graphic Design</Typography>
                 <Typography sx={{ mt: 1, color: themeColors.deepBlack }}>
                   Foundation in graphic design entails learning the core principles and techniques essential for creating visually appealing and effective designs. This includes understanding concepts like typography, color theory, layout composition, and visual hierarchy, which serve as the building blocks for creating impactful graphic designs across various mediums.
                 </Typography>
@@ -633,9 +633,7 @@ export default function Courses() {
               onClick={scrollRight3}>
               <i className="fa-solid fa-arrow-right"></i>
             </Button>
-
           </Box>
-
         </Box >
       </Box >
     </>

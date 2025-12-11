@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-    Typography,
+import {Typography,
     Box,
     useTheme,
     Link as MuiLink,
@@ -388,7 +387,7 @@ function GraphicDesign() {
             </Frame31Box>
 
             {/* --- Timeline Section --- */}
-            <TimelineWrapper className="timeline-section-main-wrapper">
+            <TimelineWrapper className="timeline-section-main-wrapper" sx={{ margin: 'auto', display: 'flex', justifyContent: 'center',displayPrint: 'none' }}>
 
                 <Box className="Group574" sx={{
                     marginBottom: '40px',
@@ -407,7 +406,7 @@ function GraphicDesign() {
                     <Typography variant="h2" className="heading" sx={{
                         fontWeight: 700, fontFamily: 'Outfit', color: PRIMARY_COLOR,
                         fontSize: { xs: '25px', sm: '30px', md: '48px' },
-                        maxWidth: { xs: '100%', sm: '1200px', lg: '1000px' },
+                        maxWidth: { xs: '1000px', sm: '1200px', lg: '1000px' },
                         mt: { xs: '10px', sm: '0' },
                     }}>
                         Breaking Down The Learning Journey

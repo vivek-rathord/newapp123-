@@ -46,14 +46,12 @@ const OrangeSpan = styled(Typography)(({ theme }) => ({
   },
 }));
 
-// H1 Title
-// H1 Title
 const HeroTitle = styled(Typography)(({ theme }) => ({
   fontWeight: 700,
   textAlign: "center",
   lineHeight: "1.2",
-  width: "90%",         // full width on small screens
-  fontSize: "1.5rem",   // base font size for very small screens
+  width: "90%",
+  fontSize: "1.5rem",
   [theme.breakpoints.up("xs")]: {
     fontSize: "1.6rem",
     width: "90%",

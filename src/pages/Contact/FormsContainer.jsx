@@ -15,157 +15,157 @@ export default function ContactQuery() {
     pureWhite: "#FFFFFF",
   };
 
-const btnStyle = {
-  background: themeColors.pureWhite,
-  color: themeColors.deepBlack,
-  border: `1px solid ${themeColors.deepBlack}`,
-  px: { xs:2, sm:4, md:5 },    
-  py: { xs:1, sm:1.2, md:1.4 },
-  fontSize:{ xs:14, sm:16, md:17 },
-  fontWeight: 500,
-  borderRadius: "10px",
-  m: 1,
-  width: { xs: "100%", sm: "270px", md: "300px" },  
-  "&:hover": {
-    background: themeColors.deepBlack,
-    color: themeColors.pureWhite,
+  const btnStyle = {
+    background: themeColors.pureWhite,
+    color: themeColors.deepBlack,
     border: `1px solid ${themeColors.deepBlack}`,
-  }
-};
+    px: { xs: 2, sm: 4, md: 5 },
+    py: { xs: 1, sm: 1.2, md: 1.4 },
+    fontSize: { xs: 14, sm: 16, md: 17 },
+    fontWeight: 500,
+    borderRadius: "10px",
+    m: 1,
+    width: { xs: "100%", sm: "270px", md: "300px" },
+    "&:hover": {
+      background: themeColors.deepBlack,
+      color: themeColors.pureWhite,
+      border: `1px solid ${themeColors.deepBlack}`,
+    }
+  };
 
   return (
-  <Box
-  sx={{
-    background: themeColors.pureWhite,
-    width: { xs: "100%", sm: "95%", md: "90%" },
-    margin: "auto",
-    borderRadius: "40px",
-    py: { xs: 4, sm: 6, md: 10 },
-    px: { xs: 2, sm: 4, md: 6 },
-    display: "flex",
-    flexDirection: "column",
-    gap: { xs: 2, sm: 1 },
-    alignItems: "center",
-    textAlign: "center",
-    my: { xs: 4, sm: 5, md: 6 },
-  }}
->
-  {/* Heading */}
-  <Typography
-    variant="h4"
-    fontWeight={700}
-    sx={{
-      width: { md: "30%", xs: "100%" },
-      pb: { xs: 2, sm: 3, md: 4 },
-      color: themeColors.deepBlack,
-      fontSize: { xs: 22, sm: 26, md: 32 },
-      lineHeight: 1.3,
-    }}
-  >
-    Tell Us What You’re Looking For
-  </Typography>
-
-  <Typography
-    fontWeight={500}
-    fontSize={{ xs: 16, sm: 18, md: 20 }}
-    width={{ md: "40%", xs: "100%" }}
-    color={themeColors.deepBlack}
-  >
-    Choose Your Area of Interest
-  </Typography>
-
-  <Box width={{ md: "45%", sm: "80%", xs: "100%" }} mt={1}>
-    <Typography
-      fontSize={{ xs: 14, sm: 15, md: 16 }}
-      color={themeColors.darkGray}
-      lineHeight="24px"
-    >
-      Select whether your inquiry is about our IT education programs or IT
-      services. This helps us connect you with the right team quickly.
-    </Typography>
-  </Box>
-
-  {/* Buttons */}
-  <Box sx={{ mt: { xs: 2, sm: 2 } }}>
-    <Button sx={btnStyle} onClick={() => setShowEdu(!showEdu)}>
-      Education
-    </Button>
-    <Button sx={btnStyle} onClick={() => setActiveForm("services")}>
-      Services
-    </Button>
-  </Box>
-
-  {/* Edu Box */}
-  <Box
-   sx={{
-  display: "flex",
-  flexDirection: "column",
-  gap: 0.1,
-  maxHeight: showEdu ? "200px" : "0px",
-  opacity: showEdu ? 1 : 0,
-  overflow: "hidden",
-  transition: "all .3s ease",
-  width: { xs: "90%", sm: "70%", md: "48%" }, 
-  mt: -0.9,
-  mr: { xs: 0, sm: 15 }, 
-}}
-
-  >
-    <Button sx={btnStyle} onClick={() => setActiveForm("regular")}>
-      Regular Courses
-    </Button>
-    <Button sx={btnStyle} onClick={() => setActiveForm("industrial")}>
-      Industrial Training
-    </Button>
-  </Box>
-
-  {/* Back Button */}
-  {activeForm && (
     <Box
-    sx={{
-      position: "sticky",
-      top: 10,
-      left: 0,
-      width: "100%",
-      display: "flex",
-      justifyContent: "flex-start",
-      alignItems:"center",
-      pl: { xs: 1, sm: 2, md: 6 },
-      pb:1,
-      cursor: "pointer",
-      zIndex: 50,
-    }}
-    onClick={() => setActiveForm("")}
-  >
-    <ArrowBackIcon
       sx={{
-        fontSize: { xs: 24, sm: 28, md: 32 },
-        color: themeColors.deepBlack,
-
-        "&:hover": {
-          color: themeColors.orangeColor,
-          transition: ".3s",
-        }
+        background: themeColors.pureWhite,
+        width: { xs: "100%", sm: "95%", md: "90%" },
+        margin: "auto",
+        borderRadius: "40px",
+        py: { xs: 4, sm: 6, md: 10 },
+        px: { xs: 2, sm: 4, md: 6 },
+        display: "flex",
+        flexDirection: "column",
+        gap: { xs: 2, sm: 1 },
+        alignItems: "center",
+        textAlign: "center",
+        my: { xs: 4, sm: 5, md: 6 },
       }}
-    />
-  </Box>
-  )}
+    >
+      {/* Heading */}
+      <Typography
+        variant="h4"
+        fontWeight={700}
+        sx={{
+          width: { md: "30%", xs: "100%" },
+          pb: { xs: 2, sm: 3, md: 4 },
+          color: themeColors.deepBlack,
+          fontSize: { xs: 22, sm: 26, md: 32 },
+          lineHeight: 1.3,
+        }}
+      >
+        Tell Us What You’re Looking For
+      </Typography>
 
-  {/* Regular */}
-  {activeForm === "regular" && (
-    <FormRegular themeColors={themeColors} onBack={() => setActiveForm("")} />
-  )}
+      <Typography
+        fontWeight={500}
+        fontSize={{ xs: 16, sm: 18, md: 20 }}
+        width={{ md: "40%", xs: "100%" }}
+        color={themeColors.deepBlack}
+      >
+        Choose Your Area of Interest
+      </Typography>
 
-  {/* Industrial */}
-  {activeForm === "industrial" && (
-    <FormIndustrial themeColors={themeColors} onBack={() => setActiveForm("")} />
-  )}
+      <Box width={{ md: "45%", sm: "80%", xs: "100%" }} mt={1}>
+        <Typography
+          fontSize={{ xs: 14, sm: 15, md: 16 }}
+          color={themeColors.darkGray}
+          lineHeight="24px"
+        >
+          Select whether your inquiry is about our IT education programs or IT
+          services. This helps us connect you with the right team quickly.
+        </Typography>
+      </Box>
 
-  {/* Services */}
-  {activeForm === "services" && (
-    <FormService themeColors={themeColors} onBack={() => setActiveForm("")} />
-  )}
-</Box>
+      {/* Buttons */}
+      <Box sx={{ mt: { xs: 2, sm: 2 } }}>
+        <Button sx={btnStyle} onClick={() => setShowEdu(!showEdu)}>
+          Education
+        </Button>
+        <Button sx={btnStyle} onClick={() => setActiveForm("services")}>
+          Services
+        </Button>
+      </Box>
+
+      {/* Edu Box */}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 0.1,
+          maxHeight: showEdu ? "200px" : "0px",
+          opacity: showEdu ? 1 : 0,
+          overflow: "hidden",
+          transition: "all .3s ease",
+          width: { xs: "90%", sm: "70%", md: "48%" },
+          mt: -0.9,
+          mr: { xs: 0, sm: 15 },
+        }}
+
+      >
+        <Button sx={btnStyle} onClick={() => setActiveForm("regular")}>
+          Regular Courses
+        </Button>
+        <Button sx={btnStyle} onClick={() => setActiveForm("industrial")}>
+          Industrial Training
+        </Button>
+      </Box>
+
+      {/* Back Button */}
+      {activeForm && (
+        <Box
+          sx={{
+            position: "sticky",
+            top: 10,
+            left: 0,
+            width: "100%",
+            display: "flex",
+            justifyContent: "flex-start",
+            alignItems: "center",
+            pl: { xs: 1, sm: 2, md: 6 },
+            pb: 1,
+            cursor: "pointer",
+            zIndex: 50,
+          }}
+          onClick={() => setActiveForm("")}
+        >
+          <ArrowBackIcon
+            sx={{
+              fontSize: { xs: 24, sm: 28, md: 32 },
+              color: themeColors.deepBlack,
+
+              "&:hover": {
+                color: themeColors.orangeColor,
+                transition: ".3s",
+              }
+            }}
+          />
+        </Box>
+      )}
+
+      {/* Regular */}
+      {activeForm === "regular" && (
+        <FormRegular themeColors={themeColors} onBack={() => setActiveForm("")} />
+      )}
+
+      {/* Industrial */}
+      {activeForm === "industrial" && (
+        <FormIndustrial themeColors={themeColors} onBack={() => setActiveForm("")} />
+      )}
+
+      {/* Services */}
+      {activeForm === "services" && (
+        <FormService themeColors={themeColors} onBack={() => setActiveForm("")} />
+      )}
+    </Box>
 
   );
 }
