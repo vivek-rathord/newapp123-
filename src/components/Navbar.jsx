@@ -30,7 +30,12 @@ const NavbarWrapper = styled(AppBar)(({ theme }) => ({
   alignItems: "center",
   borderRadius: "19px",
   boxShadow: "none",
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+    padding: "8px 0px",
+  },
 }));
+
 
 const Logo = styled(Typography)(({ theme }) => ({
   "& img": {

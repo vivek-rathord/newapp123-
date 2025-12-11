@@ -124,7 +124,13 @@ const ContactButton = styled(Button)(({ theme }) => ({
   '&:hover::before': {
     left: '100%',
   },
-  [theme.breakpoints.down('sm')]: {fontSize:"13px" },
+  [theme.breakpoints.down('sm' ,'md')]: {
+  width: '180px',      
+  fontSize: '14px',     
+  padding: '12px 0px',   
+  borderRadius: '8px',   
+}
+
 
 }));
 

@@ -19,22 +19,26 @@ const pulse = keyframes`
 
 // Main Container
 const HeroContainer = styled(Box)(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
-  gap: "25px",
-  textTransform: "capitalize",
-  textAlign: "center",
-  padding: "20px 0px",
-  minHeight: "70vh",
-  width: "100%",
-
-  [theme.breakpoints.down("md")]: {
-    padding: "40px 0px",
-    minHeight: "60vh",
-    marginTop: "20px",
-    gap: "20px",
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '25px',
+  textTransform: 'capitalize',
+  textAlign: 'center',
+  padding: '60px 0px',
+  width: '100%',
+  [theme.breakpoints.down('md')]: {
+    padding: '40px 0px',
+    minHeight: '60vh',
+    marginTop: '20px',
+    gap: '20px',
+  },
+   [theme.breakpoints.down('sm')]: {
+    minHeight: '50vh',
+    marginTop: '20px',
+  alignItems: 'flex-start',
+    gap: '20px',
   }
 }));
 
@@ -75,6 +79,7 @@ const HeroTitle = styled(Typography)(({ theme }) => ({
   },
   [theme.breakpoints.down('sm')]: {
     fontSize: '1.8rem',
+  textAlign: 'left',
   }
 }));
 
@@ -93,6 +98,7 @@ const HeroText = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     width: '100%',
     fontSize: '15px',
+  textAlign: 'left',
   }
 }));
 

@@ -54,7 +54,7 @@
 // export default AboutHero;
  import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Box, Typography, Button, styled } from "@mui/material";
+import { Box, Typography, Button, styled, badgeClasses } from "@mui/material";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -74,7 +74,7 @@ const HeroContainer = styled(Box)(({ theme }) => ({
   textTransform: 'capitalize',
   textAlign: 'center',
   padding: '20px 0px',
-  minHeight: '70vh',
+  // minHeight: '70vh',
   width: '100%',
   [theme.breakpoints.down('md')]: {
     padding: '40px 0px',
@@ -107,6 +107,7 @@ const HeroTitle = styled(Typography)(({ theme }) => ({
   },
   [theme.breakpoints.down('sm')]: {
     fontSize: '1.8rem',
+  textAlign: 'left',
   }
 }));
 
@@ -124,35 +125,9 @@ const HeroText = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     width: '100%',
     fontSize: '15px',
+  textAlign: 'left',
   }
 }));
-
-
-
-// const PrimaryButton = styled(Button)(({ theme }) => ({
-//   backgroundColor: themeColors.deepBlack,
-//   color: themeColors.pureWhite,
-//   padding: '15px 40px',
-//   borderRadius: '10px',
-//   fontSize: '16px',
-//   fontWeight: '600',
-//   textTransform: 'none',
-//   transition: 'all 0.4s ease',
-//  '&:hover': {
-//   backgroundColor: themeColors.orangeColor,
-//   color: themeColors.pureWhite,
-//   transform: 'translateY(-1px)',
-//   boxShadow: '0 15px 35px rgba(255, 85, 50, 0.3)',
-// },
-
-//  // ensure hover off returns to default
-//   '&:not(:hover)': {
-//     backgroundColor: themeColors.deepBlack,
-//     color: themeColors.pureWhite,
-//     transform: 'translateY(0)',
-//     boxShadow: 'none',
-//   }
-// }));
 
 
 function AboutHero() {

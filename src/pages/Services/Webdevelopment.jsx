@@ -176,28 +176,40 @@ function WebService() {
         </Box>
 
         {/* RIGHT IMAGE */}
-        <Box
-          sx={{
-            flex: 1,
-            minWidth: "350px",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <Box
-            component="img"
-            src={imager}
-            alt="Creative Design"
-            data-aos="fade-left"
-            sx={{
-              width: "100%",
-              height: "450px",
-              borderRadius: "40px",
-              objectFit: "cover",
-              boxShadow: "0 20px 50px rgba(0,0,0,0.25)",
-            }}
-          />
-        </Box>
+           <Box
+                  sx={{
+                    flex: 1,
+                    minWidth: "350px",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src={imager}
+                    alt="Creative Design"
+                    data-aos="fade-left"
+                    sx={{
+                      width: {
+                        xs: "100%",
+                        sm: "100%",
+                        md: "100%",
+                        lg: "90%",
+                      },
+                      height: {
+                        xs: "260px",
+                        sm: "320px",
+                        md: "400px",
+                        lg: "500px",
+                      },
+                      borderRadius: "30px",
+                      objectFit: "cover",
+                      boxShadow: "0 20px 50px rgba(0,0,0,0.25)",
+                      transition: "0.4s",
+                    }}
+                  />
+        
+                </Box>
       </Box>
     </SectionContainer>
   );
