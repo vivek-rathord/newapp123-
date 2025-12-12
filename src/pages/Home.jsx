@@ -5,6 +5,7 @@ import 'aos/dist/aos.css';
 
 // Import All Sections from components/sections folder
 import HeroSection from "./Home/HeroSection";
+import FeaturesDualCard from "./Home/FeaturesDualCard";
 import SolutionsSection from "./Home/SolutionsSection";
 import AboutSection from "./Home/AboutSection";
 import EducationSection from "./Home/EducationSection";
@@ -15,7 +16,7 @@ import BlogsSection from "./Home/BlogsSection";
 import ContactSection from "./Home/ContactSection";
 function Home() {
   useEffect(() => {
-    Aos.init({ 
+    Aos.init({
       duration: 1000,
       once: true,
       offset: 100
@@ -23,27 +24,31 @@ function Home() {
   }, []);
 
   return (
-    <Box sx={{ 
+    <Box sx={{
       overflow: 'hidden',
       width: '100%',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center'
     }}>
-      
+
       {/* Hero Section */}
       <Box sx={{ width: '85%', maxWidth: '1400px' }}>
         <HeroSection />
       </Box>
 
+      {/* Dual cards Section */}
+      <Box sx={{ width: '85%', maxWidth: '1400px' }}>
+        <FeaturesDualCard />
+      </Box>
+      
       {/* Solutions Section */}
       <Box sx={{ width: '85%', maxWidth: '1400px' }}>
-                <EducationSection />
-
+        <EducationSection />
       </Box>
 
       {/* Services Section */}
-       {/* Solutions Section */}
+      {/* Solutions Section */}
       <Box sx={{ width: '85%', maxWidth: '1400px' }}>
         <SolutionsSection />
       </Box>
@@ -58,7 +63,7 @@ function Home() {
         <BlogsSection />
       </Box>
 
-       {/* Faq Section */}
+      {/* Faq Section */}
       <Box sx={{ width: '100%', maxWidth: '1400px' }}>
         <SimpleFaq />
       </Box>
@@ -68,7 +73,7 @@ function Home() {
         <ContactSection />
       </Box>
 
-      
+
 
     </Box>
   );

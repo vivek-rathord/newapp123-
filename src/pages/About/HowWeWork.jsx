@@ -263,18 +263,16 @@ const HowWeWork = () => {
           >
             <Typography
               sx={{
-                fontSize: "13px",
-                fontWeight: 600,
+                fontSize: "14px",
+                fontWeight: 500,
                 letterSpacing: "1.2px",
                 backgroundColor: "#FF5532",
                 color: "#ffffff",
                 textTransform: "uppercase",
                 display: "inline-flex",
-                padding: "8px 20px",
-                borderRadius: "20px",
+                padding: "5px 20px",
+                borderRadius: "109px",
                 width: "fit-content",
-                fontFamily: '"Outfit", sans-serif',
-                boxShadow: "0 4px 12px rgba(255, 85, 50, 0.3)",
               }
             }
             >

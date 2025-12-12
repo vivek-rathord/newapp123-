@@ -31,21 +31,18 @@ const HeadingContainer = styled(Box)(({ theme }) => ({
 const OrangeSpan = styled(Typography)(({ theme }) => ({
   backgroundColor: themeColors.orangeColor,
   color: themeColors.pureWhite,
-  padding: '8px 18px',
+  padding: '5px 18px',
   borderRadius: '20px',
   fontSize: '14px',
   letterSpacing: '1px',
-  fontWeight: '600',
+  fontWeight: '500',
   display: 'inline-block',
 }));
 
 const BlogsTitle = styled(Typography)(({ theme }) => ({
-  fontSize: '2.5rem',
-  fontWeight: 'bold',
-  background: 'linear-gradient(135deg, #111111 0%, #575757 100%)',
-  backgroundClip: 'text',
-  WebkitBackgroundClip: 'text',
-  color: 'transparent',
+  fontSize: '3rem',
+  fontWeight: '700',
+  color: themeColors.pureblack,
   textAlign: 'center',
   [theme.breakpoints.down('md')]: {
     fontSize: '2rem',
@@ -164,10 +161,10 @@ const ButtonContainer = styled(Box)(({ theme }) => ({
 const BlackButton = styled(Button)(({ theme }) => ({
   backgroundColor: themeColors.deepBlack,
   color: themeColors.pureWhite,
-  padding: '15px 50px',
-  borderRadius: '10px',
-  fontSize: '16px',
-  fontWeight: '600',
+  padding: '9px 50px',
+  borderRadius: '16px',
+  fontSize: '14px',
+  fontWeight: '400',
   textTransform: 'none',
   transition: 'all 0.4s ease',
   '&:hover': {

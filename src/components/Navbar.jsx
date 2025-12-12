@@ -49,7 +49,6 @@ const NavLinks = styled(Box)(({ theme }) => ({
   gap: "40px",
   margin: 0,
   padding: 0,
-  
   [theme.breakpoints.down('md')]: {
     display: "none",
   }
@@ -60,7 +59,8 @@ const NavLinkItem = styled(ListItem)(({ theme }) => ({
   "& a": {
     color: themeColors.deepBlack,
     textDecoration: "none",
-    fontSize: "17px",
+    fontSize: "16px",
+    fontWeight:"500",
     transition: "all 0.3s ease",
     "&:hover": {
       textUnderlineOffset: "10px",
@@ -73,10 +73,11 @@ const NavLinkItem = styled(ListItem)(({ theme }) => ({
 const NavButton = styled(Button)(({ theme }) => ({
   backgroundColor: themeColors.deepBlack,
   color: themeColors.offWhite,
-  padding: "10px 20px",
+  width:"115px",
+  fontSize:"14px",
+  padding: "8px 0px",
   borderRadius: "8px",
   textTransform: "none",
-  fontSize: "16px",
   "&:hover": {
      backgroundColor: themeColors.orangeColor,
     color: themeColors.pureWhite,          

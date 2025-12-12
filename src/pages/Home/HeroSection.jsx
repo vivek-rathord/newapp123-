@@ -39,10 +39,10 @@ const OrangeSpan = styled(Typography)(({ theme }) => ({
   backgroundColor: themeColors.orangeColor,
   color: themeColors.pureWhite,
   padding: '8px 20px',
-  borderRadius: '25px',
-  fontSize: '15px',
+  borderRadius: '109px',
+  fontSize: '12px',
   letterSpacing: '1.5px',
-  fontWeight: '600',
+  fontWeight: '500',
   display: 'inline-block',
   animation: 'pulse 2s infinite ease-in-out',
   '@keyframes pulse': {
@@ -56,13 +56,10 @@ const OrangeSpan = styled(Typography)(({ theme }) => ({
 }));
 
 const HeroTitle = styled(Typography)(({ theme }) => ({
-  fontSize: '2.9rem',
-  fontWeight: 'bold',
+  fontSize: '4rem',
+  fontWeight: '700',
   lineHeight: '1.1',
-  background: 'linear-gradient(135deg, #111111 0%, #000000ff 100%)',
-  backgroundClip: 'text',
-  WebkitBackgroundClip: 'text',
-  color: 'transparent',
+   color: themeColors.deepBlack,
   textAlign: 'center',
   maxWidth: '800px',
   margin: '0 auto',
@@ -80,7 +77,7 @@ const HeroTitle = styled(Typography)(({ theme }) => ({
 const HeroText = styled(Typography)(({ theme }) => ({
   width: '50%',
   color: themeColors.darkGray,
-  fontSize: '18px',
+  fontSize: '16px',
   lineHeight: '1.7',
   textAlign: 'center',
   margin: '0 auto',

@@ -14,7 +14,7 @@
 }
 body{
   background: var(--off-white);
-  font-family: "Outfit", sans-serif;
+  font-family: "Outfit";
 }
 
   a:hover {

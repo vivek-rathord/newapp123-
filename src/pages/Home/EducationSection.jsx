@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { Box, Typography, Button, Card, Grid, styled } from "@mui/material";
 import imager from "../../assets/Images/heroimg.jpg";
+import Education from "../../assets/Images/Education.svg";
+
 import { Padding } from "@mui/icons-material";
 
 const themeColors = {
@@ -12,16 +14,16 @@ const themeColors = {
 };
 
 const ServicesContainer = styled(Box)(({ theme }) => ({
-  padding: '100px 0px',
+  padding: '80px 0px',
   width: '100%',
   textAlign: 'center',
   position: 'relative',
   overflow: 'hidden',
-  minHeight: '1200px',
+  minHeight: '1130px',
   [theme.breakpoints.down('md')]: {
     padding: '60px 0px',
     minHeight: '1000px',
-  } 
+  }
 }));
 
 const SectionHeading = styled(Box)(({ theme }) => ({
@@ -31,17 +33,21 @@ const SectionHeading = styled(Box)(({ theme }) => ({
   overflow: 'hidden',
 }));
 
+const SectionImage = styled("img")(({ theme }) => ({
+  width:"100%",
+  height: "auto",
+  [theme.breakpoints.down("md")]: {
+  },
+  [theme.breakpoints.down("sm")]: {
+    // marginBottom: "60px",
+  },
+}));
+
+
 const SectionTitle = styled(Typography)(({ theme }) => ({
-  fontSize: '6rem',
-  fontWeight: '700',
-  letterSpacing: '8px',
   padding: '20px 0px',
-  background: 'rgba(206, 207, 202, 1)',
-  backgroundClip: 'text',
-  WebkitBackgroundClip: 'text',
-  color: 'transparent',
   [theme.breakpoints.down('md')]: { fontSize: '4rem' },
-   [theme.breakpoints.down('sm')]: { fontSize: '2.5rem', marginBottom:"60px", },
+  [theme.breakpoints.down('sm')]: { fontSize: '2.5rem', marginBottom: "60px", },
 }));
 
 const SectionSubtitle = styled(Typography)(({ theme }) => ({
@@ -49,30 +55,27 @@ const SectionSubtitle = styled(Typography)(({ theme }) => ({
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  padding: '4px 20px',
+  padding: '5px 20px',
   backgroundColor: themeColors.orangeColor,
   color: themeColors.pureWhite,
   borderRadius: '25px',
-  fontSize: '16px',
-  fontWeight: '600',
+  fontSize: '14px',
+  fontWeight: '500',
   whiteSpace: 'nowrap',
   [theme.breakpoints.down('sm')]: { fontSize: '.7rem' },
 
 }));
 
 const ContentTitle = styled(Typography)(({ theme }) => ({
-  fontSize: '2.5rem',
-  fontWeight: 'bold',
+  fontSize: '3rem',
+  fontWeight: '700',
   marginBottom: '40px',
-  background: 'linear-gradient(135deg, #111111 0%, #575757 100%)',
-  backgroundClip: 'text',
-  WebkitBackgroundClip: 'text',
-  color: 'transparent',
   [theme.breakpoints.down('md')]: { fontSize: '2rem' },
 }));
 
 const ServicesGrid = styled(Grid)(({ theme }) => ({
   display: 'flex',
+  flexDirection:'row-reverse',
   justifyContent: 'center',
   alignItems: 'flex-start',
   gap: '50px',
@@ -134,10 +137,10 @@ const ButtonContainer = styled(Box)(({ theme }) => ({
 const BlackButton = styled(Button)(({ theme }) => ({
   backgroundColor: themeColors.deepBlack,
   color: themeColors.pureWhite,
-  padding: '15px 50px',
+  padding: '9px 50px',
   borderRadius: '10px',
-  fontSize: '16px',
-  fontWeight: '600',
+  fontSize: '14px',
+  fontWeight: '400',
   textTransform: 'none',
   transition: 'all 0.4s ease',
   '&:hover': {
@@ -145,7 +148,7 @@ const BlackButton = styled(Button)(({ theme }) => ({
     transform: 'translateY(-3px)',
     boxShadow: '0 15px 35px rgba(255, 85, 50, 0.3)',
   },
-  [theme.breakpoints.down('sm')]: {fontSize:"13px" },
+  [theme.breakpoints.down('sm')]: { fontSize: "13px" },
 
 }));
 
@@ -271,15 +274,11 @@ function EducationSection() {
     : { opacity: 0, transform: 'translateY(5px)', maxHeight: '0px', marginTop: '0px', transition: 'all 0.5s ease' };
 
   return (
-    <ServicesContainer 
-      ref={containerRef}
-      sx={{
-        background: `radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, rgba(255, 85, 50, 0.05) 0%, transparent 50%)`,
-        transition: "background 0.4s ease-out",
-      }}
-    >
-      <SectionHeading sx={{ opacity: isVisible ? 1 : 0, transform: isVisible ? "translateY(0)" : "translateY(30px)", transition: "all 0.8s ease" }}>
-        <SectionTitle>EDUCATION</SectionTitle>
+    <ServicesContainer ref={containerRef}>
+      <SectionHeading>
+        <SectionTitle>
+          <SectionImage src={Education} alt="Education-Title" />
+        </SectionTitle>
         <SectionSubtitle>What We Do</SectionSubtitle>
       </SectionHeading>
 
@@ -307,7 +306,7 @@ function EducationSection() {
                     background: themeColors.pureWhite,
                     padding: '25px',
                     width: '100%',
-                    maxWidth: '600px',
+                    maxWidth: '550px',
                     borderRadius: '15px',
                     boxShadow: isActive ? '0 25px 70px rgba(31,41,55,0.2)' : '0 10px 35px rgba(0,0,0,0.1)',
                     marginBottom: '20px',
@@ -323,22 +322,22 @@ function EducationSection() {
                       width: '40px',
                       height: '40px',
                       borderRadius: '8px',
-                      backgroundColor: isActive ? 'rgba(255,85,50,0.12)' : 'rgba(0,0,0,0.03)',
+                      // backgroundColor: isActive ? 'rgba(255,85,50,0.12)' : 'rgba(0,0,0,0.03)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                     }}>
-                      <Typography sx={{ fontSize: '1rem', fontWeight: 700, color: isActive ? themeColors.orangeColor : '#999' }}>
+                      <Typography sx={{ fontSize: '1.5rem', fontWeight: 500, color: isActive ? themeColors.deepBlack : '#999' }}>
                         {service.num}
                       </Typography>
                     </Box>
 
                     <Box sx={{ flex: 1 }}>
-                      <Typography sx={{ fontSize: '1.25rem', fontWeight: isActive ? 700 : 600, color: isActive ? themeColors.deepBlack : '#777' }}>
+                      <Typography sx={{ fontSize: '1.5rem', fontWeight: isActive ? 700 : 600, color: isActive ? themeColors.deepBlack : '#777' }}>
                         {service.title}
                       </Typography>
                       <Box sx={getDescAnimationStyle(index)}>
-                        <Typography sx={{ color: '#555', fontSize: '0.95rem', lineHeight: 1.7 }}>
+                        <Typography sx={{ color: '#555', fontSize: '14px', lineHeight: 1.7 }}>
                           {service.desc}
                         </Typography>
                       </Box>
@@ -352,9 +351,9 @@ function EducationSection() {
       </ServicesGrid>
 
       <ButtonContainer sx={{ opacity: isVisible ? 1 : 0, transform: isVisible ? 'translateY(0)' : 'translateY(30px)', transition: 'all 0.8s ease 0.8s' }}>
-        <Link to="/services" style={{ textDecoration: 'none' }}>
-          <BlackButton>Explore All Services</BlackButton>
-        </Link>
+        <BlackButton component={Link} to="/services">
+  Explore All Services
+</BlackButton>
       </ButtonContainer>
     </ServicesContainer>
   );

@@ -40,23 +40,20 @@ const HeadingContainer = styled(Box)(({ theme }) => ({
 const OrangeSpan = styled(Typography)(({ theme }) => ({
   backgroundColor: themeColors.orangeColor,
   color: themeColors.pureWhite,
-  padding: '8px 18px',
+  padding: '5px 20px',
   borderRadius: '20px',
   fontSize: '14px',
   letterSpacing: '1px',
-  fontWeight: '600',
+  fontWeight: '500',
   display: 'inline-block',
   [theme.breakpoints.down('sm')]: { fontSize: '.7rem' },
 
 }));
 
 const PortfolioTitle = styled(Typography)(({ theme }) => ({
-  fontSize: '2.5rem',
-  fontWeight: 'bold',
-  background: 'linear-gradient(135deg, #111111 0%, #575757 100%)',
-  backgroundClip: 'text',
-  WebkitBackgroundClip: 'text',
-  color: 'transparent',
+  fontSize: '3rem',
+  fontWeight: '700',
+   color: themeColors.pureblack,
   textAlign: 'center',
   [theme.breakpoints.down('md')]: {
     fontSize: '2rem',
@@ -77,7 +74,7 @@ const PortfolioGrid = styled(Grid)(({ theme }) => ({
 
 const PortfolioCard = styled(Card)(({ theme }) => ({
   width: '100%',
-  padding: '250px 30px 40px',
+  padding: '250px 70px 40px',
   background: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.8)), url(${imager}) no-repeat center/cover`,
   color: themeColors.pureWhite,
   borderRadius: '35px',
@@ -104,7 +101,7 @@ const PortfolioCard = styled(Card)(({ theme }) => ({
     left: 0,
     right: 0,
     bottom: 0,
-    background: 'linear-gradient(45deg, rgba(255,85,50,0.3), rgba(17,17,17,0.3))',
+background: "linear-gradient(45deg, rgba(0,0,0,0.6), rgba(255,255,255,0.3))",
     opacity: 0,
     transition: 'opacity 0.5s ease',
   },
@@ -119,7 +116,8 @@ const PortfolioCard = styled(Card)(({ theme }) => ({
 }));
 
 const CardTitle = styled(Typography)(({ theme }) => ({
-  fontSize: '1.4rem',
+  fontSize: '1.75rem',
+  fontWidth:'500',
   marginBottom: '15px',
   fontWeight: '600',
   position: 'relative',
@@ -155,7 +153,7 @@ const CardButton = styled(Button)(({ theme }) => ({
   padding: '0px',
   color: themeColors.pureWhite,
   fontWeight: '700',
-  fontSize: '14px',
+    fontSize:'12px',
   textTransform: 'none',
   transition: 'all 0.3s ease',
   position: 'relative',
@@ -191,10 +189,10 @@ const ButtonContainer = styled(Box)(({ theme }) => ({
 const BlackButton = styled(Button)(({ theme }) => ({
   backgroundColor: themeColors.deepBlack,
   color: themeColors.pureWhite,
-  padding: '15px 50px',
-  borderRadius: '10px',
-  fontSize: '16px',
-  fontWeight: '600',
+  padding: '9px 50px',
+  borderRadius: '16px',
+  fontSize: '14px',
+  fontWeight: '400',
   textTransform: 'none',
   transition: 'all 0.4s ease',
   '&:hover': {

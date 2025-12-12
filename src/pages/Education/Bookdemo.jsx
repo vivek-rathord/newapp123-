@@ -1,7 +1,8 @@
 import React from "react";
 import { Box, Typography, Button, styled } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
-
+// import BookDemoClass from "../../components/BookDemoClass";
+import BookDemoClass from "../../components/BookDemoClass";
 const themeColors = {
   orangeColor: "#FF5532",
   deepBlack: "#111111",
@@ -45,21 +46,8 @@ const Badge = styled("span")(({ theme }) => ({
 }));
 
 // CTA Button
-const CTAButton = styled(Button)(({ theme }) => ({
-  backgroundColor: themeColors.deepBlack,
-  color: themeColors.pureWhite,
-  padding: "12px 30px",
-  borderRadius: "30px",
-  fontWeight: 600,
-  textTransform: "none",
-  marginTop: "20px",
-  "&:hover": {
-    backgroundColor: themeColors.orangeColor,
-  },
-  [theme.breakpoints.down("sm")]: {
-    padding: "10px 25px",
-    fontSize: "14px",
-  },
+const BookDemoBtn = styled(Button)(({ theme }) => ({
+  paddingTop: "40px ",
 }));
 
 function BookDemo() {
@@ -101,12 +89,10 @@ function BookDemo() {
         Experience our teaching approach before making a commitment. Whether you're exploring a new skill or planning your career path, our demo class gives you a glimpse of how we teach, what you’ll learn, and how we can help you grow. No pressure—just real learning, right from the start.
       </Typography>
 
-      <CTAButton
-        component={RouterLink}
-        to="/contact"
-      >
-        Book A Demo Class
-      </CTAButton>
+      {/* Book Demo Btn */}
+      <BookDemoBtn>
+        <BookDemoClass />
+      </BookDemoBtn>
     </IdentityContainer>
   );
 }

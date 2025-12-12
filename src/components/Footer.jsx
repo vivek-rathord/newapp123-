@@ -56,7 +56,8 @@ const FooterLinks = styled(Box)(({ theme }) => ({
 const FooterLink = styled(Link)(({ theme }) => ({
   color: themeColors.darkGray,
   textDecoration: "none",
-  fontSize: "16px",
+  fontSize: "14px",
+  fontWeight: "400",
   transition: "all 0.3s ease",
   "&:hover": {
     textUnderlineOffset: "10px",
@@ -66,8 +67,8 @@ const FooterLink = styled(Link)(({ theme }) => ({
 }));
 
 const FooterTitle = styled(Typography)(({ theme }) => ({
-  fontSize: "19px",
-  fontWeight: "bolder",
+  fontSize: "20px",
+  fontWeight: "600",
   marginBottom: "25px",
   color: themeColors.deepBlack,
 }));
