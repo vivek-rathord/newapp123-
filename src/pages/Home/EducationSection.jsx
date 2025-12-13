@@ -23,6 +23,9 @@ const ServicesContainer = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
     padding: '60px 0px',
     minHeight: '1000px',
+  },
+   [theme.breakpoints.down('sm')]: {
+
   }
 }));
 
@@ -34,20 +37,25 @@ const SectionHeading = styled(Box)(({ theme }) => ({
 }));
 
 const SectionImage = styled("img")(({ theme }) => ({
-  width:"100%",
+  width: "100%",
   height: "auto",
+  maxHeight: "160px",        // desktop height control
+  objectFit: "contain",
+
   [theme.breakpoints.down("md")]: {
+    maxHeight: "130px",
   },
+
   [theme.breakpoints.down("sm")]: {
-    // marginBottom: "60px",
   },
 }));
+
 
 
 const SectionTitle = styled(Typography)(({ theme }) => ({
   padding: '20px 0px',
   [theme.breakpoints.down('md')]: { fontSize: '4rem' },
-  [theme.breakpoints.down('sm')]: { fontSize: '2.5rem', marginBottom: "60px", },
+  [theme.breakpoints.down('sm')]: { fontSize: '2.5rem', marginBottom: "60px",padding:"0px", },
 }));
 
 const SectionSubtitle = styled(Typography)(({ theme }) => ({
@@ -99,6 +107,9 @@ const ServicesList = styled(Box)(({ theme }) => ({
     padding: '0px',
     width: '100%',
     minWidth: 'auto',
+  },
+   [theme.breakpoints.down('sm')]: {
+   
   }
 }));
 
@@ -283,7 +294,7 @@ function EducationSection() {
       </SectionHeading>
 
       <ContentTitle sx={{ opacity: isVisible ? 1 : 0, transform: isVisible ? "translateY(0)" : "translateY(30px)", transition: "all 0.8s ease 0.2s" }}>
-        Popular Services We Offers
+        Popular Courses We Offers
       </ContentTitle>
 
       <ServicesGrid container>

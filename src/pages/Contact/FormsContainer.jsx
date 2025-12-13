@@ -19,11 +19,11 @@ const btnStyle = {
   background: themeColors.pureWhite,
   color: themeColors.deepBlack,
   border: `1px solid ${themeColors.deepBlack}`,
-  px: { xs:2, sm:4, md:5 },    
-  py: { xs:1, sm:1.2, md:1.4 },
-  fontSize:{ xs:14, sm:16, md:17 },
-  fontWeight: 500,
-  borderRadius: "10px",
+  px: { xs:2, sm:1, md:2 },    
+  py: { xs:1, sm:.4, md:1 },
+  fontSize:{ xs:14, sm:13, md:17 },
+  fontWeight: 400,
+  borderRadius: "16px",
   m: 1,
   width: { xs: "100%", sm: "270px", md: "300px" },  
   "&:hover": {
@@ -55,10 +55,15 @@ const btnStyle = {
     variant="h4"
     fontWeight={700}
     sx={{
-      width: { md: "30%", xs: "100%" },
+      width: { md: "50%", xs: "100%" },
       pb: { xs: 2, sm: 3, md: 4 },
       color: themeColors.deepBlack,
-      fontSize: { xs: 22, sm: 26, md: 32 },
+       fontSize: {
+      xs: "2rem",
+      sm: "2rem",
+      md: "3rem",
+      lg: "3rem", 
+    },
       lineHeight: 1.3,
     }}
   >
@@ -66,8 +71,8 @@ const btnStyle = {
   </Typography>
 
   <Typography
-    fontWeight={500}
-    fontSize={{ xs: 16, sm: 18, md: 20 }}
+    fontWeight={600}
+    fontSize={{ xs: 16, sm: 18, md: "1.5rem" }}
     width={{ md: "40%", xs: "100%" }}
     color={themeColors.deepBlack}
   >
@@ -86,7 +91,7 @@ const btnStyle = {
   </Box>
 
   {/* Buttons */}
-  <Box sx={{ mt: { xs: 2, sm: 2 } }}>
+  <Box sx={{ mt: { xs: 2, sm: 2 ,md:5} }}>
     <Button sx={btnStyle} onClick={() => setShowEdu(!showEdu)}>
       Education
     </Button>

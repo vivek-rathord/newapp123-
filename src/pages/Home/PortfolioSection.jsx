@@ -101,7 +101,7 @@ const PortfolioCard = styled(Card)(({ theme }) => ({
     left: 0,
     right: 0,
     bottom: 0,
-background: "linear-gradient(45deg, rgba(0,0,0,0.6), rgba(255,255,255,0.3))",
+background: "linear-gradient(45deg, rgba(0,0,0,0.6), rgba(258,255,255,0.3))",
     opacity: 0,
     transition: 'opacity 0.5s ease',
   },

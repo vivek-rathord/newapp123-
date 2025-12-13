@@ -35,10 +35,10 @@ const Badge = styled("span")(({ theme }) => ({
   backgroundColor: themeColors.orangeColor,
   color: themeColors.pureWhite,
   padding: "5px 20px",
-  borderRadius: "25px",
-  fontSize: "15px",
-  letterSpacing: "1.5px",
-  fontWeight: "600",
+  borderRadius: "109px",
+  fontSize: "14px",
+  letterSpacing: "1px",
+  fontWeight: "500",
   display: "inline-block",
   [theme.breakpoints.down("sm")]: {
     fontSize: "12px",
@@ -63,8 +63,9 @@ function BookDemo() {
       <Typography
         component="h2"
         sx={{
-          fontSize: { xs: "2rem", sm: "2.2rem", md: "2.5rem" },
-          width: { xs: "90%", sm: "80%", md: "60%" },
+          fontSize: { xs: "2rem", sm: "2.2rem", md: "3rem" },
+          width: { xs: "90%", sm: "80%", md: "50%" },
+          textTransform:"capitalize",
           margin: "20px auto",
           textAlign: "center",
           fontWeight: 700,

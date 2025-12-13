@@ -86,7 +86,7 @@ const TeamSection = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: 3,
+          gap: 2,
           mb: 6,
           textTransform: 'capitalize',
           textAlign: 'center',
@@ -95,12 +95,13 @@ const TeamSection = () => {
       >
         <Typography 
           sx={{ 
-            fontSize: '0.9rem',
+            fontSize: '14px',
             color: 'white',
             letterSpacing: 1,
             backgroundColor: '#FF5532 ',
-            padding: '8px 18px',
-            borderRadius: '20px',
+            padding: '5px 18px',
+            borderRadius: '109px',
+            fontWeight:'500',
           }}
         >
           our team
@@ -108,10 +109,10 @@ const TeamSection = () => {
         <Typography 
           variant="h2"
           sx={{ 
-            fontSize: { xs: '1.8rem', md: '2.5rem' },
-            fontWeight: 600,
-            width: { xs: '100%', md: '30vw' },
-            maxWidth: '500px'
+            fontSize: { xs: '1.8rem', md: '3rem' },
+            fontWeight: 700,
+            width: { xs: '100%', md: '40vw' },
+            maxWidth: '600px'
           }}
         >
           the professionals behind netcoder

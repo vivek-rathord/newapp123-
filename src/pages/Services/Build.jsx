@@ -36,7 +36,7 @@ const Badge = styled("span")(({ theme }) => ({
   color: themeColors.pureWhite,
   padding: "5px 20px",
   borderRadius: "25px",
-  fontWeight: 600,
+  fontWeight: 500,
   fontSize: "14px",
   letterSpacing: "1px",
   marginBottom: "15px",
@@ -48,19 +48,21 @@ const Badge = styled("span")(({ theme }) => ({
 
 // CTA Button
 const CTAButton = styled(Button)(({ theme }) => ({
+   width: { xs: '100%', sm: '200px', md: '260px', },
   backgroundColor: themeColors.deepBlack,
   color: themeColors.pureWhite,
-  padding: "12px 30px",
-  borderRadius: "30px",
-  fontWeight: 600,
-  textTransform: "none",
-  marginTop: "20px",
+  fontSize:"14px",
+  padding: "8px 30px",
+  borderRadius: "16px",
+  fontWeight: 400,
+  textTransform: "capitalize",
+  marginTop: "29px",
   "&:hover": {
     backgroundColor: themeColors.orangeColor,
   },
   [theme.breakpoints.down("sm")]: {
     padding: "10px 25px",
-    fontSize: "14px",
+    fontSize: "12px",
   },
 }));
 

@@ -33,21 +33,17 @@ const HeadingContainer = styled(Box)(({ theme }) => ({
     backgroundColor: themeColors.orangeColor,
     color: themeColors.pureWhite,
     padding: "5px 20px",
-    borderRadius: "25px",
-    fontWeight: 600,
+    borderRadius: "109px",
+    fontWeight: 500,
     fontSize: "14px",
     letterSpacing: "1px",
     display: "inline-block",
   },
 
   h2: {
-    fontSize: "2.7rem",
+    fontSize: "3rem",
     fontWeight: 700,
     margin: "15px 0",
-    background: `linear-gradient(135deg, ${themeColors.deepBlack}, ${themeColors.darkGray})`,
-    WebkitBackgroundClip: "text",
-    color: "transparent",
-
     [theme.breakpoints.down('md')]: {
       fontSize: '2.2rem',
     },
@@ -60,9 +56,8 @@ const HeadingContainer = styled(Box)(({ theme }) => ({
     color: themeColors.darkGray,
     fontSize: "16px",
     lineHeight: 1.6,
-    maxWidth: "600px",
+    maxWidth: "700px",
     margin: "0 auto",
-    opacity: 0.9,
   },
 
 }));
@@ -82,8 +77,8 @@ const ServiceCard = styled(Box)(({ theme }) => ({
     boxShadow: "0 25px 70px rgba(0,0,0,0.18)",
   },
   h3: {
-    fontSize: "22px",
-    fontWeight: 700,
+    fontSize: "1.5rem",
+    fontWeight: 500,
     margin: "10px 0",
     color: themeColors.deepBlack,
   },
@@ -106,8 +101,7 @@ function CreativeService() {
         <span>What We Offer</span>
         <h2>Creative Design Solutions</h2>
         <p>
-          Our Creative Design Solutions encompass branding, UI/UX, and graphic
-          design, ensuring consistency and clarity across digital platforms.
+         Our Creative Design Solutions encompass branding, UI/UX, and graphic design, ensuring a cohesive visual identity across all platforms. We craft engaging and intuitive designs hat not only captivate users but also drive conversions. Our Approach combines creativity with strategic insights to elevate your brand in digital landscape.
         </p>
       </HeadingContainer>
 
@@ -125,7 +119,8 @@ function CreativeService() {
             xs: "center",
             sm: "center",
             md: "flex-start",
-            lg: "center",
+            lg: "flex-start",
+
           },
           gap: "40px",
           flexWrap: "wrap",
@@ -203,7 +198,7 @@ function CreativeService() {
                 xs: "260px",
                 sm: "320px",
                 md: "400px",
-                lg: "500px",
+                lg: "400px",
               },
               borderRadius: "30px",
               objectFit: "cover",

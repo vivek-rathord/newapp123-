@@ -1,9 +1,11 @@
+
  import React from "react";
 import { Link } from "react-router-dom";
 import { Box, Typography, Button, Card, CardContent, Grid, styled } from "@mui/material";
 import imager from "../../assets/Images/heroimg.jpg";
 import arrowright from "../../assets/Images/arrow-right.png";
 
+// Add imports at the top and use imager & arrowright in the component 
 const themeColors = {
   orangeColor: '#FF5532',
   deepBlack: '#111111',
@@ -39,29 +41,24 @@ const HeadingContainer = styled(Box)(({ theme }) => ({
 const OrangeSpan = styled(Typography)(({ theme }) => ({
   backgroundColor: themeColors.orangeColor,
   color: themeColors.pureWhite,
-  padding: '8px 18px',
+  padding: '5px 20px',
   borderRadius: '20px',
   fontSize: '14px',
   letterSpacing: '1px',
-  fontWeight: '600',
+  fontWeight: '500',
   display: 'inline-block',
   [theme.breakpoints.down('sm')]: { fontSize: '.7rem' },
+
 }));
 
 const PortfolioTitle = styled(Typography)(({ theme }) => ({
-  fontSize: '2.5rem',
-  fontWeight: 'bold',
-  background: 'linear-gradient(135deg, #111111 0%, #575757 100%)',
-  backgroundClip: 'text',
-  WebkitBackgroundClip: 'text',
-  color: 'transparent',
+  fontSize: '3rem',
+  fontWeight: '700',
+   color: themeColors.pureblack,
   textAlign: 'center',
-[theme.breakpoints.down('md')]: {
-      fontSize: '2rem',
-    },
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '2rem',
-    }
+  [theme.breakpoints.down('md')]: {
+    fontSize: '2rem',
+  },
 }));
 
 const PortfolioGrid = styled(Grid)(({ theme }) => ({
@@ -72,13 +69,13 @@ const PortfolioGrid = styled(Grid)(({ theme }) => ({
   marginBottom: '50px',
   [theme.breakpoints.down('sm')]: {
     gridTemplateColumns: '1fr',
-    gap: '25px',
+    gap: '35px',
   }
 }));
 
 const PortfolioCard = styled(Card)(({ theme }) => ({
   width: '100%',
-  padding: '250px 30px 40px',
+  padding: '250px 70px 40px',
   background: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.8)), url(${imager}) no-repeat center/cover`,
   color: themeColors.pureWhite,
   borderRadius: '35px',
@@ -105,7 +102,7 @@ const PortfolioCard = styled(Card)(({ theme }) => ({
     left: 0,
     right: 0,
     bottom: 0,
-    background: 'linear-gradient(45deg, rgba(255,85,50,0.3), rgba(17,17,17,0.3))',
+background: "linear-gradient(45deg, rgba(0,0,0,0.6), rgba(258,255,255,0.3))",
     opacity: 0,
     transition: 'opacity 0.5s ease',
   },
@@ -116,17 +113,17 @@ const PortfolioCard = styled(Card)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     padding: '20px 15px 20px', // reduce padding for small screens
     minHeight: '200px',          // reduce height
-  }
-
+  },
 }));
 
 const CardTitle = styled(Typography)(({ theme }) => ({
-  fontSize: '1.4rem',
+  fontSize: '1.75rem',
+  fontWidth:'500',
   marginBottom: '15px',
   fontWeight: '600',
   position: 'relative',
   zIndex: 2,
-  [theme.breakpoints.down('sm')]: {
+   [theme.breakpoints.down('sm')]: {
     fontSize:"20px",
   },
 }));
@@ -157,7 +154,7 @@ const CardButton = styled(Button)(({ theme }) => ({
   padding: '0px',
   color: themeColors.pureWhite,
   fontWeight: '700',
-  fontSize: '14px',
+    fontSize:'12px',
   textTransform: 'none',
   transition: 'all 0.3s ease',
   position: 'relative',
@@ -193,10 +190,10 @@ const ButtonContainer = styled(Box)(({ theme }) => ({
 const BlackButton = styled(Button)(({ theme }) => ({
   backgroundColor: themeColors.deepBlack,
   color: themeColors.pureWhite,
-  padding: '15px 50px',
-  borderRadius: '10px',
-  fontSize: '16px',
-  fontWeight: '600',
+  padding: '9px 50px',
+  borderRadius: '16px',
+  fontSize: '14px',
+  fontWeight: '400',
   textTransform: 'none',
   transition: 'all 0.4s ease',
   '&:hover': {
@@ -214,7 +211,7 @@ function PortfolioSection() {
       <HeadingContainer data-aos="fade-up">
         <OrangeSpan data-aos="zoom-in">Case Studies</OrangeSpan>
         <PortfolioTitle variant="h2" data-aos="fade-up" data-aos-delay="200">
-          Concepts We Brought to Life
+         Concepts brought to life
         </PortfolioTitle>
       </HeadingContainer>
 

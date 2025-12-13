@@ -16,30 +16,34 @@ const themeColors = {
 };
 
 // Main container
-const WhyNetcoderContainer = styled(Box)({
+const WhyNetcoderContainer = styled(Box)(({ theme }) => ({
   backgroundColor: themeColors.pureWhite,
   margin: "60px auto",
   borderRadius: "80px",
   padding: "60px 20px",
   textAlign: "center",
-});
+  [theme.breakpoints.down("sm")]: {
+    borderRadius: "40px",
+  },
+}));
+
 
 // Orange badge
 const OrangeSpan = styled(Typography)({
   backgroundColor: themeColors.orangeColor,
   color: themeColors.pureWhite,
   padding: "8px 18px",
-  borderRadius: "20px",
+  borderRadius: "109px",
   fontSize: "14px",
   letterSpacing: "1px",
-  fontWeight: 600,
+  fontWeight: 500,
   display: "inline-block",
 });
 
 // Heading
 const Heading = styled(Typography)({
   fontWeight: 700,
-  maxWidth: "500px",
+  maxWidth: "700px",
   margin: "20px auto 40px",
 });
 
@@ -85,7 +89,7 @@ const WhyUsBox = styled(Box)(({ theme }) => ({
   },
 
   "& h5": {
-    fontSize: "22px",
+    fontSize: "24px",
     margin: "10px 0",
     fontWeight: 600,
   },
@@ -111,8 +115,18 @@ const WhyChooseUs = () => {
         Why Learn With Us
       </OrangeSpan>
 
-      <Heading variant="h4" data-aos="fade-up" data-aos-delay="200">
-        Why Choose Netcoder for your learning journey?
+       <Heading variant="h4" data-aos="fade-up" data-aos-delay="200"   sx={{
+    fontSize: {
+      xs: "2rem",
+      sm: "2rem",
+      md: "3rem",
+      lg: "3rem", 
+    },
+       textTransform: "capitalize",
+       padding:"10px"
+  }}>
+               Why Choose Netcoder for your learning journey?
+
       </Heading>
 
       <GridContainer>

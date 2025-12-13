@@ -30,26 +30,28 @@ const OrangeSpan = styled(Typography)(({ theme }) => ({
   backgroundColor: themeColors.orangeColor,
   color: themeColors.pureWhite,
   padding: "5px 20px",
-  borderRadius: "25px",
+  borderRadius: "109px",
   fontSize: "14px",
-  letterSpacing: "1.5px",
-  fontWeight: "600",
+  letterSpacing: "1px",
+  fontWeight: "500",
   display: "inline-block",
   alignSelf: "center"
 }));
-
 const Title = styled(Typography)(({ theme }) => ({
   fontSize: "2rem",
   fontWeight: "700",
   lineHeight: "1.2",
   color: themeColors.black,
+
   [theme.breakpoints.up("sm")]: {
-    fontSize: "2.5rem",
-  },
-  [theme.breakpoints.up("md")]: {
     fontSize: "3rem",
-  }
+  },
+
+  [theme.breakpoints.up("md")]: {
+    fontSize: "4rem",
+  },
 }));
+
 
 // Outer card wrapper
 const MainBox = styled(Box)(({ theme }) => ({
@@ -65,11 +67,12 @@ const MainBox = styled(Box)(({ theme }) => ({
 const ContactCard = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
-  gap: "20px",
+  gap: "30px",
   padding: "30px 20px",
   borderRadius: "25px",
   background: themeColors.pureWhite,
   alignItems: "flex-start",
+  textTransform: "capitalize",
   boxShadow: "0px 4px 12px rgba(0,0,0,0.07)",
   [theme.breakpoints.up("sm")]: {
     flexDirection: "row",
@@ -122,11 +125,15 @@ export default function GetInTouchSection() {
             <LocationOnIcon sx={{ fontSize: 23, color: themeColors.pureWhite }} />
           </IconBox>
           <Box>
-            <Typography variant="h6" fontWeight={700}>Office</Typography>
-            <Typography sx={{ fontSize: { xs: '16px', sm: '18px' } }}>
+            <Typography variant="h6" fontWeight={600} fontSize="24px" sx={{ mb: "6px" }}>
+              Office
+            </Typography>
+
+            <Typography sx={{ fontWeight: 400, fontSize: { xs: "16px", sm: "18px", md: "24px" } }}>
+
               Dharamshala, Himachal Pradesh
             </Typography>
-            <Typography variant="body2" sx={{ color: themeColors.darkGray, fontSize: { xs: '13px', sm: '14px' } }}>
+            <Typography variant="body2" sx={{ color: themeColors.darkGray, fontSize: { xs: '13px', sm: '14px', md: "14px" } }}>
               Near Govt. ITI, above Gramin Bank Dari, <br /> Dharamshala (176057)
             </Typography>
           </Box>
@@ -137,8 +144,8 @@ export default function GetInTouchSection() {
             <PhoneIcon sx={{ fontSize: 23, color: themeColors.pureWhite }} />
           </IconBox>
           <Box>
-            <Typography variant="h6" fontWeight={700}>Phone</Typography>
-            <Typography sx={{ fontSize: { xs: '16px', sm: '18px' } }}>
+            <Typography variant="h6" fontWeight={700} fontSize="24px" sx={{ mb: "6px" }}>Phone</Typography>
+            <Typography sx={{ fontWeight: 400, fontSize: { xs: "16px", sm: "18px", md: "24px" } }}>
               +91 9816732055, 7590832055
             </Typography>
             <Typography variant="body2" sx={{ color: themeColors.darkGray, fontSize: { xs: '13px', sm: '14px' } }}>
@@ -152,9 +159,9 @@ export default function GetInTouchSection() {
             <MailIcon sx={{ fontSize: 23, color: themeColors.pureWhite }} />
           </IconBox>
           <Box>
-            <Typography variant="h6" fontWeight={700}>Chat to us</Typography>
-            <Typography sx={{ fontSize: { xs: '16px', sm: '18px' } }}>
-              info@netcoder.in
+            <Typography variant="h6" fontWeight={700} fontSize="24px" sx={{ mb: "6px" }}>Chat to us</Typography>
+            <Typography sx={{ fontWeight: 400, fontSize: { xs: "16px", sm: "18px", md: "24px" } }}>
+              Info@Netcoder.In
             </Typography>
             <Typography variant="body2" sx={{ color: themeColors.darkGray, fontSize: { xs: '13px', sm: '14px' } }}>
               Send us your query anytime!

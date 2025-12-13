@@ -61,7 +61,7 @@ const FAQColumn = styled(Box)(({ theme }) => ({
 const CustomAccordion = styled(Accordion)(({ theme }) => ({
     borderRadius: "20px !important",
     background: themeColors.pureWhite,
-    padding: '25px',
+    padding: '15px',
     boxShadow: "0 2px 10px rgba(0,0,0,0.07)",
      border: "none", 
      overflow:"hidden",

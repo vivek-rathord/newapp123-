@@ -14,6 +14,7 @@ import PortfolioSection from "./Home/PortfolioSection";
 import SimpleFaq from "./Home/FaqAccordion";
 import BlogsSection from "./Home/BlogsSection";
 import ContactSection from "./Home/ContactSection";
+import InnovativeSolutions from "./Home/InnovativeSolutions";
 function Home() {
   useEffect(() => {
     Aos.init({
@@ -41,8 +42,13 @@ function Home() {
       <Box sx={{ width: '85%', maxWidth: '1400px' }}>
         <FeaturesDualCard />
       </Box>
-      
-      {/* Solutions Section */}
+
+      {/* Innovation Solutions */}
+      <Box sx={{ width: '85%', maxWidth: '1400px' }}>
+        <InnovativeSolutions />
+      </Box>
+
+      {/* Education Section */}
       <Box sx={{ width: '85%', maxWidth: '1400px' }}>
         <EducationSection />
       </Box>
