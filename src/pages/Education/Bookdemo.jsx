@@ -1,7 +1,6 @@
 import React from "react";
 import { Box, Typography, Button, styled } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
-// import BookDemoClass from "../../components/BookDemoClass";
 import BookDemoClass from "../../components/BookDemoClass";
 const themeColors = {
   orangeColor: "#FF5532",

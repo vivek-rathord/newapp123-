@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-
+// import GraphicDesign from "../CoursesPages/GraphicDesign";
 const themeColors = {
   orangeColor: "#FF5532",
   deepBlack: "#111111",
@@ -105,8 +105,8 @@ export default function Courses() {
         <Box sx={{
           width: {
             xs: "100%",
-            sm: "420px",   
-            md: "772px",   
+            sm: "420px",
+            md: "772px",
           },
 
         }}>
@@ -124,30 +124,35 @@ export default function Courses() {
           >
 
             {/* Card 1 */}
-            <Box sx={{
-              width: { xs: "100%", sm: "100%", md: "380px" },
-              minHeight: 200,
-              flexShrink: 0,
-              borderRadius: 4,
-              padding: "20px 30px",
-              backgroundColor: themeColors.pureWhite,
-              scrollSnapAlign: "start",
-              boxShadow: "0px 4px 14px rgba(0,0,0,0.15)",
-            }}>
-              <Typography sx={{
-                fontSize: { xs: "1.2rem", sm: "1.4rem", md: "1.5rem", lg: "1.5rem", },
-                fontWeight: 600,
-                color: themeColors.deepBlack,
-              }}
-              >
-                Graphic Design
-              </Typography>
+ <Link
+  to="/graphic-design"
+  style={{ textDecoration: "none" }}
+>
+              <Box sx={{
+                width: { xs: "100%", sm: "100%", md: "380px" },
+                minHeight: 200,
+                flexShrink: 0,
+                borderRadius: 4,
+                padding: "20px 30px",
+                backgroundColor: themeColors.pureWhite,
+                scrollSnapAlign: "start",
+                boxShadow: "0px 4px 14px rgba(0,0,0,0.15)",
+              }}>
+                <Typography sx={{
+                  fontSize: { xs: "1.2rem", sm: "1.4rem", md: "1.5rem", lg: "1.5rem", },
+                  fontWeight: 600,
+                  color: themeColors.deepBlack,
+                }}
+                >
+                  Graphic Design
+                </Typography>
 
-              <Typography sx={{ mt: 1, color: themeColors.deepBlack }}>
-                Foundation in graphic design entails learning the core principles and techniques essential for creating visually appealing and effective designs. This includes understanding concepts like typography, color theory, layout composition, and visual hierarchy, which serve as the building blocks for creating impactful graphic designs across various mediums.
-              </Typography>
-            </Box>
-
+                <Typography sx={{ mt: 1, color: themeColors.deepBlack }}>
+                  Foundation in graphic design entails learning the core principles and techniques essential for creating visually appealing and effective designs. This includes understanding concepts like typography, color theory, layout composition, and visual hierarchy, which serve as the building blocks for creating impactful graphic designs across various mediums.
+                </Typography>
+              </Box>
+              </Link>
+            
             {/* Card 2 */}
             <Box sx={{
               width: { xs: "100%", sm: "100%", md: "380px" },
@@ -308,7 +313,7 @@ export default function Courses() {
       </Box>
 
       {/* Main wrapper 2 */}
-        <Box sx={{
+      <Box sx={{
         display: "flex",
         justifyContent: "center",
         flexDirection: { xs: "column", md: "row" },
@@ -346,7 +351,7 @@ export default function Courses() {
             fontWeight: 700,
             lineHeight: 1.3
           }}>
-          CMS & Web Technologies Courses
+            CMS & Web Technologies Courses
           </Typography>
         </Box>
 
@@ -354,8 +359,8 @@ export default function Courses() {
         <Box sx={{
           width: {
             xs: "100%",
-            sm: "420px",   
-            md: "772px",   
+            sm: "420px",
+            md: "772px",
           },
 
         }}>
@@ -557,7 +562,7 @@ export default function Courses() {
       </Box>
 
       {/* Main wrapper 3 */}
-        <Box sx={{
+      <Box sx={{
         display: "flex",
         justifyContent: "center",
         flexDirection: { xs: "column", md: "row" },
@@ -595,7 +600,7 @@ export default function Courses() {
             fontWeight: 700,
             lineHeight: 1.3
           }}>
-        Digital Marketing Courses
+            Digital Marketing Courses
           </Typography>
         </Box>
 
@@ -603,8 +608,8 @@ export default function Courses() {
         <Box sx={{
           width: {
             xs: "100%",
-            sm: "420px",   
-            md: "772px",   
+            sm: "420px",
+            md: "772px",
           },
 
         }}>
