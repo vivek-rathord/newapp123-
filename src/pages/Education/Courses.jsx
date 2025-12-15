@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-import GraphicDesign from "../GraphicDesign";
+// import GraphicDesign from "../GraphicDesign";
 
 const themeColors = {
   orangeColor: "#FF5532",

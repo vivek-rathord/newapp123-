@@ -9,8 +9,7 @@ import Contact from "./pages/Contact";
 import Blogs from "./pages/Blogs";
 import BlogDetail from "./pages/BlogDetail";
 import Singlecourse from "./pages/Singlecourse";
-import GraphicDesign from "./pages/GraphicDesign";
-
+import GraphicDesign from "./pages/GraphicPage/GraphicDesign";
 function App() {
   return (
     <div className="app">

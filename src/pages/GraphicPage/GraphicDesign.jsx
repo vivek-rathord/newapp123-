@@ -1,18 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
-import {Typography,
-    Box,
-    useTheme,
-    Link as MuiLink,
-    Collapse,
-} from "@mui/material";
+import { Typography, Box, useTheme, Link as MuiLink, Collapse, } from "@mui/material";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { styled } from "@mui/material/styles";
-import Photoshop from '../assets/Images/Adobe Photoshop.svg';
-import AdobeIndesign from '../assets/Images/Adobe Indesign.png'
-import figma from '../assets/images/Figma.svg';
-import AdobeXd from '../assets/Images/Adobe Xd.svg';
-import Adobeillustrator from '../assets/Images/Adobe Illustrator.svg';
+import Photoshop from '../../assets/images/Adobe Photoshop.svg'
+import AdobeIndesign from '../../assets/Images/Adobe Indesign.png'
+import figma from '../../assets/images/Figma.svg';
+import AdobeXd from '../../assets/Images/Adobe Xd.svg';
+import Adobeillustrator from '../../assets/Images/Adobe Illustrator.svg';
 const timelineData = [
     {
         title: "Introduction To Graphic Design",
@@ -169,13 +164,14 @@ const FaqQuestionBox = styled(Box)(({ theme, open }) => ({
     backgroundColor: WHITE_COLOR,
     padding: '30px 50px',
     borderRadius: '20px',
+    borderBottomLeftRadius: '0px',
+    borderBottomRightRadius: '0px',
     maxWidth: '700px',
     width: '100%',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     transition: 'all 0.3s ease',
     boxShadow: open ? '0 5px 15px rgba(0,0,0,0.1)' : 'none',
-    border: open ? `1px solid ${ACTIVE_COLOR}` : '1px solid transparent',
     cursor: 'pointer',
     [theme.breakpoints.down('md')]: {
         padding: '20px 30px',
@@ -297,16 +293,16 @@ function GraphicDesign() {
 
             {/* --- Hero Section --- */}
             <HeroBox component="section" className="hero">
-                <Box className="flex" sx={{ display: 'flex', justifyContent: 'center', gap: { xs: '100px', sm: '170px' }, mt: '60px', mb: 0 }}>
+                <Box className="flex" sx={{ display: 'flex', justifyContent: 'center', gap: { sm: '162px' }, mt: '30px', mb: 0 }}>
                     <Box component="img" src={Photoshop} alt="Adobe Photoshop" sx={{ height: '64.54px', maxWidth: '65.28px' }} />
                     <Box component="img" src={AdobeIndesign} alt="Adobe Indesign" sx={{
                         height: '65.28px', maxWidth: '65.28px',
-                        position: 'relative', left: { xs: '20px', sm: '30px' }
+                        position: 'relative', left: { xs: '106px' }
                     }} />
                 </Box>
 
-                <Box className="figma" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '20px 0' }}>
-                    <Box component="img" src={figma} alt="Figma" sx={{ height: '65.28px', maxWidth: '65.28px', mr: 2 }} />
+                <Box className="figma" sx={{ display: 'flex', justifyContent: 'center', alignItems: '', margin: '0px 0' }}>
+                    <Box component="img" src={figma} alt="Figma" sx={{ height: '65.28px', maxWidth: '65.28px', mr: 0 }} />
                     <Typography variant="h1" sx={{
                         textAlign: 'center',
                         fontSize: { xs: '30px', sm: '50px', md: '64px' },
@@ -321,13 +317,13 @@ function GraphicDesign() {
 
                 <Typography className="Foundation" sx={{
                     color: INACTIVE_COLOR,
-                    maxWidth: { xs: '320px', sm: '514px', md: '800px' },
+                    maxWidth: { xs: '330px', sm: '514px', md: '830px' },
                     fontWeight: 400,
                     margin: 'auto',
                     textAlign: 'center',
                     fontSize: { xs: '13px', sm: '14px', md: '16px' },
                     lineHeight: '150%',
-                    mb: '40px'
+                    mb: '40px', fontFamily: 'Outfit, sans-serif',
                 }}>
                     Foundation in graphic design entails learning the core principles and techniques essential for creating visually appealing and effective designs. This includes understanding concepts like typography, color theory, layout composition, and visual hierarchy, which serve as the building blocks for creating impactful graphic designs across various mediums.
                 </Typography>
@@ -336,11 +332,11 @@ function GraphicDesign() {
 
                     <Box component="img" src={AdobeXd} alt="Adobe XD" sx={{
                         height: '64.54px', maxWidth: '65.28px', position: 'relative',
-                        bottom: { xs: '0px', md: '20px' }, right: '30px'
+                        bottom: { xs: '0px', md: '50px' }, right: '60px'
                     }} />
                     <Box component="img" src={Adobeillustrator} alt="Adobe Illustrator" sx={{
                         height: '65.28px', maxWidth: '65.28px', position: 'relative',
-                        left: { xs: '10px', sm: '20px' }, bottom: { xs: '5px', md: '30px' }
+                        left: { xs: '10px', sm: '70px' }, bottom: { xs: '0px', md: '70px' }
                     }} />
                 </Box>
             </HeroBox>
@@ -369,9 +365,9 @@ function GraphicDesign() {
 
                 <Box className="Group571" sx={{ maxWidth: { xs: '100%', sm: '600px' } }}>
                     <Typography component="p" sx={{
-                        maxWidth: { xs: '330px', sm: '600px' }, color: INACTIVE_COLOR,
+                        maxWidth: { xs: '400px', sm: '550px' }, color: INACTIVE_COLOR,
                         lineHeight: '25px', marginBottom: '30px', fontSize: '14px',
-                        margin: { xs: 'auto', sm: '0 0 30px' }
+                        margin: { xs: 'auto', sm: '0 0 30px' }, fontFamily: 'Outfit'
                     }}>
                         Whether you're a student from fields like BCA, BTech, or Polytechnic aiming to build creative expertise, a beginner eager to dive into the world of design, or a working professional looking to strengthen your visual communication skills—this course is designed for you. It also suits entrepreneurs, marketers, and freelancers who want to independently craft impactful brand visuals or those preparing a strong portfolio to pursue higher opportunities in the creative industry.
                     </Typography>
@@ -387,7 +383,7 @@ function GraphicDesign() {
             </Frame31Box>
 
             {/* --- Timeline Section --- */}
-            <TimelineWrapper className="timeline-section-main-wrapper" sx={{ margin: 'auto', display: 'flex', justifyContent: 'center',displayPrint: 'none' }}>
+            <TimelineWrapper className="timeline-section-main-wrapper" sx={{ display: 'flex', justifyContent: 'center', displayPrint: 'none' }}>
 
                 <Box className="Group574" sx={{
                     marginBottom: '40px',
@@ -405,9 +401,11 @@ function GraphicDesign() {
                     </Typography>
                     <Typography variant="h2" className="heading" sx={{
                         fontWeight: 700, fontFamily: 'Outfit', color: PRIMARY_COLOR,
-                        fontSize: { xs: '25px', sm: '30px', md: '48px' },
+                        fontSize: { xs: '25px', sm: '48px', md: '45px' },
                         maxWidth: { xs: '1000px', sm: '1200px', lg: '1000px' },
-                        mt: { xs: '10px', sm: '0' },
+                        mt: { xs: '10px', sm: '0' }, '@media (max-width: 448px)': {
+                            fontSize: '22px'
+                        }
                     }}>
                         Breaking Down The Learning Journey
                     </Typography>
@@ -457,14 +455,21 @@ function GraphicDesign() {
                                         maxWidth: '1200px',
                                         marginTop: '-10px',
                                         position: 'relative',
+                                        left: '5px',
                                         ml: '50px',
                                         backgroundColor: index === activeDotIndex ? WHITE_COLOR : 'transparent',
                                         padding: index === activeDotIndex ? '50px' : '0',
                                         borderRadius: '40px',
                                         transition: 'background-color 0.3s ease, padding 0.3s ease',
                                         boxShadow: index === activeDotIndex ? '0 10px 30px rgba(0,0,0,0.1)' : 'none',
+                                        '@media (max-width: 448px)': {
+
+                                            padding: index === activeDotIndex ? '30px' : '40px',
+                                            ml: '20px', // optional: adjust margin-left on small screens
+                                        },
                                     }}
                                 >
+
                                     <Typography component="h3" sx={{
                                         color: index === activeDotIndex ? ACTIVE_COLOR : PRIMARY_COLOR,
                                         fontSize: { xs: '18px', md: '20px', lg: '24px' },
@@ -475,7 +480,9 @@ function GraphicDesign() {
                                     <Typography component="p" sx={{
                                         color: INACTIVE_COLOR, lineHeight: 1.6, marginTop: '10px',
                                         fontSize: { xs: '13px', md: '14px' },
-                                        maxWidth: { xs: '100%', md: '510px' }
+                                        maxWidth: { xs: '700px', md: '510px' }, '@media (max-width: 448px)': {
+                                            fontSize: '10px',
+                                        }
                                     }}>
                                         {item.content}
                                     </Typography>
@@ -538,7 +545,6 @@ function GraphicDesign() {
                                     backgroundColor: WHITE_COLOR,
                                     borderRadius: '0 0 20px 20px',
                                     marginTop: '-1px',
-                                    border: openFaqIndex === index ? `1px solid ${ACTIVE_COLOR}` : '1px solid transparent',
                                     borderTop: 'none',
                                 }}>
                                     <Typography sx={{
@@ -561,7 +567,8 @@ function GraphicDesign() {
                     color: PRIMARY_COLOR, fontWeight: 700,
                     fontSize: { xs: '30px', md: '48px' },
                     fontFamily: 'Outfit', lineHeight: '120%',
-                    marginBottom: '15px'
+                    marginBottom: '15px',
+
                 }}>
                     Book A Demo Class Today!
                 </Typography>
