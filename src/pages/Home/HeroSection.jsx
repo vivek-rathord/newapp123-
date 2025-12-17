@@ -1,5 +1,5 @@
  import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { Box, Typography, Button, styled } from "@mui/material";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -93,77 +93,6 @@ const HeroText = styled(Typography)(({ theme }) => ({
   }
 }));
 
-const ButtonContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  gap: '20px',
-  marginTop: '10px',
-  [theme.breakpoints.down('sm')]: {
-    flexDirection: 'column',
-    gap: '15px',
-  }
-}));
-
-// const PrimaryButton = styled(Button)(({ theme }) => ({
-//   backgroundColor: themeColors.deepBlack,
-//   color: themeColors.pureWhite,
-//   padding: '15px 40px',
-//   borderRadius: '10px',
-//   fontSize: '16px',
-//   fontWeight: '600',
-//   textTransform: 'none',
-//   transition: 'all 0.4s ease',
-//  '&:hover': {
-//   backgroundColor: themeColors.orangeColor,
-//   color: themeColors.pureWhite,
-//   transform: 'translateY(-1px)',
-//   boxShadow: '0 15px 35px rgba(255, 85, 50, 0.3)',
-// },
-
-//  // ensure hover off returns to default
-//   '&:not(:hover)': {
-//     backgroundColor: themeColors.deepBlack,
-//     color: themeColors.pureWhite,
-//     transform: 'translateY(0)',
-//     boxShadow: 'none',
-//   }
-// }));
-const PrimaryButton = styled(Button)(() => ({
-  backgroundColor: themeColors.deepBlack,
-  color: themeColors.pureWhite,
-  padding: "15px 40px",
-  borderRadius: "10px",
-  fontSize: "16px",
-  fontWeight: "600",
-  textTransform: "none",
-  transition: "all 0.4s ease",
-
-  "&:hover": {
-    backgroundColor: themeColors.darkGray,
-    color: themeColors.pureWhite,
-    transform: "translateY(-1px)",
-    boxShadow: "0 15px 35px rgba(0,0,0,0.3)",
-  },
-}));
-
-
-
-const SecondaryButton = styled(Button)(({ theme }) => ({
-  backgroundColor: 'transparent',
-  color: themeColors.deepBlack,
-  padding: '15px 40px',
-  borderRadius: '10px',
-  fontSize: '16px',
-  fontWeight: '600',
-  textTransform: 'none',
-  border: `2px solid ${themeColors.deepBlack}`,
-  transition: 'all 0.4s ease',
-  '&:hover': {
-    backgroundColor: themeColors.deepBlack,
-    color: themeColors.pureWhite,
-    transform: 'translateY(-3px)',
-    boxShadow: '0 15px 35px rgba(0, 0, 0, 0.2)',
-  }
-}));
 
 function HeroSection() {
   useEffect(() => {
@@ -203,25 +132,6 @@ function HeroSection() {
       >
     From digital branding and website design to student training, we help businesses scale their online presence and prepare the next generation of skilled IT professionals through practical learning experiences.
       </HeroText>
-{/* 
-      <ButtonContainer 
-        data-aos="fade-up" 
-        data-aos-delay="500"
-        data-aos-duration="1000"
-      >
-        <Link to="/services" style={{ textDecoration: 'none' }}>
-      
-      <PrimaryButton component={Link} to="/services">
-  Our Services
-</PrimaryButton>
-
-        </Link>
-        <Link to="/education" style={{ textDecoration: 'none' }}>
-          <SecondaryButton>
-            Our Courses
-          </SecondaryButton>
-        </Link>
-      </ButtonContainer> */}
     </HeroContainer>
   );
 }

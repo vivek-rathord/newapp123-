@@ -53,7 +53,7 @@ const SolutionCard = styled(Card)(({ theme, variant }) => ({
   border: variant === 'light' ? '2px solid #f0f0f0' : 'none',
 
   [theme.breakpoints.down('md')]: {
-    width: '85%',
+    width: '100%',
     minHeight: '280px',
     padding: '35px 30px',
   },

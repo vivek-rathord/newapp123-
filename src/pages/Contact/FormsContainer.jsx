@@ -109,7 +109,12 @@ export default function ContactQuery() {
       )}
 
       {/* ----------- DIALOG POPUP ----------- */}
-      <Dialog open={openPopup} onClose={closeForm} maxWidth="sm" fullWidth>
+      <Dialog open={openPopup} onClose={closeForm} maxWidth="sm" fullWidth PaperProps={{
+    sx: {
+      borderRadius: "20px",
+      overflow: "hidden",
+    },
+  }}>
         <DialogContent>
           {activeForm && (
             <Box sx={{ display: "flex", justifyContent: "flex-start" }}>
@@ -128,7 +133,7 @@ export default function ContactQuery() {
 
 // ---------------- FORM WRAPPER ----------------
 const FormWrapper = ({ children }) => (
-  <Box sx={{ width: "100%", maxWidth: "800px", display: "flex", flexDirection: "column", gap: 2, mt: 4 }}>
+  <Box sx={{ width: "100%", maxWidth: "800px", display: "flex", flexDirection: "column", gap: 2, mt: 4 ,px: { xs: 1, sm: 1 }, py: { xs: 1, sm: 1 }, }}>
     {children}
   </Box>
 );

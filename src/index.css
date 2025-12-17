@@ -1,3 +1,5 @@
+
+
 *{
   margin: 0px;
   padding: 0px;
@@ -14,13 +16,20 @@
 }
 body{
   background: var(--off-white);
-  font-family: "Outfit";
+  font-family: 'Outfit', sans-serif;
+
 }
+
 
   a:hover {
 text-underline-offset: 10px;
 transition: all 0.2s ease;
 }
+a {
+  text-decoration: none;
+  color: inherit; 
+}
+
 /* button{
   border: none;
   padding: 10px 20px;

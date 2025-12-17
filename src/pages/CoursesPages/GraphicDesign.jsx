@@ -123,12 +123,12 @@ const Frame31Box = styled(Box)(({ theme }) => ({
 
 // 4. Timeline Section
 const TimelineWrapper = styled(Box)(({ theme }) => ({
-    padding: '100px',
+    padding: '120px',
     margin: 'auto',
     display: 'flex',
     justifyContent: 'center',
     [theme.breakpoints.down('md')]: {
-        padding: '100px 70px',
+        padding: '100px 90px',
         paddingLeft: '30px',
         alignItems: 'center',
     },
@@ -289,7 +289,7 @@ function GraphicDesign() {
 
 
     return (
-        <Box sx={{ backgroundColor: BACKGROUND_COLOR, fontFamily: 'Outfit, sans-serif' }}>
+        <Box sx={{ backgroundColor: BACKGROUND_COLOR }}>
 
             {/* --- Hero Section --- */}
             <HeroBox component="section" className="hero">
@@ -309,7 +309,7 @@ function GraphicDesign() {
                         fontWeight: 700,
                         lineHeight: '120%',
                         textTransform: 'capitalize',
-                        fontFamily: 'Outfit, sans-serif',
+                      
                     }}>
                         GRAPHIC DESIGN
                     </Typography>
@@ -323,7 +323,7 @@ function GraphicDesign() {
                     textAlign: 'center',
                     fontSize: { xs: '13px', sm: '14px', md: '16px' },
                     lineHeight: '150%',
-                    mb: '40px', fontFamily: 'Outfit, sans-serif',
+                    mb: '40px',
                 }}>
                     Foundation in graphic design entails learning the core principles and techniques essential for creating visually appealing and effective designs. This includes understanding concepts like typography, color theory, layout composition, and visual hierarchy, which serve as the building blocks for creating impactful graphic designs across various mediums.
                 </Typography>
@@ -355,7 +355,7 @@ function GraphicDesign() {
                     <Typography variant="h2" sx={{
                         fontWeight: 700,
                         fontSize: { xs: '25px', sm: '30px', md: '40px', lg: '48px' },
-                        fontFamily: 'Outfit, sans-serif',
+                  
                         maxWidth: { xs: '100%', sm: '400px' },
                         margin: { xs: '0 auto', sm: '0' }
                     }}>
@@ -367,7 +367,7 @@ function GraphicDesign() {
                     <Typography component="p" sx={{
                         maxWidth: { xs: '400px', sm: '550px' }, color: INACTIVE_COLOR,
                         lineHeight: '25px', marginBottom: '30px', fontSize: '14px',
-                        margin: { xs: 'auto', sm: '0 0 30px' }, fontFamily: 'Outfit'
+                        margin: { xs: 'auto', sm: '0 0 30px' },
                     }}>
                         Whether you're a student from fields like BCA, BTech, or Polytechnic aiming to build creative expertise, a beginner eager to dive into the world of design, or a working professional looking to strengthen your visual communication skills—this course is designed for you. It also suits entrepreneurs, marketers, and freelancers who want to independently craft impactful brand visuals or those preparing a strong portfolio to pursue higher opportunities in the creative industry.
                     </Typography>
@@ -400,7 +400,7 @@ function GraphicDesign() {
                         Course Overview
                     </Typography>
                     <Typography variant="h2" className="heading" sx={{
-                        fontWeight: 700, fontFamily: 'Outfit', color: PRIMARY_COLOR,
+                        fontWeight: 700, color: PRIMARY_COLOR,
                         fontSize: { xs: '25px', sm: '48px', md: '45px' },
                         maxWidth: { xs: '1000px', sm: '1200px', lg: '1000px' },
                         mt: { xs: '10px', sm: '0' }, '@media (max-width: 448px)': {
@@ -473,7 +473,7 @@ function GraphicDesign() {
                                     <Typography component="h3" sx={{
                                         color: index === activeDotIndex ? ACTIVE_COLOR : PRIMARY_COLOR,
                                         fontSize: { xs: '18px', md: '20px', lg: '24px' },
-                                        fontFamily: 'Outfit, sans-serif', fontWeight: 600,
+                                        fontWeight: 600,
                                     }}>
                                         {item.title}
                                     </Typography>

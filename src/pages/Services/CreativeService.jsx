@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Box, Typography, styled } from "@mui/material";
-
 import brand from "../../assets/Images/branding.png";
 import Graphics from "../../assets/Images/graphics.png";
 import ui from "../../assets/Images/ui.png";
@@ -63,24 +62,34 @@ const HeadingContainer = styled(Box)(({ theme }) => ({
 }));
 
 
-// NEW CARD STYLE like PortfolioCard
-const ServiceCard = styled(Box)(({ theme }) => ({
+// CARD 
+const ServiceCard = styled(Box, {
+  shouldForwardProp: (prop) => prop !== "active",
+})(({ active }) => ({
   padding: "28px",
-  borderRadius: "35px",
+  borderRadius: "40px",
   marginBottom: "25px",
-  transition: "all 0.4s ease",
   cursor: "pointer",
   position: "relative",
 
+  backgroundColor: active
+    ? "white"
+    : themeColors.none,
+
+  transform: active ? "translateY(-6px)" : "translateY(0)",
+  transition: "all 0.45s cubic-bezier(0.4, 0, 0.2, 1)",
+
   "&:hover": {
-    transform: "translateY(-8px)",
-    boxShadow: "0 25px 70px rgba(0,0,0,0.18)",
+    // transform: "translateY(-8px)",
+    // boxShadow: "0 25px 70px rgba(0,0,0,0.18)",
   },
+
   h3: {
-    fontSize: "1.5rem",
+    fontSize: active ? "1.7rem" : "1.5rem",
     fontWeight: 500,
     margin: "10px 0",
     color: themeColors.deepBlack,
+    transition: "font-size 0.35s ease",
   },
 
   li: {
@@ -88,12 +97,36 @@ const ServiceCard = styled(Box)(({ theme }) => ({
     listStyleType: "disc",
     marginLeft: "45px",
     color: themeColors.darkGray,
-    fontSize: "15px",
+    fontSize: active ? "16px" : "15px",
+    transition: "font-size 0.35s ease",
   },
-
 }));
 
+
 function CreativeService() {
+  const cardRefs = useRef([]);
+  const [activeCard, setActiveCard] = useState(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const centerY = window.innerHeight / 2;
+
+      cardRefs.current.forEach((card, index) => {
+        if (!card) return;
+
+        const rect = card.getBoundingClientRect();
+        const cardCenter = rect.top + rect.height / 2;
+
+        if (Math.abs(cardCenter - centerY) < 120) {
+          setActiveCard(index);
+        }
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <SectionContainer data-aos="fade-up">
       {/* Heading */}
@@ -101,7 +134,7 @@ function CreativeService() {
         <span>What We Offer</span>
         <h2>Creative Design Solutions</h2>
         <p>
-         Our Creative Design Solutions encompass branding, UI/UX, and graphic design, ensuring a cohesive visual identity across all platforms. We craft engaging and intuitive designs hat not only captivate users but also drive conversions. Our Approach combines creativity with strategic insights to elevate your brand in digital landscape.
+          Our Creative Design Solutions encompass branding, UI/UX, and graphic design, ensuring a cohesive visual identity across all platforms. We craft engaging and intuitive designs hat not only captivate users but also drive conversions. Our Approach combines creativity with strategic insights to elevate your brand in digital landscape.
         </p>
       </HeadingContainer>
 
@@ -130,7 +163,12 @@ function CreativeService() {
         <Box sx={{ flex: 1, minWidth: "350px" }}>
 
           {/* Branding */}
-          <ServiceCard data-aos="fade-right" sx={{ backgroundColor: themeColors.pureWhite }}>
+          <ServiceCard
+            ref={(el) => (cardRefs.current[0] = el)}
+            active={activeCard === 0}
+            data-aos="fade-right"
+          >
+
             <Box display="flex" alignItems="center" mb={1}  >
               <img
                 src={brand}
@@ -144,7 +182,12 @@ function CreativeService() {
           </ServiceCard>
 
           {/* Graphic Design */}
-          <ServiceCard data-aos="fade-right" data-aos-delay="150">
+          <ServiceCard
+            ref={(el) => (cardRefs.current[1] = el)}
+            active={activeCard === 1}
+            data-aos="fade-right"
+            data-aos-delay="150"
+          >
             <Box display="flex" alignItems="center" mb={1}>
               <img
                 src={Graphics}
@@ -158,7 +201,13 @@ function CreativeService() {
           </ServiceCard>
 
           {/* UX/UI */}
-          <ServiceCard data-aos="fade-right" data-aos-delay="300">
+          <ServiceCard
+            ref={(el) => (cardRefs.current[2] = el)}
+            active={activeCard === 2}
+            data-aos="fade-right"
+            data-aos-delay="300"
+          >
+
             <Box display="flex" alignItems="center" mb={1}>
               <img
                 src={ui}
