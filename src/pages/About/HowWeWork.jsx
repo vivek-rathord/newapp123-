@@ -403,7 +403,7 @@ const HowWeWork = () => {
                   <Typography
                     sx={{
                       fontSize: { xs: "1.2rem", md: "1.5rem" },
-                      fontWeight: isActive ? 800 : 600,
+                      fontWeight: isActive ? 600 : 500,
                       mb: isActive ? "10px" : "0",
                       color: isActive
                         ? "#111"

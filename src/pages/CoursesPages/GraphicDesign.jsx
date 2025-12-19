@@ -8,6 +8,8 @@ import AdobeIndesign from '../../assets/Images/Adobe Indesign.png'
 import figma from '../../assets/images/Figma.svg';
 import AdobeXd from '../../assets/Images/Adobe Xd.svg';
 import Adobeillustrator from '../../assets/Images/Adobe Illustrator.svg';
+import BookDemoClass from "../../components/BookDemoClass";
+
 const timelineData = [
     {
         title: "Introduction To Graphic Design",
@@ -580,14 +582,9 @@ function GraphicDesign() {
                 }}>
                     Still have questions about our graphic design course? Book a free demo class to get a hands-on experience and clarify all your doubts before enrolling.
                 </Typography>
-                <MuiLink href="#" underline="none" sx={{
-                    backgroundColor: PRIMARY_COLOR, color: WHITE_COLOR,
-                    padding: '15px 110px', borderRadius: '13px',
-                    fontSize: '14px', letterSpacing: '0.8px', fontWeight: 400,
-                    display: 'inline-block',
-                }}>
-                    Book Now
-                </MuiLink>
+               
+                     <BookDemoClass />
+               
             </DemoGroupBox>
 
         </Box>

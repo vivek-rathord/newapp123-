@@ -229,7 +229,11 @@ function Navbar() {
           <NavLinkItem>
             <Link to="/education">Education</Link>
           </NavLinkItem>
+          <NavLinkItem>
+            <Link to="/Blogs">Blog</Link>
+          </NavLinkItem>
         </NavLinks>
+        
 
         {/* Desktop Contact Button */}
         <NavButton component={Link} to="/contact">

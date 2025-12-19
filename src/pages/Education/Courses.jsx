@@ -1,7 +1,11 @@
 import React, { useRef } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-// import GraphicDesign from "../CoursesPages/GraphicDesign";
+import ArroweRight from "../../assets/Images/arrow-right-line.svg";
+import ArroweLeft from "../../assets/Images/arrow-left-line (3).svg";
+import { ArrowRight } from "@mui/icons-material";
+
+
 const themeColors = {
   orangeColor: "#FF5532",
   deepBlack: "#111111",
@@ -279,10 +283,11 @@ export default function Courses() {
         <Box sx={{
           display: "flex",
           gap: 2,
-          mt: 3
+          mt: 10,
+          cursor:'pointer',
         }}>
 
-          <Button sx={{
+          {/* <Button sx={{
             background: themeColors.deepBlack,
             color: themeColors.pureWhite,
             borderRadius: "8px",
@@ -292,19 +297,25 @@ export default function Courses() {
           }}
             onClick={scrollLeft1}>
             <i className="fa-solid fa-arrow-left"></i>
-          </Button>
+          </Button> */}
+           <div onClick={scrollLeft1}>
+             <img src={ArroweLeft} alt="ArroweRight" sx={{}}/>
+          </div>
 
-          <Button sx={{
+          {/* <Button sx={{
             background: themeColors.deepBlack,
             color: themeColors.pureWhite,
             borderRadius: "8px",
-            width: "32px",
+            // width: "32px",
             height: "32px",
             "&:hover": { background: themeColors.darkGray, color: themeColors.deepBlack }
           }}
             onClick={scrollRight1}>
-            <i className="fa-solid fa-arrow-right"></i>
-          </Button>
+             <img src={ArroweRight} alt="ArroweRight" sx={{}}/>
+          </Button> */}
+          <div onClick={scrollRight1}>
+             <img src={ArroweRight} alt="ArroweRight" sx={{}}/>
+          </div>
 
         </Box>
 
@@ -529,10 +540,11 @@ export default function Courses() {
 <Box sx={{
   display: "flex",
   gap: 2,
-  mt: 3
+  mt: 10,
+   cursor:'pointer',
 }}>
 
-  <Button sx={{
+  {/* <Button sx={{
     background: themeColors.deepBlack,
     color: themeColors.pureWhite,
     borderRadius: "8px",
@@ -542,9 +554,12 @@ export default function Courses() {
   }}
     onClick={scrollLeft2}>
     <i className="fa-solid fa-arrow-left"></i>
-  </Button>
+  </Button> */}
+   <div onClick={scrollLeft2}>
+             <img src={ArroweLeft} alt="ArroweRight" />
+          </div>
 
-  <Button sx={{
+  {/* <Button sx={{
     background: themeColors.deepBlack,
     color: themeColors.pureWhite,
     borderRadius: "8px",
@@ -554,7 +569,11 @@ export default function Courses() {
   }}
     onClick={scrollRight2}>
     <i className="fa-solid fa-arrow-right"></i>
-  </Button>
+  </Button> */}
+   <div onClick={scrollLeft2}>
+             <img src={ArroweRight} alt="ArroweRight"/>
+          </div>
+  
 
 </Box>
 
@@ -778,10 +797,11 @@ export default function Courses() {
 <Box sx={{
   display: "flex",
   gap: 2,
-  mt: 3
+  mt: 10,
+   cursor:'pointer',
 }}>
 
-  <Button sx={{
+  {/* <Button sx={{
     background: themeColors.deepBlack,
     color: themeColors.pureWhite,
     borderRadius: "8px",
@@ -791,9 +811,13 @@ export default function Courses() {
   }}
     onClick={scrollLeft3}>
     <i className="fa-solid fa-arrow-left"></i>
-  </Button>
+  </Button> */}
 
-  <Button sx={{
+   <div onClick={scrollLeft3}>
+             <img src={ArroweLeft} alt="ArroweRight" />
+          </div>
+
+  {/* <Button sx={{
     background: themeColors.deepBlack,
     color: themeColors.pureWhite,
     borderRadius: "8px",
@@ -803,7 +827,10 @@ export default function Courses() {
   }}
     onClick={scrollRight3}>
     <i className="fa-solid fa-arrow-right"></i>
-  </Button>
+  </Button> */}
+   <div onClick={scrollRight3}>
+             <img src={ArroweRight} alt="ArroweRight" sx={{}}/>
+          </div>
 
 </Box>
 
