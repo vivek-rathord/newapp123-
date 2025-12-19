@@ -570,7 +570,7 @@ export default function Courses() {
     onClick={scrollRight2}>
     <i className="fa-solid fa-arrow-right"></i>
   </Button> */}
-   <div onClick={scrollLeft2}>
+   <div onClick={scrollRight2}>
              <img src={ArroweRight} alt="ArroweRight"/>
           </div>
   
