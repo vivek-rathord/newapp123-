@@ -20,7 +20,8 @@ const HeroContainer = styled(Box)(({ theme }) => ({
   gap: '25px',
   textTransform: 'capitalize',
   textAlign: 'center',
-  padding: '60px 0px',
+  padding: '90px 0px',
+  background:'red',
   // minHeight: '70vh',
   width: '100%',
   [theme.breakpoints.down('md')]: {

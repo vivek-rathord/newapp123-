@@ -29,9 +29,7 @@ const SolutionsGrid = styled(Grid)(({ theme }) => ({
   margin: '0 auto',
 
   [theme.breakpoints.down('md')]: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: '35px',
+    flexDirection:'column',
   },
   [theme.breakpoints.down('sm')]: {
     gap: '25px',
@@ -61,6 +59,8 @@ const SolutionCard = styled(Card)(({ theme, variant }) => ({
     width: '100%',
     minHeight: '250px',
     padding: '30px 25px',
+  borderRadius: '16px',
+
   }
 }));
 
@@ -79,7 +79,6 @@ const SolutionTitle = styled(Typography)(({ theme }) => ({
 
 const SolutionText = styled(Typography)(({ theme }) => ({
   fontSize: '14px',
-  width:"430px",
   lineHeight: '1.6',
   textAlign: 'left',
   textTransform:'capitalize',
@@ -88,11 +87,11 @@ const SolutionText = styled(Typography)(({ theme }) => ({
   opacity: 0.8,
 
   [theme.breakpoints.down('md')]: {
-    width: '100%',
+    width: '20px%',
   },
   [theme.breakpoints.down('sm')]: {
     width: '100%',
-    fontSize: '13px',
+    fontSize: '14px',
   }
 }));
 

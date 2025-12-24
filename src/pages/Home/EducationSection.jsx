@@ -14,17 +14,18 @@ const themeColors = {
 };
 
 const ServicesContainer = styled(Box)(({ theme }) => ({
-  padding: '80px 0px',
+  // background: 'red',
+  padding: '60px 0px',
   width: '100%',
   textAlign: 'center',
   position: 'relative',
   overflow: 'hidden',
-  minHeight: '1130px',
   [theme.breakpoints.down('md')]: {
-    padding: '60px 0px',
-    minHeight: '1000px',
+    padding: '30px 0px',
+    // minHeight: '1000px',
   },
-   [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('sm')]: {
+    padding: '10px 0px',
 
   }
 }));
@@ -32,30 +33,37 @@ const ServicesContainer = styled(Box)(({ theme }) => ({
 const SectionHeading = styled(Box)(({ theme }) => ({
   position: 'relative',
   display: 'inline-block',
-  marginBottom: '60px',
+  marginBottom: '30px',
   overflow: 'hidden',
+    [theme.breakpoints.down('sm')]: {
+  marginBottom: '0px',
+   
+  }
 }));
 
 const SectionImage = styled("img")(({ theme }) => ({
   width: "100%",
+  position:"relatoive",
   height: "auto",
-  maxHeight: "160px",        // desktop height control
+  maxHeight: "120px",        
   objectFit: "contain",
 
   [theme.breakpoints.down("md")]: {
-    maxHeight: "130px",
+    // maxHeight: "130px",
   },
 
   [theme.breakpoints.down("sm")]: {
+    height:'80px',
+    // background:'red',
   },
 }));
 
 
 
 const SectionTitle = styled(Typography)(({ theme }) => ({
-  padding: '20px 0px',
-  [theme.breakpoints.down('md')]: { fontSize: '4rem' },
-  [theme.breakpoints.down('sm')]: { fontSize: '2.5rem', marginBottom: "60px",padding:"0px", },
+  // padding: '20px 0px',
+  // [theme.breakpoints.down('md')]: { fontSize: '4rem' },
+  // [theme.breakpoints.down('sm')]: { fontSize: '2.5rem', marginBottom: "60px", padding: "0px", },
 }));
 
 const SectionSubtitle = styled(Typography)(({ theme }) => ({
@@ -66,11 +74,14 @@ const SectionSubtitle = styled(Typography)(({ theme }) => ({
   padding: '5px 20px',
   backgroundColor: themeColors.orangeColor,
   color: themeColors.pureWhite,
-  borderRadius: '25px',
+  borderRadius: '109px',
+  letterSpacing: '0.24px',
   fontSize: '14px',
   fontWeight: '500',
   whiteSpace: 'nowrap',
-  [theme.breakpoints.down('sm')]: { fontSize: '.7rem' },
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '.7rem',
+  }
 
 }));
 
@@ -83,13 +94,18 @@ const ContentTitle = styled(Typography)(({ theme }) => ({
 
 const ServicesGrid = styled(Grid)(({ theme }) => ({
   display: 'flex',
-  flexDirection:'row-reverse',
+  flexDirection: 'row-reverse',
   justifyContent: 'center',
   alignItems: 'flex-start',
   gap: '50px',
   maxWidth: '1300px',
   margin: '0 auto',
-  [theme.breakpoints.down('lg')]: {
+  [theme.breakpoints.down('md')]: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: '40px',
+  },
+   [theme.breakpoints.down('sm')]: {   
     flexDirection: 'column',
     alignItems: 'center',
     gap: '40px',
@@ -99,6 +115,7 @@ const ServicesGrid = styled(Grid)(({ theme }) => ({
 const ServicesList = styled(Box)(({ theme }) => ({
   flex: 1,
   minWidth: '400px',
+    minHeight: '500px',
   display: 'flex',
   flexDirection: 'column',
   textAlign: 'left',
@@ -107,9 +124,10 @@ const ServicesList = styled(Box)(({ theme }) => ({
     padding: '0px',
     width: '100%',
     minWidth: 'auto',
+      minHeight: 'auto',
   },
-   [theme.breakpoints.down('sm')]: {
-   
+  [theme.breakpoints.down('sm')]: {
+
   }
 }));
 
@@ -123,7 +141,7 @@ const ServiceImage = styled(Box)(({ theme }) => ({
     width: '100%',
     maxWidth: '400px',
     height: '350px',
-    borderRadius: '20px',
+    borderRadius: '40px',
     objectFit: 'cover',
     boxShadow: '0 15px 50px rgba(0,0,0,0.1)',
     transition: 'all 0.5s ease',
@@ -142,7 +160,7 @@ const ServiceImage = styled(Box)(({ theme }) => ({
 const ButtonContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   textAlign: 'center',
-  marginTop: '50px',
+  marginTop: '20px',
 }));
 
 const BlackButton = styled(Button)(({ theme }) => ({
@@ -281,7 +299,7 @@ function EducationSection() {
   };
 
   const getDescAnimationStyle = (index) => index === activeIndex
-    ? { opacity: 1, transform: 'translateY(0)', maxHeight: '200px', marginTop: '15px', transition: 'all 0.7s ease 0.1s' }
+    ? { opacity: 1, transform: 'translateY(0)', maxHeight: '100px', marginTop: '15px', transition: 'all 0.7s ease 0.1s' }
     : { opacity: 0, transform: 'translateY(5px)', maxHeight: '0px', marginTop: '0px', transition: 'all 0.5s ease' };
 
   return (
@@ -314,14 +332,12 @@ function EducationSection() {
                   ref={el => serviceRefs.current[index] = el}
                   onClick={() => handleServiceClick(index)}
                   sx={{
-                    background: themeColors.pureWhite,
                     padding: '25px',
                     width: '100%',
                     maxWidth: '550px',
                     borderRadius: '15px',
                     boxShadow: isActive ? '0 25px 70px rgba(31,41,55,0.2)' : '0 10px 35px rgba(0,0,0,0.1)',
                     marginBottom: '20px',
-                    border: isActive ? '2px solid rgba(255,85,50,0.15)' : '1px solid transparent',
                     position: 'relative',
                     overflow: 'hidden',
                     cursor: 'pointer',
@@ -333,7 +349,6 @@ function EducationSection() {
                       width: '40px',
                       height: '40px',
                       borderRadius: '8px',
-                      // backgroundColor: isActive ? 'rgba(255,85,50,0.12)' : 'rgba(0,0,0,0.03)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -363,8 +378,8 @@ function EducationSection() {
 
       <ButtonContainer sx={{ opacity: isVisible ? 1 : 0, transform: isVisible ? 'translateY(0)' : 'translateY(30px)', transition: 'all 0.8s ease 0.8s' }}>
         <BlackButton component={Link} to="/services">
-  Explore All Services
-</BlackButton>
+          Explore All Services
+        </BlackButton>
       </ButtonContainer>
     </ServicesContainer>
   );

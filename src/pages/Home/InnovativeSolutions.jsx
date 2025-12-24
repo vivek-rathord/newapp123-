@@ -27,7 +27,7 @@ const HeadingContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   alignItems: 'center',
   width: '80%',
-  gap: '25px',
+  gap: '15px',
   marginBottom: '50px',
   textAlign: 'center',
   [theme.breakpoints.down('md')]: {
@@ -42,10 +42,10 @@ const HeadingContainer = styled(Box)(({ theme }) => ({
 const OrangeSpan = styled(Typography)(({ theme }) => ({
   backgroundColor: themeColors.orangeColor,
   color: themeColors.pureWhite,
-  padding: '8px 18px',
+  padding: '5px 18px',
   borderRadius: '109px',
   fontSize: '14px',
-  letterSpacing: '1px',
+  letterSpacing: '0.24px',
   fontWeight: '500',
   display: 'inline-block',
   
@@ -54,10 +54,6 @@ const OrangeSpan = styled(Typography)(({ theme }) => ({
 const HeadingTitle = styled(Typography)(({ theme }) => ({
   fontSize: '3rem',
   fontWeight: '700',
-  background: 'linear-gradient(135deg, #111111 0%, #575757 100%)',
-  backgroundClip: 'text',
-  WebkitBackgroundClip: 'text',
-  color: 'transparent',
   textAlign: 'center',
   [theme.breakpoints.down('md')]: {
     fontSize: '2rem',
@@ -69,10 +65,11 @@ const HeadingTitle = styled(Typography)(({ theme }) => ({
 }));
 
 const AboutText = styled(Typography)(({ theme }) => ({
-  width: '70%',
+  width: '85%',
   color: themeColors.darkGray,
-  fontSize: '16px',
+  fontSize: '14px',
   lineHeight: '1.7',
+  textTransform:'capitalize',
   textAlign: 'center',
   margin: '0 auto',
   [theme.breakpoints.down('md')]: {
@@ -81,7 +78,7 @@ const AboutText = styled(Typography)(({ theme }) => ({
   },
   [theme.breakpoints.down('sm')]: {
     width: '100%',
-    fontSize: '15px',
+    fontSize: '14px',
     textAlign:'left',
 
   }
@@ -120,7 +117,7 @@ function InnovativeSolutions() {
           Innovating IT Solutions
         </HeadingTitle>
         <AboutText data-aos="fade-up" data-aos-delay="300">
-          Forem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus.
+        Forem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent auctor purus luctus enim egestas, ac scelerisque ante pulvinar. Donec ut rhoncus ex. Suspendisse ac rhoncus nisl, eu tempor urna. Curabitur vel bibendum lorem. Morbi convallis convallis diam sit amet lacinia. Aliquam in elementum tellus.
         </AboutText>
       </HeadingContainer>
 

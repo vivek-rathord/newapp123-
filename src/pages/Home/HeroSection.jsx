@@ -16,7 +16,7 @@ const HeroContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  gap: '25px',
+  gap: '10px',
   textTransform: 'capitalize',
   textAlign: 'center',
   padding: '60px 0px',
@@ -25,25 +25,26 @@ const HeroContainer = styled(Box)(({ theme }) => ({
     padding: '40px 0px',
     minHeight: '60vh',
     marginTop: '20px',
-    gap: '20px',
+    gap: '10px',
   },
    [theme.breakpoints.down('sm')]: {
     minHeight: '50vh',
     marginTop: '20px',
   alignItems: 'flex-start',
-    gap: '20px',
+    gap: '10px',
   }
 }));
 
 const OrangeSpan = styled(Typography)(({ theme }) => ({
   backgroundColor: themeColors.orangeColor,
   color: themeColors.pureWhite,
-  padding: '8px 20px',
+  padding: '5px 20px',
   borderRadius: '109px',
-  fontSize: '12px',
-  letterSpacing: '1.5px',
+  fontSize: '10px',
+  letterSpacing: '0.24px',
   fontWeight: '500',
   display: 'inline-block',
+  marginBottom:'20px',
   animation: 'pulse 2s infinite ease-in-out',
   '@keyframes pulse': {
     '0%': { transform: 'scale(1)' },
@@ -52,25 +53,28 @@ const OrangeSpan = styled(Typography)(({ theme }) => ({
   },
     [theme.breakpoints.down('sm')]: {
   fontSize: '13px',
+  marginBottom:'10px',
   }
 }));
 
 const HeroTitle = styled(Typography)(({ theme }) => ({
   fontSize: '4rem',
   fontWeight: '700',
-  lineHeight: '1.1',
+  lineHeight: '76.8px',
    color: themeColors.deepBlack,
   textAlign: 'center',
   maxWidth: '800px',
   margin: '0 auto',
   [theme.breakpoints.down('md')]: {
-    fontSize: '2.2rem',
+    fontSize: '3rem',
     width: '100%',
+  lineHeight: '50px',
+
   },
   [theme.breakpoints.down('sm')]: {
     fontSize: '1.8rem',
   textAlign: 'left',
-
+  lineHeight: '40px',
   }
 }));
 
@@ -80,14 +84,20 @@ const HeroText = styled(Typography)(({ theme }) => ({
   fontSize: '16px',
   lineHeight: '1.7',
   textAlign: 'center',
+  textTransform: 'none',
+
   margin: '0 auto',
+  [theme.breakpoints.down('lg')]: {
+    width: '80%',
+    fontSize: '16px',
+  },
   [theme.breakpoints.down('md')]: {
-    width: '90%',
+    width: '80%',
     fontSize: '16px',
   },
   [theme.breakpoints.down('sm')]: {
     width: '100%',
-    fontSize: '15px',
+    fontSize: '14px',
   textAlign: 'left',
 
   }
@@ -119,7 +129,7 @@ function HeroSection() {
         data-aos="fade-up" 
         data-aos-delay="300"
         data-aos-duration="1000"
-        sx={{ mb: 2 }}
+       
       >
         Solution for brands<br />
         Skills for the learners
