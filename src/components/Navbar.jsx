@@ -1,21 +1,22 @@
- import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { AppBar, Toolbar, Box, Button, Drawer, List, ListItem, IconButton, Typography, styled} from "@mui/material";
+import {AppBar,Toolbar,Box,Button,Drawer,List,ListItem,IconButton,Typography,styled} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 import logo from "../assets/Images/logo.png";
 
-// Aapke exact CSS variables
+// Colors
 const themeColors = {
-  orangeColor: '#FF5532',
-  deepBlack: '#111111',
-  darkGray: '#575757',
-  lightGray: '#CECFCA',
-  offWhite: '#F7F7F7',
-  pureWhite: '#FFFFFF',
-  softPeach: '#F7A291'
+  orangeColor: "#FF5532",
+  deepBlack: "#111111",
+  darkGray: "#575757",
+  lightGray: "#CECFCA",
+  offWhite: "#F7F7F7",
+  pureWhite: "#FFFFFF",
+  softPeach: "#F7A291",
 };
 
-// Navbar Container - aapke CSS ke exact according
+// Styled Components
 const NavbarWrapper = styled(AppBar)(({ theme }) => ({
   position: "relative",
   width: "85%",
@@ -36,11 +37,8 @@ const NavbarWrapper = styled(AppBar)(({ theme }) => ({
   },
 }));
 
-
 const Logo = styled(Typography)(({ theme }) => ({
-  "& img": {
-    width: "130px",
-  },
+  "& img": { width: "130px" },
 }));
 
 const NavLinks = styled(Box)(({ theme }) => ({
@@ -49,9 +47,7 @@ const NavLinks = styled(Box)(({ theme }) => ({
   gap: "40px",
   margin: 0,
   padding: 0,
-  [theme.breakpoints.down('md')]: {
-    display: "none",
-  }
+  [theme.breakpoints.down("md")]: { display: "none" },
 }));
 
 const NavLinkItem = styled(ListItem)(({ theme }) => ({
@@ -60,7 +56,7 @@ const NavLinkItem = styled(ListItem)(({ theme }) => ({
     color: themeColors.deepBlack,
     textDecoration: "none",
     fontSize: "16px",
-    fontWeight:"500",
+    fontWeight: "500",
     transition: "all 0.3s ease",
     "&:hover": {
       textUnderlineOffset: "10px",
@@ -73,22 +69,20 @@ const NavLinkItem = styled(ListItem)(({ theme }) => ({
 const NavButton = styled(Button)(({ theme }) => ({
   backgroundColor: themeColors.deepBlack,
   color: themeColors.offWhite,
-  width:"115px",
-  fontSize:"14px",
+  width: "115px",
+  fontSize: "14px",
   padding: "8px 0px",
   borderRadius: "8px",
   textTransform: "none",
   "&:hover": {
-     backgroundColor: themeColors.orangeColor,
-    color: themeColors.pureWhite,          
+    backgroundColor: themeColors.orangeColor,
+    color: themeColors.pureWhite,
     transform: "translateY(-3px) scale(1.01)",
     boxShadow: "0 8px 20px rgba(0,0,0,0.3)",
   },
-  
-  [theme.breakpoints.down('md')]: {
-    display: "none",
-  }
+  [theme.breakpoints.down("md")]: { display: "none" },
 }));
+
 const MobileNavButton = styled(Button)(({ theme }) => ({
   backgroundColor: themeColors.deepBlack,
   color: themeColors.offWhite,
@@ -98,8 +92,6 @@ const MobileNavButton = styled(Button)(({ theme }) => ({
   fontSize: "16px",
   width: "100%",
   marginTop: "10px",
-
-  // Active effect
   "&:active": {
     backgroundColor: themeColors.orangeColor,
     color: themeColors.pureWhite,
@@ -110,43 +102,31 @@ const MobileNavButton = styled(Button)(({ theme }) => ({
     fontSize: "16px",
     fontWeight: 500,
   },
-
-  // For icons (safe)
   "& .MuiButton-startIcon, & .MuiButton-endIcon": {
     color: themeColors.offWhite,
   },
-
   "&:focus": {
     backgroundColor: themeColors.orangeColor,
     color: themeColors.pureWhite,
   },
-
-  [theme.breakpoints.up("md")]: {
-    display: "none",
-  },
+  [theme.breakpoints.up("md")]: { display: "none" },
 }));
-
 
 const Hamburger = styled(IconButton)(({ theme }) => ({
   display: "none",
   cursor: "pointer",
   fontSize: "28px",
-  color: themeColors.deepBlack, 
-  
-  [theme.breakpoints.down('md')]: {
-    display: "flex",
-  }
+  color: themeColors.deepBlack,
+  zIndex: 1500,
+  [theme.breakpoints.down("md")]: { display: "flex" },
 }));
 
 const MobileDrawer = styled(Drawer)(({ theme }) => ({
   "& .MuiDrawer-paper": {
     backgroundColor: themeColors.pureWhite,
+    width: "100%",
     padding: "20px",
-    borderRadius: "12px",
-    marginTop: "70px",
-    marginRight: "20px",
-    width: "300px",
-    height:'auto',
+    height: "100%",
     boxShadow: "0 5px 20px rgba(0,0,0,0.15)",
   },
 }));
@@ -166,40 +146,47 @@ const MobileNavItem = styled(ListItem)(({ theme }) => ({
     fontSize: "17px",
     width: "100%",
     textAlign: "center",
-    "&:hover": {
-      color: themeColors.orangeColor,
-    },
+    "&:hover": { color: themeColors.orangeColor },
   },
 }));
 
+// Navbar Component
 function Navbar() {
   const [open, setOpen] = useState(false);
 
-  const toggleDrawer = (newOpen) => () => {
-    setOpen(newOpen);
-  };
+  const handleClose = () => setOpen(false);
+
+  // Auto-close drawer on window resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 900) setOpen(false);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const mobileMenu = (
     <Box>
+      <Box display="flex" justifyContent="flex-end">
+        <IconButton onClick={handleClose}>
+          <CloseIcon fontSize="large" />
+        </IconButton>
+      </Box>
       <MobileNavList>
         <MobileNavItem>
-          <Link to="/" onClick={() => setOpen(false)}>Home</Link>
+          <Link to="/" onClick={handleClose}>Home</Link>
         </MobileNavItem>
         <MobileNavItem>
-          <Link to="/about" onClick={() => setOpen(false)}>About</Link>
+          <Link to="/about" onClick={handleClose}>About</Link>
         </MobileNavItem>
         <MobileNavItem>
-          <Link to="/services" onClick={() => setOpen(false)}>Services</Link>
+          <Link to="/services" onClick={handleClose}>Services</Link>
         </MobileNavItem>
         <MobileNavItem>
-          <Link to="/education" onClick={() => setOpen(false)}>Education</Link>
+          <Link to="/education" onClick={handleClose}>Education</Link>
         </MobileNavItem>
         <MobileNavItem>
-          <MobileNavButton 
-            component={Link} 
-            to="/contact"
-            onClick={() => setOpen(false)}
-          >
+          <MobileNavButton component={Link} to="/contact" onClick={handleClose}>
             Contact us
           </MobileNavButton>
         </MobileNavItem>
@@ -217,40 +204,23 @@ function Navbar() {
 
         {/* Desktop Navigation Links */}
         <NavLinks component="nav">
-          <NavLinkItem>
-            <Link to="/">Home</Link>
-          </NavLinkItem>
-          <NavLinkItem>
-            <Link to="/about">About</Link>
-          </NavLinkItem>
-          <NavLinkItem>
-            <Link to="/services">Services</Link>
-          </NavLinkItem>
-          <NavLinkItem>
-            <Link to="/education">Education</Link>
-          </NavLinkItem>
-          <NavLinkItem>
-            <Link to="/Blogs">Blog</Link>
-          </NavLinkItem>
+          <NavLinkItem><Link to="/">Home</Link></NavLinkItem>
+          <NavLinkItem><Link to="/about">About</Link></NavLinkItem>
+          <NavLinkItem><Link to="/services">Services</Link></NavLinkItem>
+          <NavLinkItem><Link to="/education">Education</Link></NavLinkItem>
+          <NavLinkItem><Link to="/Blogs">Blog</Link></NavLinkItem>
         </NavLinks>
-        
 
         {/* Desktop Contact Button */}
-        <NavButton component={Link} to="/contact">
-          Contact us
-        </NavButton>
+        <NavButton component={Link} to="/contact">Contact us</NavButton>
 
-        {/* Mobile Hamburger Menu */}
-        <Hamburger onClick={toggleDrawer(true)}>
-          <MenuIcon fontSize="large" />
+        {/* Mobile Hamburger */}
+        <Hamburger onClick={() => setOpen(!open)}>
+          {open ? <CloseIcon fontSize="large" /> : <MenuIcon fontSize="large" />}
         </Hamburger>
 
         {/* Mobile Drawer */}
-        <MobileDrawer
-          anchor="right"
-          open={open}
-          onClose={toggleDrawer(false)}
-        >
+        <MobileDrawer anchor="right" open={open} onClose={handleClose}>
           {mobileMenu}
         </MobileDrawer>
       </Toolbar>
