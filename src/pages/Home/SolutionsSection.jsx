@@ -281,7 +281,7 @@ const ServiceImage = styled(Box)(({ theme }) => ({
 const ButtonContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   textAlign: 'center',
-  marginTop: '40px',
+  marginTop: '90px',
   padding: '0 10px',
   [theme.breakpoints.down('lg')]: {
     marginTop: '35px',
@@ -533,7 +533,7 @@ function SolutionSection() {
     if (index === activeIndex) return { 
       opacity: 1, 
       transform: 'translateY(0)', 
-      maxHeight: '120px',
+      maxHeight: 'auto',
       overflow: 'hidden',
       marginTop: '6px',
       transition: 'all 0.25s ease 0.05s'

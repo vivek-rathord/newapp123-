@@ -536,14 +536,15 @@ function EducationSection() {
     if (index === activeIndex) return { 
       opacity: 1, 
       transform: 'translateY(0)', 
-      maxHeight: '80px',
+      // 
+      maxHeight: 'auto',
       overflow: 'hidden',
       marginTop: '6px',
-      transition: 'all 0.25s ease 0.05s'
+      transition: 'all 0.35s ease 0.05s'
     };
     return { 
       opacity: 0, 
-      transform: 'translateY(3px)', 
+      transform: 'translateY(5px)', 
       maxHeight: '0px', 
       overflow: 'hidden',
       marginTop: '0px',
