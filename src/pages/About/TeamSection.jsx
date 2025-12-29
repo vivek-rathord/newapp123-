@@ -13,8 +13,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 
-// Import images - ये path adjust करें अपने project structure के according
-import img1 from "../../assets/Images/team1.png";
+ import img1 from "../../assets/Images/team1.png";
 import img2 from "../../assets/Images/team1.png";
 import img3 from "../../assets/Images/team1.png";
 import img4 from "../../assets/Images/team1.png";
@@ -30,8 +29,7 @@ const TeamSection = () => {
     Aos.init();
     
     const handleResize = () => {
-      // Set slide width based on screen size
-      if (window.innerWidth < 448) {
+       if (window.innerWidth < 448) {
         setSlideWidth(300);
         setVisibleCards(1);
       } else if (window.innerWidth < 768) {

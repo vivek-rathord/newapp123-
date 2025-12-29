@@ -1,15 +1,11 @@
-
  import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Box, Typography, Button, styled, badgeClasses } from "@mui/material";
+import { Box, Typography, styled } from "@mui/material";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 const themeColors = {
-  orangeColor: '#FF5532',
   deepBlack: '#111111',
   darkGray: '#575757',
-  pureWhite: '#FFFFFF',
 };
 
 const HeroContainer = styled(Box)(({ theme }) => ({
@@ -18,31 +14,23 @@ const HeroContainer = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   gap: '25px',
-  textTransform: 'capitalize',
   textAlign: 'center',
   padding: '90px 0px',
-  background:'red',
-  // minHeight: '70vh',
   width: '100%',
   [theme.breakpoints.down('md')]: {
     padding: '60px 0px',
-    minHeight: '60vh',
-    marginTop: '20px',
     gap: '20px',
   },
-   [theme.breakpoints.down('sm')]: {
-    padding: '0px 30px',
-    marginTop: '20px',
+  [theme.breakpoints.down('sm')]: {
+    padding: '40px 20px',
   }
 }));
-
-
 
 const HeroTitle = styled(Typography)(({ theme }) => ({
   fontSize: '4rem',
   fontWeight: '700',
   lineHeight: '1.1',
-   color: themeColors.deepBlack,
+  color: themeColors.deepBlack,
   textAlign: 'center',
   maxWidth: '800px',
   margin: '0 auto',
@@ -52,7 +40,7 @@ const HeroTitle = styled(Typography)(({ theme }) => ({
   },
   [theme.breakpoints.down('sm')]: {
     fontSize: '1.8rem',
-  textAlign: 'left',
+    textAlign: 'center',
   }
 }));
 
@@ -70,10 +58,9 @@ const HeroText = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     width: '100%',
     fontSize: '15px',
-  textAlign: 'left',
+    textAlign: 'center',
   }
 }));
-
 
 function AboutHero() {
   useEffect(() => {
@@ -87,8 +74,6 @@ function AboutHero() {
 
   return (
     <HeroContainer>
-    
-      
       <HeroTitle 
         variant="h1" 
         data-aos="fade-up" 
@@ -96,7 +81,7 @@ function AboutHero() {
         data-aos-duration="1000"
         sx={{ mb: 2 }}
       >
-         ABOUT US
+        ABOUT US
       </HeroTitle>
       
       <HeroText 
@@ -104,13 +89,8 @@ function AboutHero() {
         data-aos-delay="400"
         data-aos-duration="1000"
       >
-    <strong>Netcoder Technology</strong> is a digital solutions and
-          learning hub based in Dharamshala, offering creative IT services like
-          web design, development, and branding — along with hands-on training
-         programs for students and professionals. We help businesses build
-         smarter and individuals learn faster, all under one roof.
+        <strong>Netcoder Technology</strong> is a digital solutions and learning hub based in Dharamshala, offering creative IT services like web design, development, and branding — along with hands-on training programs for students and professionals. We help businesses build smarter and individuals learn faster, all under one roof.
       </HeroText>
-
     </HeroContainer>
   );
 }

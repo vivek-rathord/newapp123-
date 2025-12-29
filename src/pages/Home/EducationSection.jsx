@@ -304,13 +304,12 @@ const BlackButton = styled(Button)(({ theme }) => ({
   fontSize: '15px',
   fontWeight: '500',
   textTransform: 'none',
-  transition: 'all 0.3s ease',
+  transition: 'background-color 0.3s ease', // Removed transform animation
   letterSpacing: '0.05px',
   fontFamily: interFont,
   '&:hover': {
     backgroundColor: themeColors.orangeColor,
-    transform: 'translateY(-2px)',
-    boxShadow: '0 10px 25px rgba(255, 85, 50, 0.25)',
+    // Removed transform and box-shadow on hover
   },
   [theme.breakpoints.down('lg')]: { 
     fontSize: "14px",

@@ -73,13 +73,13 @@ const TimelineSection = () => {
             display: 'inline-block',
             backgroundColor: '#FF5532',
             color: '#FFFFFF',
-            fontSize: { xs: '12px', sm: '12px' },
+            fontSize: { xs: '7px', sm: '8px' },
             fontWeight: 600,
             letterSpacing: '1.5px',
             mb: 2,
             px: { xs: 2, sm: 3 },
             py: { xs: 0.5, sm: 1 },
-            borderRadius: '120px',
+            borderRadius: '20px',
            }}
         >
           Our Journey
@@ -127,7 +127,8 @@ const TimelineSection = () => {
           px: { xs: 2, sm: 0 }
         }}
       >
-         <Box sx={{ 
+        {/* Timeline Line - Hidden on mobile, shown on desktop */}
+        <Box sx={{ 
           position: 'absolute',
           left: { xs: '30px', md: '50%' },
           top: 0,
@@ -138,7 +139,8 @@ const TimelineSection = () => {
           overflow: 'hidden',
           display: { xs: 'none', md: 'block' } // Hidden on mobile, shown on desktop
         }}>
-           <Box 
+          {/* Orange Progress Fill - Only shows on desktop */}
+          <Box 
             sx={{
               position: 'absolute',
               top: 0,
@@ -159,18 +161,21 @@ const TimelineSection = () => {
               position: 'relative',
               margin: { xs: '40px 0', md: '60px 0' },
               justifyContent: { xs: 'flex-start', md: item.align === 'right' ? 'flex-end' : 'flex-start' },
-               transform: index === activeIndex ? 'translateY(0)' : 'translateY(20px)',
+              opacity: index === activeIndex ? 1 : index < activeIndex ? 0.8 : 0.5,
+              transform: index === activeIndex ? 'translateY(0)' : 'translateY(20px)',
               transition: 'all 0.5s ease',
               transitionDelay: `${index * 0.15}s`,
-             }}
+              filter: index < activeIndex ? 'blur(1px)' : 'blur(0px)',
+            }}
           >
-             <Box 
+            {/* Animated Dot - Hidden on mobile, shown on desktop */}
+            <Box 
               sx={{ 
                 position: 'absolute',
                 left: { xs: '23px', md: '50%' },
                 width: index === activeIndex ? '20px' : '14px',
                 height: index === activeIndex ? '20px' : '14px',
-                backgroundColor: index <= activeIndex ? '#FF5532' : '#FF5532',
+                backgroundColor: index <= activeIndex ? '#FF5532' : '#E0E0E0',
                 borderRadius: '50%',
                 transform: { md: 'translateX(-50%)' },
                 transition: 'all 0.4s ease',
@@ -212,7 +217,7 @@ const TimelineSection = () => {
           </Box>
         ))}
       </Box>
-    </Container> 
+    </Container>
   );
 };
 
