@@ -396,7 +396,6 @@ function SolutionSection() {
 
     if (serviceRefs.current[index]) {
       const refRect = serviceRefs.current[index].getBoundingClientRect();
-      // Mobile par scroll position adjust karna
       const offset = isMobile ? 80 : 100;
       const scrollTo = refRect.top + window.pageYOffset - offset;
       
@@ -462,7 +461,7 @@ function SolutionSection() {
       </ContentTitle>
 
       <ServicesGrid>
-         <ServiceImage sx={{ 
+        <ServiceImage sx={{ 
           opacity: isVisible ? 1 : 0, 
           transform: isVisible ? 'translateX(0)' : 'translateX(-30px)', 
           transition: 'all 0.8s ease' 
@@ -470,7 +469,7 @@ function SolutionSection() {
           <img src={imager} alt="Solutions" />
         </ServiceImage>
 
-         <ServicesList>
+        <ServicesList>
           {services.map((service, index) => {
             const isActive = index === activeIndex;
             return (
@@ -491,7 +490,6 @@ function SolutionSection() {
                   overflow: 'hidden',
                   cursor: 'pointer',
                   ...getServiceAnimationStyle(index),
-                  // Mobile touch improvements
                   '@media (hover: hover) and (pointer: fine)': {
                     '&:hover': {
                       boxShadow: '0 20px 50px rgba(0,0,0,0.15)',
@@ -568,4 +566,4 @@ function SolutionSection() {
   );
 }
 
-export default SolutionSection; 
+export default SolutionSection;

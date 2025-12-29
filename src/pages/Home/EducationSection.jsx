@@ -1,4 +1,4 @@
- import React, { useState, useEffect, useRef, useCallback } from "react";
+  import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { Box, Typography, Button, Card, styled, useTheme, useMediaQuery } from "@mui/material";
 import imager from "../../assets/Images/heroimg.jpg";
@@ -11,8 +11,8 @@ const themeColors = {
   pureWhite: '#FFFFFF',
 };
 
-const outfitFont = "'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
-const interFont = "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+const outfitFont = "'Outfit', sans-serif";
+const interFont = "'Inter', sans-serif";
 
 const ServicesContainer = styled(Box)(({ theme }) => ({
   padding: '60px 0px',
@@ -142,7 +142,7 @@ const SectionSubtitle = styled(Typography)(({ theme }) => ({
 const ContentTitle = styled(Typography)(({ theme }) => ({
   fontSize: '2.5rem',
   fontWeight: '700',
-  marginBottom: '35px',
+  marginBottom: '0px', // Removed margin for mobile
   textAlign: 'center',
   padding: '0 15px',
   letterSpacing: '-0.06px',
@@ -154,18 +154,18 @@ const ContentTitle = styled(Typography)(({ theme }) => ({
   },
   [theme.breakpoints.down('lg')]: { 
     fontSize: '2rem',
-    marginBottom: '30px',
+    marginBottom: '0px',
     letterSpacing: '-0.04px',
   },
   [theme.breakpoints.down('md')]: { 
     fontSize: '1.8rem',
-    marginBottom: '25px',
+    marginBottom: '0px',
     padding: '0 10px',
     letterSpacing: '-0.03px',
   },
   [theme.breakpoints.down('sm')]: { 
     fontSize: '1.5rem',
-    marginBottom: '20px',
+    marginBottom: '0px',
     padding: '0 8px',
     lineHeight: 1.1,
     letterSpacing: '-0.02px',
@@ -173,6 +173,43 @@ const ContentTitle = styled(Typography)(({ theme }) => ({
   '@media (max-width: 480px)': {
     fontSize: '1.3rem',
     letterSpacing: '-0.015px',
+  }
+}));
+
+// Mobile Button Container (Text ke niche)
+const MobileButtonContainer = styled(Box)(({ theme }) => ({
+  width: '100%',
+  textAlign: 'center',
+  marginTop: '15px',
+  marginBottom: '40px',
+  padding: '0 10px',
+  [theme.breakpoints.down('lg')]: {
+    marginBottom: '35px',
+  },
+  [theme.breakpoints.down('md')]: {
+    marginTop: '15px',
+    marginBottom: '30px',
+  },
+  [theme.breakpoints.down('sm')]: {
+    marginTop: '10px',
+    marginBottom: '25px',
+  }
+}));
+
+// Desktop Button Container (Services ke baad)
+const DesktopButtonContainer = styled(Box)(({ theme }) => ({
+  width: '100%',
+  textAlign: 'center',
+  marginTop: '40px',
+  padding: '0 10px',
+  [theme.breakpoints.down('lg')]: {
+    marginTop: '35px',
+  },
+  [theme.breakpoints.down('md')]: {
+    marginTop: '30px',
+  },
+  [theme.breakpoints.down('sm')]: {
+    marginTop: '25px',
   }
 }));
 
@@ -218,7 +255,6 @@ const ServicesList = styled(Box)(({ theme }) => ({
   
   [theme.breakpoints.down('md')]: {
     maxWidth: '600px',
-    order: 1,
   },
   
   [theme.breakpoints.down('sm')]: {
@@ -241,7 +277,6 @@ const ServiceImage = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
     width: '100%',
     maxWidth: '550px',
-    order: 2,
   },
   
   [theme.breakpoints.down('sm')]: {
@@ -276,57 +311,6 @@ const ServiceImage = styled(Box)(({ theme }) => ({
   '&:hover img': {
     transform: 'scale(1.02)',
     boxShadow: '0 15px 50px rgba(0,0,0,0.15)',
-  }
-}));
-
-const ButtonContainer = styled(Box)(({ theme }) => ({
-  width: '100%',
-  textAlign: 'center',
-  marginTop: '40px',
-  padding: '0 10px',
-  [theme.breakpoints.down('lg')]: {
-    marginTop: '35px',
-  },
-  [theme.breakpoints.down('md')]: {
-    marginTop: '30px',
-  },
-  [theme.breakpoints.down('sm')]: {
-    marginTop: '25px',
-  }
-}));
-
-const BlackButton = styled(Button)(({ theme }) => ({
-  backgroundColor: themeColors.deepBlack,
-  color: themeColors.pureWhite,
-  padding: '10px 40px',
-  borderRadius: '8px',
-  fontSize: '15px',
-  fontWeight: '500',
-  textTransform: 'none',
-  transition: 'all 0.3s ease',
-  letterSpacing: '0.05px',
-  fontFamily: interFont,
-  '&:hover': {
-    backgroundColor: themeColors.orangeColor,
-    transform: 'translateY(-2px)',
-    boxShadow: '0 10px 25px rgba(255, 85, 50, 0.25)',
-  },
-  [theme.breakpoints.down('lg')]: { 
-    fontSize: "14px",
-    padding: '9px 35px',
-    letterSpacing: '0.04px',
-  },
-  [theme.breakpoints.down('md')]: { 
-    fontSize: "14px",
-    padding: '9px 30px',
-    letterSpacing: '0.03px',
-  },
-  [theme.breakpoints.down('sm')]: { 
-    fontSize: "13px",
-    padding: '8px 25px',
-    width: '100%',
-    maxWidth: '250px',
-    letterSpacing: '0.02px',
   }
 }));
 
@@ -385,12 +369,46 @@ const ServiceDescription = styled(Typography)(({ theme }) => ({
   }
 }));
 
+const BlackButton = styled(Button)(({ theme }) => ({
+  backgroundColor: themeColors.deepBlack,
+  color: themeColors.pureWhite,
+  padding: '10px 40px',
+  borderRadius: '8px',
+  fontSize: '15px',
+  fontWeight: '500',
+  textTransform: 'none',
+  transition: 'all 0.3s ease',
+  letterSpacing: '0.05px',
+  fontFamily: interFont,
+  '&:hover': {
+    backgroundColor: themeColors.orangeColor,
+    transform: 'translateY(-2px)',
+    boxShadow: '0 10px 25px rgba(255, 85, 50, 0.25)',
+  },
+  [theme.breakpoints.down('lg')]: { 
+    fontSize: "14px",
+    padding: '9px 35px',
+    letterSpacing: '0.04px',
+  },
+  [theme.breakpoints.down('md')]: { 
+    fontSize: "14px",
+    padding: '9px 30px',
+    letterSpacing: '0.03px',
+  },
+  [theme.breakpoints.down('sm')]: { 
+    fontSize: "13px",
+    padding: '8px 25px',
+    width: '100%',
+    maxWidth: '250px',
+    letterSpacing: '0.02px',
+  }
+}));
+
 function EducationSection() {
   const containerRef = useRef(null);
   const serviceRefs = useRef([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [prevActiveIndex, setPrevActiveIndex] = useState(0);
   const [direction, setDirection] = useState('down');
   const [isScrolling, setIsScrolling] = useState(false);
@@ -407,20 +425,6 @@ function EducationSection() {
     { num: "03.", title: "Digital Marketing", desc: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium." },
     { num: "04.", title: "Digital Engagement Solutions", desc: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos." }
   ];
-
-   useEffect(() => {
-    if (isMobile) return;
-    
-    const handleMouseMove = (e) => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      setMousePos({ x, y });
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [isMobile]);
 
   // Section visibility
   useEffect(() => {
@@ -530,7 +534,7 @@ function EducationSection() {
     };
   };
 
-   const getDescAnimationStyle = (index) => {
+  const getDescAnimationStyle = (index) => {
     if (index === activeIndex) return { 
       opacity: 1, 
       transform: 'translateY(0)', 
@@ -551,7 +555,7 @@ function EducationSection() {
 
   return (
     <ServicesContainer ref={containerRef}>
-      <SectionHeading>
+       <SectionHeading>
         <SectionTitle variant="h1">
           <SectionImage src={Education} alt="Education-Title" />
         </SectionTitle>
@@ -566,7 +570,8 @@ function EducationSection() {
         Popular Courses We Offers
       </ContentTitle>
 
-      <ServicesGrid>
+  
+       <ServicesGrid>
         <ServicesList>
           {services.map((service, index) => {
             const isActive = index === activeIndex;
@@ -598,13 +603,13 @@ function EducationSection() {
                   }
                 }}
               >
-                 <Box sx={{ 
+                <Box sx={{ 
                   display: 'flex', 
                   alignItems: 'center', 
                   gap: { xs: '6px', md: '10px' },
                   marginBottom: isActive ? '6px' : '0'
                 }}>
-                   <Box sx={{
+                  <Box sx={{
                     width: { xs: '32px', sm: '36px', md: '40px' },
                     height: { xs: '32px', sm: '36px', md: '40px' },
                     minWidth: { xs: '32px', sm: '36px', md: '40px' },
@@ -612,7 +617,7 @@ function EducationSection() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                     transition: 'all 0.15s ease',
+                    transition: 'all 0.15s ease',
                     flexShrink: 0,
                   }}>
                     <ServiceNumber variant="h3">
@@ -620,7 +625,7 @@ function EducationSection() {
                     </ServiceNumber>
                   </Box>
 
-                   <ServiceTitle variant="h4" isActive={isActive} sx={{ 
+                  <ServiceTitle variant="h4" isActive={isActive} sx={{ 
                     flex: 1,
                     marginBottom: 0,
                     lineHeight: 1.1
@@ -629,14 +634,28 @@ function EducationSection() {
                   </ServiceTitle>
                 </Box>
                 
-                 <Box sx={getDescAnimationStyle(index)}>
+                <Box sx={getDescAnimationStyle(index)}>
                   <ServiceDescription variant="body1">
                     {service.desc}
                   </ServiceDescription>
                 </Box>
               </Card>
             );
-          })}
+          })}      {(isMobile || isTablet) ? (
+        <MobileButtonContainer sx={{ 
+          opacity: isVisible ? 1 : 0, 
+          transform: isVisible ? 'translateY(0)' : 'translateY(15px)',
+          transition: 'all 0.4s ease 0.2s'
+        }}>
+          <BlackButton 
+            component={Link} 
+            to="/services"
+          >
+            Explore All Services
+          </BlackButton>
+        </MobileButtonContainer>
+      ) : null}
+
         </ServicesList>
 
         <ServiceImage sx={{ 
@@ -648,23 +667,20 @@ function EducationSection() {
         </ServiceImage>
       </ServicesGrid>
 
-      <ButtonContainer sx={{ 
-        opacity: isVisible ? 1 : 0, 
-        transform: isVisible ? 'translateY(0)' : 'translateY(15px)',
-        transition: 'all 0.4s ease 0.3s'
-      }}>
-        <BlackButton 
-          component={Link} 
-          to="/services"
-          sx={{
-            minHeight: { xs: '40px', md: 'auto' },
-            fontSize: { xs: '13px', md: '14px' },
-            padding: { xs: '8px 25px', md: '10px 35px' }
-          }}
-        >
-          Explore All Services
-        </BlackButton>
-      </ButtonContainer>
+       {isDesktop && (
+        <DesktopButtonContainer sx={{ 
+          opacity: isVisible ? 1 : 0, 
+          transform: isVisible ? 'translateY(0)' : 'translateY(15px)',
+          transition: 'all 0.4s ease 0.3s'
+        }}>
+          <BlackButton 
+            component={Link} 
+            to="/services"
+          >
+            Explore All Services
+          </BlackButton>
+        </DesktopButtonContainer>
+      )}
     </ServicesContainer>
   );
 }
