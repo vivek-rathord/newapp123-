@@ -56,20 +56,78 @@ const TimelineSection = () => {
   }, []);
 
   return (
-    <Container maxWidth="lg" sx={{ py: 8 }}>
-     
+    <Container maxWidth="lg" sx={{ py: { xs: 4, md: 8 } }}>
+      
+      {/* Heading Section */}
+      <Box 
+        sx={{ 
+          textAlign: 'center',
+          mb: { xs: 4, md: 8 },
+          px: { xs: 2, md: 0 }
+        }}
+      >
+        {/* Small Top Paragraph with Orange Background */}
+        <Typography 
+          variant="overline" 
+          sx={{ 
+            display: 'inline-block',
+            backgroundColor: '#FF5532',
+            color: '#FFFFFF',
+            fontSize: { xs: '12px', sm: '12px' },
+            fontWeight: 600,
+            letterSpacing: '1.5px',
+            mb: 2,
+            px: { xs: 2, sm: 3 },
+            py: { xs: 0.5, sm: 1 },
+            borderRadius: '120px',
+           }}
+        >
+          Our Journey
+        </Typography>
+        
+        {/* Main Heading in Black - Responsive */}
+        <Typography 
+          variant="h3" 
+          sx={{ 
+            fontWeight: 700,
+            color: '#000000',
+            fontSize: { xs: '2rem', sm: '3rem', md: '4rem', lg: '5rem' },
+            mb: 2,
+            lineHeight: 1.1,
+            px: { xs: 1, sm: 0 }
+          }}
+        >
+          From classroom concepts<br />
+          to real-world results
+        </Typography>
+        
+        {/* Subtitle in Black */}
+        <Typography 
+          variant="body1" 
+          sx={{ 
+            color: '#000000',
+            maxWidth: '600px',
+            mx: 'auto',
+            fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
+            opacity: 0.8,
+            px: { xs: 2, sm: 0 }
+          }}
+        >
+          Our journey from a training institute to a creative digital studio
+        </Typography>
+      </Box>
 
       {/* Timeline */}
       <Box 
         ref={timelineRef}
         sx={{ 
-          margin: '40px auto',
-          padding: '80px 0',
-          position: 'relative'
+          margin: { xs: '20px auto', md: '40px auto' },
+          padding: { xs: '40px 0', md: '80px 0' },
+          position: 'relative',
+          px: { xs: 2, sm: 0 }
         }}
       >
-        {/* Animated Timeline Line */}
-        <Box sx={{ 
+         <Box sx={{ 
           position: 'absolute',
           left: { xs: '30px', md: '50%' },
           top: 0,
@@ -78,16 +136,16 @@ const TimelineSection = () => {
           backgroundColor: '#F0F0F0',
           transform: { md: 'translateX(-50%)' },
           overflow: 'hidden',
+          display: { xs: 'none', md: 'block' } // Hidden on mobile, shown on desktop
         }}>
-          {/* Progress Fill - Now Single Color */}
-          <Box 
+           <Box 
             sx={{
               position: 'absolute',
               top: 0,
               left: 0,
               width: '100%',
               height: lineHeight,
-              backgroundColor: '#FF5532', // Single color for all
+              backgroundColor: '#FF5532',
               transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
             }}
           />
@@ -99,56 +157,54 @@ const TimelineSection = () => {
             sx={{ 
               display: 'flex',
               position: 'relative',
-              margin: '50px 0',
+              margin: { xs: '40px 0', md: '60px 0' },
               justifyContent: { xs: 'flex-start', md: item.align === 'right' ? 'flex-end' : 'flex-start' },
-              opacity: index === activeIndex ? 1 : index < activeIndex ? 0.6 : 0.4,
-              transform: index === activeIndex ? 'translateY(0)' : 'translateY(20px)',
+               transform: index === activeIndex ? 'translateY(0)' : 'translateY(20px)',
               transition: 'all 0.5s ease',
               transitionDelay: `${index * 0.15}s`,
-              filter: index < activeIndex ? 'blur(1px)' : 'blur(0px)',
-            }}
+             }}
           >
-            {/* Animated Dot - Now Single Color */}
-            <Box 
+             <Box 
               sx={{ 
                 position: 'absolute',
                 left: { xs: '23px', md: '50%' },
                 width: index === activeIndex ? '20px' : '14px',
                 height: index === activeIndex ? '20px' : '14px',
-                backgroundColor: index <= activeIndex ? '#FF5532' : '#E0E0E0',
+                backgroundColor: index <= activeIndex ? '#FF5532' : '#FF5532',
                 borderRadius: '50%',
                 transform: { md: 'translateX(-50%)' },
                 transition: 'all 0.4s ease',
                 boxShadow: index === activeIndex ? '0 0 0 6px rgba(255, 85, 50, 0.2)' : 'none',
                 zIndex: 2,
+                display: { xs: 'none', md: 'block' } // Hidden on mobile, shown on desktop
               }}
             />
             
-            {/* Content Box with Color Border */}
+            {/* Content Box */}
             <Paper 
               sx={{ 
-                width: { xs: 'calc(100% - 60px)', md: '40%' },
-                backgroundColor: index === activeIndex ? 'white' : (item.align === 'right' ? 'background.paper' : 'transparent'),
-                boxShadow: item.align === 'right' ? 
-                  index === activeIndex ? 
-                    '0 8px 25px rgba(255, 85, 50, 0.1)' 
-                    : '0 4px 15px rgba(0, 0, 0, 0.06)' 
-                  : 'none',
-                padding: 3,
-                borderRadius: 2,
-                   '4px solid #FF5532' : 'none',
-                marginLeft: { xs: '60px', md: item.align === 'right' ? 0 : 'auto' },
+                width: { xs: '100%', md: '45%' },
+                backgroundColor: '#FFFFFF',
+                boxShadow: '0 5px 20px rgba(0, 0, 0, 0.08)',
+                padding: { xs: 3, md: 4 },
+                borderRadius: '12px',
+                border: 'none',
+                marginLeft: { xs: 0, md: item.align === 'right' ? 0 : 'auto' },
                 marginRight: { xs: 0, md: item.align === 'right' ? 'auto' : 0 },
                 ml: { md: item.align === 'right' ? 0 : 2 },
                 mr: { md: item.align === 'right' ? 2 : 0 },
                 transform: index === activeIndex ? 'scale(1.02)' : 'scale(1)',
                 transition: 'all 0.3s ease',
+                '&:hover': {
+                  boxShadow: '0 8px 30px rgba(0, 0, 0, 0.12)',
+                }
               }}
             >
               <Typography sx={{ 
-                fontSize: '14px',
-                lineHeight: 1.5,
-                color: index === activeIndex ? '#333333' : '#555555'
+                fontSize: { xs: '14px', sm: '15px', md: '16px' },
+                lineHeight: 1.7,
+                color: '#333333',
+                fontFamily: '"Inter", "Roboto", sans-serif'
               }}>
                 {item.content}
               </Typography>
@@ -156,10 +212,7 @@ const TimelineSection = () => {
           </Box>
         ))}
       </Box>
-
-    
-    
-    </Container>
+    </Container> 
   );
 };
 
