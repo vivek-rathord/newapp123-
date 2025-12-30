@@ -176,7 +176,7 @@ const ContentTitle = styled(Typography)(({ theme }) => ({
 
 const ServicesGrid = styled(Box)(({ theme }) => ({
   display: 'flex',
-  flexDirection:'row-reverse',
+  flexDirection:'row',
   justifyContent: 'space-between',
   alignItems: 'stretch',
   gap: '40px',
@@ -185,7 +185,7 @@ const ServicesGrid = styled(Box)(({ theme }) => ({
   margin: '0 auto',
   
   [theme.breakpoints.up('md')]: {
-    flexDirection: 'row',
+    flexDirection: 'row-reverse',
   },
   
   [theme.breakpoints.down('lg')]: {
@@ -229,7 +229,6 @@ const ServiceImage = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'flex-start',
-  
   [theme.breakpoints.up('md')]: {
     flex: '1 1 50%',
     position: 'sticky',
@@ -263,6 +262,7 @@ const ServiceImage = styled(Box)(({ theme }) => ({
     [theme.breakpoints.down('md')]: {
       maxWidth: '100%',
       aspectRatio: '16/9',
+      
     },
     
     [theme.breakpoints.down('sm')]: {

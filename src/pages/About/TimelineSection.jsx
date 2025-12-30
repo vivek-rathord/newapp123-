@@ -73,13 +73,12 @@ const TimelineSection = () => {
             display: 'inline-block',
             backgroundColor: '#FF5532',
             color: '#FFFFFF',
-            fontSize: { xs: '7px', sm: '8px' },
-            fontWeight: 600,
-            letterSpacing: '1.5px',
+            fontSize:'14px',
+            fontWeight: 500,
+            letterSpacing: '2%',
             mb: 2,
-            px: { xs: 2, sm: 3 },
-            py: { xs: 0.5, sm: 1 },
-            borderRadius: '20px',
+            padding: "1px 20px",
+            borderRadius: '109px',
            }}
         >
           Our Journey
@@ -91,7 +90,7 @@ const TimelineSection = () => {
           sx={{ 
             fontWeight: 700,
             color: '#000000',
-            fontSize: { xs: '2rem', sm: '3rem', md: '4rem', lg: '5rem' },
+            fontSize: { xs: '1.7rem', sm: '1rem', md: '3rem', lg: '3rem' },
             mb: 2,
             lineHeight: 1.1,
             px: { xs: 1, sm: 0 }

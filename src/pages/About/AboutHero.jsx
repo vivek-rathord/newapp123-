@@ -23,6 +23,7 @@ const HeroContainer = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.down('sm')]: {
     padding: '40px 20px',
+    textAlign:'left',
   }
 }));
 
@@ -40,7 +41,7 @@ const HeroTitle = styled(Typography)(({ theme }) => ({
   },
   [theme.breakpoints.down('sm')]: {
     fontSize: '1.8rem',
-    textAlign: 'center',
+    textAlign: 'left',
   }
 }));
 
@@ -58,7 +59,7 @@ const HeroText = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     width: '100%',
     fontSize: '15px',
-    textAlign: 'center',
+    textAlign: 'left',
   }
 }));
 

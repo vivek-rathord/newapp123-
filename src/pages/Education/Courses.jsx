@@ -92,11 +92,10 @@ export default function Courses() {
           <Typography sx={{
             mt: 2,
             fontSize: {
-              xs: "2rem",
-              sm: "2rem",
-              md: "2vw",
+              xs: "2.5rem",
+              sm: "2.5rvw",
+              md: "2.9vw",
               lg: "3rem",
-
             },
             fontWeight: 700,
             lineHeight: 1.3
@@ -353,11 +352,10 @@ export default function Courses() {
           <Typography sx={{
             mt: 2,
             fontSize: {
-              xs: "2rem",
-              sm: "2rem",
-              md: "2vw",
+           xs: "2.5rem",
+              sm: "2.5rvw",
+              md: "2.9vw",
               lg: "3rem",
-
             },
             fontWeight: 700,
             lineHeight: 1.3
@@ -610,11 +608,10 @@ export default function Courses() {
           <Typography sx={{
             mt: 2,
             fontSize: {
-              xs: "2rem",
-              sm: "2rem",
-              md: "2vw",
+                xs: "2.5rem",
+              sm: "2.5rvw",
+              md: "2.9vw",
               lg: "3rem",
-
             },
             fontWeight: 700,
             lineHeight: 1.3
