@@ -6,6 +6,7 @@ const themeColors = {
     deepBlack: "#111111",
     darkGray: "#575757",
     pureWhite: "#FFFFFF",
+    lightgray:"#F7F7F7",
 };
 
 const FAQContainer = styled(Box)(({ theme }) => ({
@@ -20,13 +21,13 @@ const FAQContainer = styled(Box)(({ theme }) => ({
 const OrangeTag = styled(Typography)(({ theme }) => ({
     backgroundColor: themeColors.orangeColor,
     color: themeColors.pureWhite,
-    padding: '5px 18px',
-    borderRadius: '20px',
+    padding: '5px 20px',
+    borderRadius: '109px',
     fontSize: '14px',
-    letterSpacing: '1px',
+    letterSpacing: '2%',
     fontWeight: '500',
     display: 'inline-block',
-  [theme.breakpoints.down('sm')]: { fontSize: '.7rem' },
+  [theme.breakpoints.down('sm')]: { fontSize: '13px' },
 
 }));
 
@@ -55,14 +56,14 @@ const FAQColumn = styled(Box)(({ theme }) => ({
     flex: 1,
     display: "flex",
     flexDirection: "column",
-    gap: 30,
+    gap: 20,
 }));
 
 const CustomAccordion = styled(Accordion)(({ theme }) => ({
     borderRadius: "20px !important",
     background: themeColors.pureWhite,
     padding: '15px',
-    boxShadow: "0 2px 10px rgba(0,0,0,0.07)",
+    boxShadow: "0 2px 10px rgba(0,0,0,0.0)",
      border: "none", 
      overflow:"hidden",
       "&:before": {
@@ -76,12 +77,11 @@ const AccordionIcon = styled(Box)(({ expanded }) => ({
     height: 32,
     borderRadius: "8px",
     display: "flex",
-    border: '1px solid gray',
     alignItems: "center",
     justifyContent: "center",
-    fontSize: "20px",
-    fontWeight: "bold",
-    backgroundColor: expanded ? themeColors.deepBlack : themeColors.pureWhite,
+    fontSize: "27px",
+    fontWeight: "500",
+    backgroundColor: expanded ? themeColors.deepBlack : themeColors.lightgray,
     color: expanded ? themeColors.pureWhite : themeColors.deepBlack,
     transition: "all 0.3s",
 }));

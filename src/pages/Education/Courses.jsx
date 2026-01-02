@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography,styled } from "@mui/material";
 import { Link } from "react-router-dom";
 import ArroweRight from "../../assets/Images/arrow-right-line.svg";
 import ArroweLeft from "../../assets/Images/arrow-left-line (3).svg";
@@ -12,6 +12,20 @@ const themeColors = {
   darkGray: "#575757",
   pureWhite: "#FFFFFF",
 };
+const OrangeSpan = styled(Typography)(({ theme }) => ({
+  backgroundColor: themeColors.orangeColor,
+  color: themeColors.pureWhite,
+  padding: "5px 20px",
+  borderRadius: "109px",
+  fontSize: "14px",
+  letterSpacing: "2%",
+  fontWeight: "500",
+  display: "inline-block",
+  marginBottom: '10px',
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "13px",
+  }
+}));
 
 export default function Courses() {
   const scrollRef1 = useRef(null);
@@ -34,7 +48,7 @@ export default function Courses() {
       {/* Switch Buttons */}
       <Box sx={{
         bgcolor: themeColors.deepBlack,
-        borderRadius: "8px",
+        borderRadius: "16px",
         width: { xs: "95%", sm: 360, md: 400 },
         p: "12px 12px",
         m: "auto",
@@ -47,6 +61,7 @@ export default function Courses() {
           <Button sx={{
             bgcolor: themeColors.deepBlack,
             color: themeColors.pureWhite,
+        borderRadius: "12px",
             "&:hover": { bgcolor: themeColors.pureWhite, color: themeColors.deepBlack }
           }}>Regular Courses</Button>
         </Link>
@@ -55,6 +70,7 @@ export default function Courses() {
           <Button sx={{
             bgcolor: themeColors.deepBlack,
             color: themeColors.pureWhite,
+        borderRadius: "12px",
             fontSize: "14px",
             fontWeight: "400",
             "&:hover": { bgcolor: themeColors.pureWhite, color: themeColors.deepBlack }
@@ -76,7 +92,7 @@ export default function Courses() {
 
         {/* LEFT */}
         <Box sx={{ width: { xs: "100%", md: "460px" } }}>
-          <Box sx={{
+          {/* <Box sx={{
             display: "inline-block",
             background: themeColors.orangeColor,
             px: 1.5,
@@ -87,7 +103,9 @@ export default function Courses() {
             fontWeight: 500,
           }}>
             Regular Courses
-          </Box>
+          </Box> */}
+        <OrangeSpan data-aos="zoom-in"> Regular Courses</OrangeSpan>
+
 
           <Typography sx={{
             mt: 2,
@@ -336,19 +354,7 @@ export default function Courses() {
 
   {/* LEFT */ }
   < Box sx = {{ width: { xs: "100%", md: "460px" } }}>
-          <Box sx={{
-            display: "inline-block",
-            background: themeColors.orangeColor,
-            px: 1.5,
-            py: 0.6,
-            borderRadius: "109px",
-            color: themeColors.pureWhite,
-            fontSize: 14,
-            fontWeight: 500,
-          }}>
-            Regular Courses
-          </Box>
-
+        <OrangeSpan data-aos="zoom-in"> Regular Courses</OrangeSpan>
           <Typography sx={{
             mt: 2,
             fontSize: {
@@ -592,19 +598,7 @@ export default function Courses() {
 
   {/* LEFT */ }
   < Box sx = {{ width: { xs: "100%", md: "460px" } }}>
-          <Box sx={{
-            display: "inline-block",
-            background: themeColors.orangeColor,
-            px: 1.5,
-            py: 0.6,
-            borderRadius: "109px",
-            color: themeColors.pureWhite,
-            fontSize: 14,
-            fontWeight: 500,
-          }}>
-            Regular Courses
-          </Box>
-
+               <OrangeSpan data-aos="zoom-in"> Regular Courses</OrangeSpan>
           <Typography sx={{
             mt: 2,
             fontSize: {

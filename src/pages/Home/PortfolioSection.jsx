@@ -41,12 +41,12 @@ const OrangeSpan = styled(Typography)(({ theme }) => ({
   backgroundColor: themeColors.orangeColor,
   color: themeColors.pureWhite,
   padding: '5px 20px',
-  borderRadius: '20px',
+  borderRadius: '109px',
   fontSize: '14px',
-  letterSpacing: '1px',
+  letterSpacing: '2%',
   fontWeight: '500',
   display: 'inline-block',
-  [theme.breakpoints.down('sm')]: { fontSize: '.7rem' },
+  [theme.breakpoints.down('sm')]: { fontSize: '13px' },
 
 }));
 

@@ -39,7 +39,7 @@ const HeroContainer = styled(Box)(({ theme }) => ({
 const OrangeSpan = styled(Typography)(({ theme }) => ({
   backgroundColor: themeColors.orangeColor,
   color: themeColors.pureWhite,
-  padding: '8px 20px',
+  padding: '5px 20px',
   borderRadius: '109px',
   fontSize: '14px',
   letterSpacing: '1px',

@@ -29,21 +29,20 @@ const IdentityContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-// Badge
-const Badge = styled("span")(({ theme }) => ({
-  display: "inline-block",
+
+const OrangeSpan = styled(Typography)(({ theme }) => ({
   backgroundColor: themeColors.orangeColor,
   color: themeColors.pureWhite,
   padding: "5px 20px",
-  borderRadius: "25px",
-  fontWeight: 500,
+  borderRadius: "109px",
   fontSize: "14px",
-  letterSpacing: "1px",
-  marginBottom: "15px",
+  letterSpacing: "2%",
+  fontWeight: "500",
+  display: "inline-block",
+  // marginBottom: '10px',
   [theme.breakpoints.down("sm")]: {
-    padding: "4px 15px",
-    fontSize: "12px",
-  },
+    fontSize: "13px",
+  }
 }));
 
 // CTA Button
@@ -74,13 +73,14 @@ function DigitalIdentityCard() {
       data-aos-easing="ease-out-cubic"
       data-aos-delay="150"
     >
-      <Badge>Let’s Build Together</Badge>
+        <OrangeSpan data-aos="zoom-in">Let’s Build Together</OrangeSpan>
+  
       <Typography
         component="h2"
         sx={{
           fontSize: { xs: "2rem", sm: "2.2rem", md: "2.5rem" },
           width: { xs: "90%", sm: "80%", md: "60%" },
-          margin: "20px auto",
+          margin: "10px auto",
           textAlign: "center",
           fontWeight: 700,
           lineHeight: 1.3,

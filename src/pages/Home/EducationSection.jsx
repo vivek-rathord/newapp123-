@@ -1,4 +1,4 @@
- import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { Box, Typography, Button, Card, styled, useTheme, useMediaQuery } from "@mui/material";
 import imager from "../../assets/Images/heroimg.jpg";
@@ -16,8 +16,8 @@ const interFont = "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Robot
 
 const ServicesContainer = styled(Box)(({ theme }) => ({
   padding: '60px 0px',
-  width: '80%',
-  margin:'auto',
+  width: '65vw',
+  margin: 'auto',
   textAlign: 'center',
   position: 'relative',
   overflow: 'hidden',
@@ -34,10 +34,12 @@ const ServicesContainer = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
     minHeight: 'auto',
     padding: '45px 15px',
+    width:'100%',
   },
   [theme.breakpoints.down('sm')]: {
-    padding: '10px 0px',
+    padding: '20px 0px',
     minHeight: 'auto',
+    width:'100%',
   }
 }));
 
@@ -79,21 +81,21 @@ const SectionTitle = styled(Typography)(({ theme }) => ({
   letterSpacing: '-0.1px',
   fontFamily: outfitFont,
   fontWeight: 700,
-  [theme.breakpoints.down('xl')]: { 
+  [theme.breakpoints.down('xl')]: {
     fontSize: '3.5rem',
     letterSpacing: '-0.08px',
   },
-  [theme.breakpoints.down('lg')]: { 
+  [theme.breakpoints.down('lg')]: {
     fontSize: '3rem',
     padding: '12px 0px',
     letterSpacing: '-0.06px',
   },
-  [theme.breakpoints.down('md')]: { 
+  [theme.breakpoints.down('md')]: {
     fontSize: '2.5rem',
     padding: '10px 0px',
     letterSpacing: '-0.05px',
   },
-  [theme.breakpoints.down('sm')]: { 
+  [theme.breakpoints.down('sm')]: {
     fontSize: '2rem',
     padding: '8px 0px',
     letterSpacing: '-0.04px',
@@ -109,27 +111,26 @@ const SectionSubtitle = styled(Typography)(({ theme }) => ({
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  padding: '4px 16px',
+   padding: "5px 20px",
   backgroundColor: themeColors.orangeColor,
   color: themeColors.pureWhite,
-  borderRadius: '20px',
-  fontSize: '13px',
-  fontWeight: '600',
+  borderRadius: '109px',
+  fontSize: '14px',
+  fontWeight: '500',
   whiteSpace: 'nowrap',
-  letterSpacing: '0.1px',
+  letterSpacing: '2%',
   fontFamily: outfitFont,
-  [theme.breakpoints.down('lg')]: { 
-    fontSize: '12px',
-    padding: '3px 14px',
+  [theme.breakpoints.down('lg')]: {
+    fontSize: '14px',
     letterSpacing: '0.08px',
   },
-  [theme.breakpoints.down('md')]: { 
+  [theme.breakpoints.down('md')]: {
     fontSize: '11px',
     padding: '3px 12px',
     letterSpacing: '0.06px',
   },
-  [theme.breakpoints.down('sm')]: { 
-    fontSize: '10px',
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '13px',
     padding: '2px 10px',
     whiteSpace: 'normal',
     textAlign: 'center',
@@ -144,26 +145,26 @@ const ContentTitle = styled(Typography)(({ theme }) => ({
   fontWeight: '700',
   marginBottom: '35px',
   textAlign: 'center',
-   padding: '20px 5px',
+  padding: '20px 5px',
   letterSpacing: '-0.06px',
   lineHeight: 1.1,
   fontFamily: outfitFont,
-  [theme.breakpoints.down('xl')]: { 
+  [theme.breakpoints.down('xl')]: {
     fontSize: '2.2rem',
     letterSpacing: '-0.05px',
   },
-  [theme.breakpoints.down('lg')]: { 
+  [theme.breakpoints.down('lg')]: {
     fontSize: '2rem',
     marginBottom: '30px',
     letterSpacing: '-0.04px',
   },
-  [theme.breakpoints.down('md')]: { 
+  [theme.breakpoints.down('md')]: {
     fontSize: '1.8rem',
     marginBottom: '25px',
     padding: '0 10px',
     letterSpacing: '-0.03px',
   },
-  [theme.breakpoints.down('sm')]: { 
+  [theme.breakpoints.down('sm')]: {
     fontSize: '1.5rem',
     marginBottom: '20px',
     padding: '0 8px',
@@ -184,22 +185,22 @@ const ServicesGrid = styled(Box)(({ theme }) => ({
   width: '100%',
   maxWidth: '1200px',
   margin: '0 auto',
-  
+
   [theme.breakpoints.up('md')]: {
     flexDirection: 'row',
   },
-  
+
   [theme.breakpoints.down('lg')]: {
     gap: '35px',
     maxWidth: '1000px',
   },
-  
+
   [theme.breakpoints.down('md')]: {
     flexDirection: 'column',
     alignItems: 'center',
     gap: '30px',
   },
-  
+
   [theme.breakpoints.down('sm')]: {
     gap: '20px',
   }
@@ -210,17 +211,17 @@ const ServicesList = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   textAlign: 'left',
   width: '100%',
-  
+
   [theme.breakpoints.up('md')]: {
     flex: '1 1 50%',
     maxWidth: '550px',
   },
-  
+
   [theme.breakpoints.down('md')]: {
     maxWidth: '600px',
     order: 1,
   },
-  
+
   [theme.breakpoints.down('sm')]: {
     maxWidth: '100%',
   }
@@ -230,24 +231,24 @@ const ServiceImage = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'flex-start',
-  
+
   [theme.breakpoints.up('md')]: {
     flex: '1 1 50%',
     position: 'sticky',
     top: '100px',
     height: 'fit-content',
   },
-  
+
   [theme.breakpoints.down('md')]: {
     width: '100%',
     maxWidth: '550px',
     order: 2,
   },
-  
+
   [theme.breakpoints.down('sm')]: {
     maxWidth: '100%',
   },
-  
+
   '& img': {
     width: '100%',
     height: '300px',
@@ -256,23 +257,23 @@ const ServiceImage = styled(Box)(({ theme }) => ({
     objectFit: 'cover',
     boxShadow: '0 10px 40px rgba(0,0,0,0.08)',
     transition: 'all 0.4s ease',
-    
+
     [theme.breakpoints.down('lg')]: {
       maxWidth: '450px',
     },
-    
+
     [theme.breakpoints.down('md')]: {
       maxWidth: '100%',
       aspectRatio: '16/9',
     },
-    
+
     [theme.breakpoints.down('sm')]: {
       borderRadius: '12px',
       aspectRatio: '4/3',
       maxWidth: '100%',
     }
   },
-  
+
   '&:hover img': {
     transform: 'scale(1.02)',
     boxShadow: '0 15px 50px rgba(0,0,0,0.15)',
@@ -298,7 +299,7 @@ const ButtonContainer = styled(Box)(({ theme }) => ({
 const BlackButton = styled(Button)(({ theme }) => ({
   backgroundColor: themeColors.deepBlack,
   color: themeColors.pureWhite,
-  marginTop:'20px',
+  marginTop: '20px',
   padding: '10px 40px',
   borderRadius: '8px',
   fontSize: '15px',
@@ -311,17 +312,17 @@ const BlackButton = styled(Button)(({ theme }) => ({
     backgroundColor: themeColors.orangeColor,
     // Removed transform and box-shadow on hover
   },
-  [theme.breakpoints.down('lg')]: { 
+  [theme.breakpoints.down('lg')]: {
     fontSize: "14px",
     padding: '9px 35px',
     letterSpacing: '0.04px',
   },
-  [theme.breakpoints.down('md')]: { 
+  [theme.breakpoints.down('md')]: {
     fontSize: "14px",
     padding: '9px 30px',
     letterSpacing: '0.03px',
   },
-  [theme.breakpoints.down('sm')]: { 
+  [theme.breakpoints.down('sm')]: {
     fontSize: "13px",
     padding: '8px 25px',
     width: '100%',
@@ -353,6 +354,10 @@ const ServiceTitle = styled(Typography)(({ theme, isActive }) => ({
   letterSpacing: isActive ? '-0.03px' : '-0.02px',
   fontFamily: outfitFont,
   marginBottom: 0,
+   [theme.breakpoints.down('lg')]: {
+    fontSize: '1.3rem',
+    letterSpacing: isActive ? '-0.02px' : '-0.015px',
+  },
   [theme.breakpoints.down('md')]: {
     fontSize: '1.1rem',
     letterSpacing: isActive ? '-0.02px' : '-0.015px',
@@ -370,7 +375,7 @@ const ServiceDescription = styled(Typography)(({ theme }) => ({
   letterSpacing: '0.01px',
   fontFamily: interFont,
   marginTop: '6px',
-  marginLeft:'10px',
+  marginLeft: '10px',
   marginBottom: '0',
   padding: '0',
   [theme.breakpoints.down('md')]: {
@@ -395,7 +400,7 @@ function EducationSection() {
   const [prevActiveIndex, setPrevActiveIndex] = useState(0);
   const [direction, setDirection] = useState('down');
   const [isScrolling, setIsScrolling] = useState(false);
-  
+
   // Media queries
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -409,9 +414,9 @@ function EducationSection() {
     { num: "04.", title: "Digital Engagement Solutions", desc: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos." }
   ];
 
-   useEffect(() => {
+  useEffect(() => {
     if (isMobile) return;
-    
+
     const handleMouseMove = (e) => {
       if (!containerRef.current) return;
       const rect = containerRef.current.getBoundingClientRect();
@@ -457,10 +462,10 @@ function EducationSection() {
         const refCenter = refRect.top + refRect.height / 2;
         const viewportCenter = viewportHeight / 2;
         const distance = Math.abs(refCenter - viewportCenter);
-        
-        const adjustedDistance = isMobile ? 
+
+        const adjustedDistance = isMobile ?
           Math.abs(refRect.top - threshold) : distance;
-          
+
         if (adjustedDistance < minDistance) {
           minDistance = adjustedDistance;
           newActiveIndex = index;
@@ -502,10 +507,10 @@ function EducationSection() {
       const refRect = serviceRefs.current[index].getBoundingClientRect();
       const offset = isMobile ? 50 : 70;
       const scrollTo = refRect.top + window.pageYOffset - offset;
-      
-      window.scrollTo({ 
-        top: scrollTo, 
-        behavior: 'smooth' 
+
+      window.scrollTo({
+        top: scrollTo,
+        behavior: 'smooth'
       });
     }
 
@@ -514,37 +519,37 @@ function EducationSection() {
 
   // Updated animation styles
   const getServiceAnimationStyle = (index) => {
-    if (index === activeIndex) return { 
-      opacity: 1, 
+    if (index === activeIndex) return {
+      opacity: 1,
       transform: 'scale(1.005) translateY(-1px)',
       transition: 'all 0.25s ease'
     };
-    if (index === prevActiveIndex) return { 
-      opacity: 0.7, 
+    if (index === prevActiveIndex) return {
+      opacity: 0.5,
       transform: 'scale(0.995)',
       transition: 'all 0.2s ease'
     };
-    return { 
-      opacity: 0.5, 
+    return {
+      opacity: 0.5,
       transform: 'scale(0.99)',
       transition: 'all 0.2s ease'
     };
   };
 
-   const getDescAnimationStyle = (index) => {
-    if (index === activeIndex) return { 
-      opacity: 1, 
-      transform: 'translateY(0)', 
+  const getDescAnimationStyle = (index) => {
+    if (index === activeIndex) return {
+      opacity: 1,
+      transform: 'translateY(0)',
       // 
       maxHeight: 'auto',
       overflow: 'hidden',
       marginTop: '6px',
       transition: 'all 0.35s ease 0.05s'
     };
-    return { 
-      opacity: 0, 
-      transform: 'translateY(5px)', 
-      maxHeight: '0px', 
+    return {
+      opacity: 0,
+      transform: 'translateY(5px)',
+      maxHeight: '0px',
       overflow: 'hidden',
       marginTop: '0px',
       transition: 'all 0.2s ease'
@@ -560,9 +565,9 @@ function EducationSection() {
         <SectionSubtitle variant="subtitle1">What We Do</SectionSubtitle>
       </SectionHeading>
 
-      <ContentTitle variant="h2" sx={{ 
-        opacity: isVisible ? 1 : 0, 
-        transform: isVisible ? "translateY(0)" : "translateY(25px)", 
+      <ContentTitle variant="h2" sx={{
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? "translateY(0)" : "translateY(25px)",
         transition: "all 0.4s ease 0.1s"
       }}>
         Popular Courses We Offers
@@ -578,17 +583,12 @@ function EducationSection() {
                 ref={el => serviceRefs.current[index] = el}
                 onClick={() => handleServiceClick(index)}
                 sx={{
-                  background: themeColors.pureWhite,
+                  backgroundColor: isActive ? '#ffffff' : 'transparent',
                   padding: { xs: '10px', sm: '14px', md: '18px' },
                   width: '100%',
-                  borderRadius: '8px',
-                  boxShadow: isActive ? 
-                    '0 6px 20px rgba(31,41,55,0.08)' : 
-                    '0 3px 10px rgba(0,0,0,0.04)',
+                  borderRadius: isActive ? '24px' : '0px',
+                  boxShadow: isActive ? '0 10px 30px rgba(0,0,0,0.08)': 'none',
                   marginBottom: { xs: '6px', md: '10px' },
-                  border: isActive ? 
-                    `1.5px solid ${themeColors.orangeColor}20` : 
-                    '1px solid transparent',
                   position: 'relative',
                   overflow: 'hidden',
                   cursor: 'pointer',
@@ -600,13 +600,13 @@ function EducationSection() {
                   }
                 }}
               >
-                 <Box sx={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
+                <Box sx={{
+                  display: 'flex',
+                  alignItems: 'center',
                   gap: { xs: '6px', md: '10px' },
                   marginBottom: isActive ? '6px' : '0'
                 }}>
-                   <Box sx={{
+                  <Box sx={{
                     width: { xs: '32px', sm: '36px', md: '40px' },
                     height: { xs: '32px', sm: '36px', md: '40px' },
                     minWidth: { xs: '32px', sm: '36px', md: '40px' },
@@ -614,7 +614,7 @@ function EducationSection() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                     transition: 'all 0.15s ease',
+                    transition: 'all 0.15s ease',
                     flexShrink: 0,
                   }}>
                     <ServiceNumber variant="h3">
@@ -622,7 +622,7 @@ function EducationSection() {
                     </ServiceNumber>
                   </Box>
 
-                   <ServiceTitle variant="h4" isActive={isActive} sx={{ 
+                  <ServiceTitle variant="h4" isActive={isActive} sx={{
                     flex: 1,
                     marginBottom: 0,
                     lineHeight: 1.1
@@ -630,8 +630,8 @@ function EducationSection() {
                     {service.title}
                   </ServiceTitle>
                 </Box>
-                
-                 <Box sx={getDescAnimationStyle(index)}>
+
+                <Box sx={getDescAnimationStyle(index)}>
                   <ServiceDescription variant="body1">
                     {service.desc}
                   </ServiceDescription>
@@ -641,8 +641,8 @@ function EducationSection() {
           })}
         </ServicesList>
 
-        <ServiceImage sx={{ 
-          opacity: isVisible ? 1 : 0, 
+        <ServiceImage sx={{
+          opacity: isVisible ? 1 : 0,
           transform: isVisible ? 'translateX(0)' : (isDesktop ? 'translateX(25px)' : 'translateY(15px)'),
           transition: `all 0.5s ease ${isDesktop ? '0s' : '0.25s'}`
         }}>
@@ -650,13 +650,13 @@ function EducationSection() {
         </ServiceImage>
       </ServicesGrid>
 
-      <ButtonContainer sx={{ 
-        opacity: isVisible ? 1 : 0, 
+      <ButtonContainer sx={{
+        opacity: isVisible ? 1 : 0,
         transform: isVisible ? 'translateY(0)' : 'translateY(15px)',
         transition: 'all 0.4s ease 0.3s'
       }}>
-        <BlackButton 
-          component={Link} 
+        <BlackButton
+          component={Link}
           to="/services"
           sx={{
             minHeight: { xs: '40px', md: 'auto' },

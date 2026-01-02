@@ -1,4 +1,4 @@
- import React, { useEffect } from "react";
+import React, { useEffect } from "react";
 // import { Link } from "react-router-dom";
 import { Box, Typography, Button, styled } from "@mui/material";
 import AOS from 'aos';
@@ -27,10 +27,10 @@ const HeroContainer = styled(Box)(({ theme }) => ({
     marginTop: '20px',
     gap: '10px',
   },
-   [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('sm')]: {
     minHeight: '50vh',
     marginTop: '20px',
-  alignItems: 'flex-start',
+    alignItems: 'flex-start',
     gap: '10px',
   }
 }));
@@ -38,22 +38,22 @@ const HeroContainer = styled(Box)(({ theme }) => ({
 const OrangeSpan = styled(Typography)(({ theme }) => ({
   backgroundColor: themeColors.orangeColor,
   color: themeColors.pureWhite,
-  padding: '5px 20px',
+  padding: '8px 20px',
   borderRadius: '109px',
   fontSize: '10px',
   letterSpacing: '0.24px',
   fontWeight: '500',
   display: 'inline-block',
-  marginBottom:'20px',
+  marginBottom: '20px',
   animation: 'pulse 2s infinite ease-in-out',
   '@keyframes pulse': {
     '0%': { transform: 'scale(1)' },
     '50%': { transform: 'scale(1.05)' },
     '100%': { transform: 'scale(1)' },
   },
-    [theme.breakpoints.down('sm')]: {
-  fontSize: '13px',
-  marginBottom:'10px',
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '13px',
+    marginBottom: '10px',
   }
 }));
 
@@ -61,20 +61,20 @@ const HeroTitle = styled(Typography)(({ theme }) => ({
   fontSize: '4rem',
   fontWeight: '700',
   lineHeight: '76.8px',
-   color: themeColors.deepBlack,
+  color: themeColors.deepBlack,
   textAlign: 'center',
   maxWidth: '800px',
   margin: '0 auto',
   [theme.breakpoints.down('md')]: {
     fontSize: '3rem',
     width: '100%',
-  lineHeight: '50px',
+    lineHeight: '50px',
 
   },
   [theme.breakpoints.down('sm')]: {
     fontSize: '1.8rem',
-  textAlign: 'left',
-  lineHeight: '40px',
+    textAlign: 'left',
+    lineHeight: '40px',
   }
 }));
 
@@ -98,7 +98,7 @@ const HeroText = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     width: '100%',
     fontSize: '14px',
-  textAlign: 'left',
+    textAlign: 'left',
 
   }
 }));
@@ -116,31 +116,31 @@ function HeroSection() {
 
   return (
     <HeroContainer>
-      <OrangeSpan 
-        data-aos="zoom-in" 
+      <OrangeSpan
+        data-aos="zoom-in"
         data-aos-delay="200"
         data-aos-duration="800"
       >
         Netcoder Technology
       </OrangeSpan>
-      
-      <HeroTitle 
-        variant="h1" 
-        data-aos="fade-up" 
+
+      <HeroTitle
+        variant="h1"
+        data-aos="fade-up"
         data-aos-delay="300"
         data-aos-duration="1000"
-       
+
       >
         Solution for brands<br />
         Skills for the learners
       </HeroTitle>
-      
-      <HeroText 
-        data-aos="fade-up" 
+
+      <HeroText
+        data-aos="fade-up"
         data-aos-delay="400"
         data-aos-duration="1000"
       >
-    From digital branding and website design to student training, we help businesses scale their online presence and prepare the next generation of skilled IT professionals through practical learning experiences.
+        From digital branding and website design to student training, we help businesses scale their online presence and prepare the next generation of skilled IT professionals through practical learning experiences.
       </HeroText>
     </HeroContainer>
   );

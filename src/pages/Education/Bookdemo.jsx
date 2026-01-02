@@ -12,13 +12,12 @@ const themeColors = {
 // Main Container
 const IdentityContainer = styled(Box)(({ theme }) => ({
   backgroundColor: themeColors.pureWhite,
-  borderRadius: "40px",
+  borderRadius: "80px",
   padding: "60px 40px",
   width: "90%",
   maxWidth: "1200px",
   margin: "60px auto",
   textAlign: "center",
-  boxShadow: "0 20px 50px rgba(0,0,0,0.08)",
   [theme.breakpoints.down("md")]: {
     padding: "40px 20px",
     margin: "40px auto",
@@ -29,19 +28,19 @@ const IdentityContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-// Badge
-const Badge = styled("span")(({ theme }) => ({
+
+const OrangeSpan = styled(Typography)(({ theme }) => ({
   backgroundColor: themeColors.orangeColor,
   color: themeColors.pureWhite,
   padding: "5px 20px",
   borderRadius: "109px",
   fontSize: "14px",
-  letterSpacing: "1px",
+  letterSpacing: "2%",
   fontWeight: "500",
   display: "inline-block",
   [theme.breakpoints.down("sm")]: {
-    fontSize: "12px",
-  },
+    fontSize: "13px",
+  }
 }));
 
 // CTA Button
@@ -57,7 +56,8 @@ function BookDemo() {
       data-aos-easing="ease-out-cubic"
       data-aos-delay="150"
     >
-      <Badge>Free Demo Class</Badge>
+        <OrangeSpan data-aos="zoom-in">Free Demo Class</OrangeSpan>
+
 
       <Typography
         component="h2"
@@ -65,7 +65,7 @@ function BookDemo() {
           fontSize: { xs: "2rem", sm: "2.2rem", md: "3rem" },
           width: { xs: "90%", sm: "80%", md: "50%" },
           textTransform:"capitalize",
-          margin: "20px auto",
+          margin: "5px auto",
           textAlign: "center",
           fontWeight: 700,
           lineHeight: 1.3,

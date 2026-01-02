@@ -14,13 +14,11 @@ const themeColors = {
 };
 
 const PortfolioContainer = styled(Box)(({ theme }) => ({
-  background: themeColors.pureWhite,
   borderRadius: '80px',
-  padding: '80px 60px',
-  marginTop: '80px',
+  padding: '10px 60px',
+  marginTop: '30px',
   width: '100%',
   maxWidth: '1400px',
-  boxShadow: '0 20px 60px rgba(0,0,0,0.1)',
   [theme.breakpoints.down('md')]: {
     padding: '40px 20px',
     borderRadius: '40px',
@@ -32,8 +30,9 @@ const HeadingContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  textTransform:'capitalize',
   width: '100%',
-  gap: '25px',
+  gap: '6px',
   marginBottom: '60px',
   textAlign: 'center',
 }));
@@ -41,14 +40,15 @@ const HeadingContainer = styled(Box)(({ theme }) => ({
 const OrangeSpan = styled(Typography)(({ theme }) => ({
   backgroundColor: themeColors.orangeColor,
   color: themeColors.pureWhite,
-  padding: '5px 20px',
-  borderRadius: '20px',
-  fontSize: '14px',
-  letterSpacing: '1px',
-  fontWeight: '500',
-  display: 'inline-block',
-  [theme.breakpoints.down('sm')]: { fontSize: '.7rem' },
-
+  padding: "5px 20px",
+  borderRadius: "109px",
+  fontSize: "14px",
+  letterSpacing: "2%",
+  fontWeight: "500",
+  display: "inline-block",
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "13px",
+  }
 }));
 
 const PortfolioTitle = styled(Typography)(({ theme }) => ({
@@ -196,6 +196,7 @@ const BlackButton = styled(Button)(({ theme }) => ({
   fontWeight: '400',
   textTransform: 'none',
   transition: 'all 0.4s ease',
+  marginTop:'22px',
   '&:hover': {
     backgroundColor: themeColors.orangeColor,
     transform: 'translateY(-3px)',

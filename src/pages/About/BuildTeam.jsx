@@ -1,15 +1,36 @@
-import { Box, Typography, Container, Button, Paper } from '@mui/material';
+import { Box, Typography, Container, Button, Paper, styled } from '@mui/material';
 import { Link } from 'react-router-dom';
 
+const themeColors = {
+  orangeColor: '#FF5532',
+  deepBlack: '#111111',
+  darkGray: '#575757',
+  pureWhite: '#FFFFFF',
+};
+
+const OrangeSpan = styled(Typography)(({ theme }) => ({
+  backgroundColor: themeColors.orangeColor,
+  color: themeColors.pureWhite,
+  padding: "5px 20px",
+  borderRadius: "109px",
+  fontSize: "14px",
+  letterSpacing: "2%",
+  fontWeight: "500",
+  display: "inline-block",
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "13px",
+  }
+}));
 const BuildTeam = () => {
   return (
-    <Container sx={{ py: 8 }}>
+    <Container sx={{ py: 1 }}>
       <Paper
         sx={{
-          backgroundColor: '#FFFFFF',
+          backgroundColor: themeColors.pureWhite,
           borderRadius: { xs: '40px', md: '80px' },
           padding: { xs: '40px 20px', md: '90px 0px' },
-          margin: { xs: '20px auto', md: '60px auto' },
+          margin: { xs: '20px auto', md: '0px auto' },
+          boxShadow:'none',
         }}
       >
         <Box
@@ -30,20 +51,8 @@ const BuildTeam = () => {
             },
           }}
         >
-          <Typography
-            sx={{
-              fontSize: '14px',
-              fontWeight: 500,
-              letterSpacing: '1px',
-              color: '#ffffffff',
-              backgroundColor: '#FF5532 ',
-              padding: '5px 18px',
-              borderRadius: '109px',
-            }}
-          >
-            Connect
-          </Typography>
-
+        <OrangeSpan data-aos="zoom-in">Connect</OrangeSpan>
+         
           <Typography
             variant="h2"
             sx={{

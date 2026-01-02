@@ -34,6 +34,10 @@ const NavbarWrapper = styled(AppBar)(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     width: "100%",
     padding: "8px 0px",
+   borderRadius:'0px !important',
+  },
+  [theme.breakpoints.down("md")]: {
+   borderRadius:'10px',
   },
 }));
 

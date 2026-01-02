@@ -14,7 +14,7 @@ const outfitFont = "'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Rob
 const interFont = "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
 
 const ServicesContainer = styled(Box)(({ theme }) => ({
-  width: '80%',
+  width: '65vw',
   margin:'auto',
   textAlign: 'center',
   position: 'relative',
@@ -32,10 +32,12 @@ const ServicesContainer = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
     minHeight: 'auto',
     padding: '45px 15px',
+    width:'100%',
   },
   [theme.breakpoints.down('sm')]: {
-    padding: '10px 0px',
+    padding: '0px',
     minHeight: 'auto',
+    width:'100%',
   }
 }));
 
@@ -107,27 +109,26 @@ const SectionSubtitle = styled(Typography)(({ theme }) => ({
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  padding: '4px 16px',
+   padding: "5px 20px",
   backgroundColor: themeColors.orangeColor,
   color: themeColors.pureWhite,
-  borderRadius: '20px',
-  fontSize: '13px',
-  fontWeight: '600',
+  borderRadius: '109px',
+  fontSize: '14px',
+  fontWeight: '500',
   whiteSpace: 'nowrap',
-  letterSpacing: '0.1px',
+  letterSpacing: '2%',
   fontFamily: outfitFont,
-  [theme.breakpoints.down('lg')]: { 
-    fontSize: '12px',
-    padding: '3px 14px',
+  [theme.breakpoints.down('lg')]: {
+    fontSize: '14px',
     letterSpacing: '0.08px',
   },
-  [theme.breakpoints.down('md')]: { 
+  [theme.breakpoints.down('md')]: {
     fontSize: '11px',
     padding: '3px 12px',
     letterSpacing: '0.06px',
   },
-  [theme.breakpoints.down('sm')]: { 
-    fontSize: '10px',
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '13px',
     padding: '2px 10px',
     whiteSpace: 'normal',
     textAlign: 'center',
@@ -136,6 +137,7 @@ const SectionSubtitle = styled(Typography)(({ theme }) => ({
     lineHeight: 1.2,
   }
 }));
+
 
 const ContentTitle = styled(Typography)(({ theme }) => ({
   fontSize: '2.5rem',
@@ -352,6 +354,10 @@ const ServiceTitle = styled(Typography)(({ theme, isActive }) => ({
   letterSpacing: isActive ? '-0.03px' : '-0.02px',
   fontFamily: outfitFont,
   marginBottom: 0,
+    [theme.breakpoints.down('lg')]: {
+    fontSize: '1.3rem',
+    letterSpacing: isActive ? '-0.02px' : '-0.015px',
+  },
   [theme.breakpoints.down('md')]: {
     fontSize: '1.1rem',
     letterSpacing: isActive ? '-0.02px' : '-0.015px',
@@ -518,7 +524,7 @@ function SolutionSection() {
       transition: 'all 0.25s ease'
     };
     if (index === prevActiveIndex) return { 
-      opacity: 0.7, 
+      opacity: 0.5, 
       transform: 'scale(0.995)',
       transition: 'all 0.2s ease'
     };
@@ -575,17 +581,12 @@ function SolutionSection() {
                 ref={el => serviceRefs.current[index] = el}
                 onClick={() => handleServiceClick(index)}
                 sx={{
-                  background: themeColors.pureWhite,
+                 backgroundColor: isActive ? '#ffffff' : 'transparent',
                   padding: { xs: '10px', sm: '14px', md: '18px' },
                   width: '100%',
-                  borderRadius: '8px',
-                  boxShadow: isActive ? 
-                    '0 6px 20px rgba(31,41,55,0.08)' : 
-                    '0 3px 10px rgba(0,0,0,0.04)',
+                  borderRadius: isActive ? '24px' : '0px',
+                  boxShadow: isActive ? '0 10px 30px rgba(0,0,0,0.08)': 'none',
                   marginBottom: { xs: '6px', md: '10px' },
-                  border: isActive ? 
-                    `1.5px solid ${themeColors.orangeColor}20` : 
-                    '1px solid transparent',
                   position: 'relative',
                   overflow: 'hidden',
                   cursor: 'pointer',

@@ -47,14 +47,13 @@ const HeroContainer = styled(Box)(({ theme }) => ({
 const OrangeSpan = styled(Typography)(({ theme }) => ({
   backgroundColor: themeColors.orangeColor,
   color: themeColors.pureWhite,
-  padding: "8px 20px",
+  padding: "5px 20px",
   borderRadius: "109px",
   fontSize: "14px",
   letterSpacing: "2%",
   fontWeight: "500",
   display: "inline-block",
   animation: `${pulse} 2s infinite ease-in-out`,
-
   [theme.breakpoints.down("sm")]: {
     fontSize: "13px",
   }

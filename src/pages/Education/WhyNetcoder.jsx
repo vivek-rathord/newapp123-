@@ -29,22 +29,25 @@ const WhyNetcoderContainer = styled(Box)(({ theme }) => ({
 
 
 // Orange badge
-const OrangeSpan = styled(Typography)({
+const OrangeSpan = styled(Typography)(({ theme }) => ({
   backgroundColor: themeColors.orangeColor,
   color: themeColors.pureWhite,
-  padding: "8px 18px",
+  padding: "5px 20px",
   borderRadius: "109px",
   fontSize: "14px",
-  letterSpacing: "1px",
-  fontWeight: 500,
+  letterSpacing: "2%",
+  fontWeight: "500",
   display: "inline-block",
-});
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "13px",
+  }
+}));
 
 // Heading
 const Heading = styled(Typography)({
   fontWeight: 700,
   maxWidth: "700px",
-  margin: "20px auto 40px",
+  margin: "10px auto 40px",
 });
 
 // Grid container

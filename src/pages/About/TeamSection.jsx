@@ -1,13 +1,5 @@
  import { useState, useEffect } from 'react';
-import { 
-  Box, 
-  Typography, 
-  Container, 
-  IconButton, 
-  Card, 
-  CardContent, 
-  CardMedia
-} from '@mui/material';
+import {  Box, Typography,  Container,  IconButton,  Card, CardContent,CardMedia,styled} from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Aos from 'aos';
@@ -20,6 +12,25 @@ import img4 from "../../assets/Images/team1.png";
 import img5 from "../../assets/Images/team1.png";
 import img6 from "../../assets/Images/team1.png";
 
+const themeColors = {
+  orangeColor: '#FF5532',
+  deepBlack: '#111111',
+  darkGray: '#575757',
+  pureWhite: '#FFFFFF',
+};
+const OrangeSpan = styled(Typography)(({ theme }) => ({
+  backgroundColor: themeColors.orangeColor,
+  color: themeColors.pureWhite,
+  padding: "5px 20px",
+  borderRadius: "109px",
+  fontSize: "14px",
+  letterSpacing: "2%",
+  fontWeight: "500",
+  display: "inline-block",
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "13px",
+  }
+}));
 const TeamSection = () => {
   const [index, setIndex] = useState(0);
   const [slideWidth, setSlideWidth] = useState(320);
@@ -85,25 +96,14 @@ const TeamSection = () => {
           flexDirection: 'column',
           alignItems: 'center',
           gap: 2,
-          mb: 6,
+          mb: 1,
           textTransform: 'capitalize',
           textAlign: 'center',
           width: '100%'
         }}
       >
-        <Typography 
-          sx={{ 
-            fontSize: '14px',
-            color: 'white',
-            letterSpacing: 1,
-            backgroundColor: '#FF5532 ',
-            padding: '5px 18px',
-            borderRadius: '109px',
-            fontWeight:'500',
-          }}
-        >
-          our team
-        </Typography>
+        <OrangeSpan data-aos="zoom-in">Our Team</OrangeSpan>
+       
         <Typography 
           variant="h2"
           sx={{ 

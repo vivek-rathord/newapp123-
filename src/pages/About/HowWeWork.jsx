@@ -1,5 +1,24 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
-import { Box, Typography, Container, Paper } from "@mui/material";
+import { Box, Typography, Container, Paper, styled } from "@mui/material";
+const themeColors = {
+  orangeColor: '#FF5532',
+  deepBlack: '#111111',
+  darkGray: '#575757',
+  pureWhite: '#FFFFFF',
+};
+const OrangeSpan = styled(Typography)(({ theme }) => ({
+  backgroundColor: themeColors.orangeColor,
+  color: themeColors.pureWhite,
+  padding: "5px 20px",
+  borderRadius: "109px",
+  fontSize: "14px",
+  letterSpacing: "2%",
+  fontWeight: "500",
+  display: "inline-block",
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "13px",
+  }
+}));
 
 const stepsData = [
   { num: "01", title: "Understand The Need", desc: "We begin by listening - whether it’s a clients business goal or a student’s learning objectives. This help us design the right path forward." },
@@ -138,41 +157,44 @@ const HowWeWork = () => {
   }, [activeIndex, isScrolling]);
 
   // Get animation style based on step state and direction
-  const getStepAnimationStyle = (index) => {
-    const isActive = index === activeIndex;
-    const wasActive = index === prevActiveIndex;
-    const isUpcoming = index > activeIndex;
+const getStepAnimationStyle = (index) => {
+  const isActive = index === activeIndex;
+  const wasActive = index === prevActiveIndex;
+  const isUpcoming = index > activeIndex;
 
-    if (isActive) {
-      return {
-        opacity: 1,
-        transform: 'translateY(0)',
-        transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
-      };
-    }
-
-    if (wasActive) {
-      return {
-        opacity: 0.3,
-        transform: direction === 'down' ? 'translateY(-10px)' : 'translateY(10px)',
-        transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
-      };
-    }
-
-    if (isUpcoming) {
-      return {
-        opacity: direction === 'down' ? 0.4 : 0.2,
-        transform: 'translateY(5px)',
-        transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
-      };
-    }
-
+  if (isActive) {
     return {
-      opacity: 0.2,
-      transform: 'translateY(0)',
-      transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)'
+      opacity: 1,
+      transform: "translateY(0)",
+      transition: "all 0.6s ease",
     };
+  }
+
+  if (wasActive) {
+    return {
+      opacity: 1, 
+      transform: direction === "down"
+        ? "translateY(-10px)"
+        : "translateY(10px)",
+      transition: "all 0.4s ease",
+    };
+  }
+
+  if (isUpcoming) {
+    return {
+      opacity: 1, 
+      transform: "translateY(6px)",
+      transition: "all 0.4s ease",
+    };
+  }
+
+  return {
+    opacity: 1, 
+    transform: "translateY(0)",
+    transition: "all 0.4s ease",
   };
+};
+
 
   // Get description animation style
   const getDescAnimationStyle = (index) => {
@@ -189,7 +211,7 @@ const HowWeWork = () => {
     }
 
     return {
-      opacity: 0,
+      opacity: 1,
       transform: 'translateY(5px)',
       maxHeight: '0px',
       marginTop: '0px',
@@ -229,7 +251,6 @@ const HowWeWork = () => {
           position: "sticky",
           top: "80px",
           height: "fit-content",
-          // backgroundColor: "#FFFFFF",
         }}>
           {/* Badge */}
           <Box
@@ -239,23 +260,7 @@ const HowWeWork = () => {
               transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           >
-            <Typography
-              sx={{
-                fontSize: "14px",
-                fontWeight: 500,
-                letterSpacing: "1.2px",
-                backgroundColor: "#FF5532",
-                color: "#ffffff",
-                textTransform: "uppercase",
-                display: "inline-flex",
-                padding: "5px 20px",
-                borderRadius: "109px",
-                width: "fit-content",
-              }
-              }
-            >
-              How We Work
-            </Typography>
+            <OrangeSpan data-aos="zoom-in">How We Work</OrangeSpan>
           </Box>
 
           {/* Title - SHOWING (NOT HIDDEN) */}
@@ -285,11 +290,10 @@ const HowWeWork = () => {
         <Box sx={{
           display: "flex",
           flexDirection: "column",
-          gap: { xs: "40px", md: "60px" },
+          gap: { xs: "40px", md: "30px" },
           position: "relative",
           paddingTop: "20px",
           paddingBottom: "40px 30px",
-          // backgroundColor: "#FFFFFF",
         }}>
           {/* Removed vertical line - Simple layout */}
 
@@ -311,26 +315,21 @@ const HowWeWork = () => {
                   display: "flex",
                   alignItems: "flex-start",
                   textAlign: 'left',
-                  backgroundColor: "#FFFFFF",
-                 borderRadius: { xs: "16px", sm: "20px", md: "24px" },
-
-
+                 backgroundColor: isActive ? "#FFFFFF" : "transparent",
+                  borderRadius: { xs: "16px", sm: "20px", md: "24px" ,lg:'40px'},
                   padding: {
                     xs: "20px 0px",
                     // sm:"20px px 0px 0px",
                     md: "40px 40px 40px 0px",
                   },
-                  // border: isActive 
-                  //   ? "2px solid rgba(255, 85, 50, 0.2)" 
-                  //   : "1px solid rgba(0, 0, 0, 0.05)",
+  
                   boxShadow: isActive
                     ? "0 8px 30px rgba(31, 41, 55, 0.08)"
-                    : "0 4px 15px rgba(0, 0, 0, 0.02)",
+                    : 'none',
                   transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
                   "&:hover": {
                     // borderColor: "rgba(255, 85, 50, 0.3)",
-                    boxShadow: "0 10px 35px rgba(31, 41, 55, 0.1)",
-                    transform: "translateY(-2px)",
+                    // transform: "translateY(-2px)",
                   },
                   ...stepAnimation,
                 }}
@@ -369,7 +368,7 @@ const HowWeWork = () => {
                       mb: { xs: "8px", md: 0 },
 
                       // COLOR
-                      color: isActive ? "#111" : "#999",
+                      color: isActive ? "111111" : "#575757",
 
                       // SM STYLE (INSIDE LOOK)
                       backgroundColor: {
@@ -406,10 +405,10 @@ const HowWeWork = () => {
                       fontWeight: isActive ? 600 : 500,
                       mb: isActive ? "10px" : "0",
                       color: isActive
-                        ? "#111"
+                        ? "#111111"
                         : index < activeIndex
-                          ? "#666"
-                          : "#999",
+                          ? "#575757"
+                          : "#575757",
                       lineHeight: 1.2,
                       transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
                     }}
@@ -428,12 +427,11 @@ const HowWeWork = () => {
                     >
                       <Typography
                         sx={{
-                          color: "#555",
+                          color:themeColors.darkGray,
                           lineHeight: 1.6,
                           fontSize: { xs: "0.9rem", md: "1rem" },
                           fontWeight: 400,
                           paddingLeft: "1px",
-                          // borderLeft: isActive ? "3px solid #FF5532" : "none",
                           transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
                         }}
                       >
@@ -442,26 +440,6 @@ const HowWeWork = () => {
                     </Box>
                   </Box>
                 </Box>
-
-                {/* Active indicator - Right side */}
-                {/* {isActive && (
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      top: "20px",
-                      right: "20px",
-                      width: "8px",
-                      height: "8px",
-                      borderRadius: "50%",
-                      backgroundColor: "#FF5532",
-                      animation: "pulseActive 1.5s ease-in-out infinite",
-                      "@keyframes pulseActive": {
-                        "0%, 100%": { transform: "scale(1)", opacity: 1 },
-                        "50%": { transform: "scale(1.5)", opacity: 0.7 },
-                      },
-                    }}
-                  />
-                )} */}
               </Box>
             );
           })}

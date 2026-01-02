@@ -16,7 +16,7 @@ const AboutContainer = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   width: '100%',
- paddingTop:"90px",
+ paddingTop:"70px",
   [theme.breakpoints.down('md')]: {
     padding: '40px 0px',
   }
@@ -27,7 +27,7 @@ const HeadingContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   alignItems: 'center',
   width: '80%',
-  gap: '15px',
+  gap: '8px',
   marginBottom: '50px',
   textAlign: 'center',
   [theme.breakpoints.down('md')]: {
@@ -42,19 +42,23 @@ const HeadingContainer = styled(Box)(({ theme }) => ({
 const OrangeSpan = styled(Typography)(({ theme }) => ({
   backgroundColor: themeColors.orangeColor,
   color: themeColors.pureWhite,
-  padding: '5px 18px',
-  borderRadius: '109px',
-  fontSize: '14px',
-  letterSpacing: '0.24px',
-  fontWeight: '500',
-  display: 'inline-block',
-  
+  padding: "5px 20px",
+  borderRadius: "109px",
+  fontSize: "14px",
+  letterSpacing: "2%",
+  fontWeight: "500",
+  display: "inline-block",
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "13px",
+  }
 }));
 
 const HeadingTitle = styled(Typography)(({ theme }) => ({
   fontSize: '3rem',
   fontWeight: '700',
   textAlign: 'center',
+  marginBottom: '10px',
+
   [theme.breakpoints.down('md')]: {
     fontSize: '2rem',
   },

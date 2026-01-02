@@ -22,8 +22,11 @@ const HeadingBox = styled(Box)(({ theme }) => ({
   textAlign: "center",
   display: "flex",
   flexDirection: "column",
-  gap: "15px",
+  gap: "5px",
   marginBottom: "50px",
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "13px",
+  }
 }));
 
 const OrangeSpan = styled(Typography)(({ theme }) => ({

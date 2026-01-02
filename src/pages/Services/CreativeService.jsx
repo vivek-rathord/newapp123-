@@ -12,6 +12,20 @@ const themeColors = {
   pureWhite: "#FFFFFF",
 };
 
+const OrangeSpan = styled(Typography)(({ theme }) => ({
+  backgroundColor: themeColors.orangeColor,
+  color: themeColors.pureWhite,
+  padding: "5px 20px",
+  borderRadius: "109px",
+  fontSize: "14px",
+  letterSpacing: "2%",
+  fontWeight: "500",
+  display: "inline-block",
+  marginBottom: '3px',
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "13px",
+  }
+}));
 // Outer Container like PortfolioSection
 const SectionContainer = styled(Box)(({ theme }) => ({
   width: "90%",
@@ -24,39 +38,28 @@ const SectionContainer = styled(Box)(({ theme }) => ({
   }
 }));
 
+const Paragraph = styled("p")(({ theme }) => ({
+  color: themeColors.darkGray,   
+  fontSize: "16px",
+  lineHeight: 1.6,
+  maxWidth: "700px",
+  margin: "0 auto",
+}));
+
 const HeadingContainer = styled(Box)(({ theme }) => ({
   marginBottom: "50px",
   textAlign: "center",
 
-  span: {
-    backgroundColor: themeColors.orangeColor,
-    color: themeColors.pureWhite,
-    padding: "5px 20px",
-    borderRadius: "109px",
-    fontWeight: 500,
-    fontSize: "14px",
-    letterSpacing: "1px",
-    display: "inline-block",
-  },
-
   h2: {
     fontSize: "3rem",
     fontWeight: 700,
-    margin: "15px 0",
+     paddingBottom:'15px',
     [theme.breakpoints.down('md')]: {
       fontSize: '2.2rem',
     },
     [theme.breakpoints.down('sm')]: {
       fontSize: '2rem',
     }
-  },
-
-  p: {
-    color: themeColors.darkGray,
-    fontSize: "16px",
-    lineHeight: 1.6,
-    maxWidth: "700px",
-    margin: "0 auto",
   },
 
 }));
@@ -131,11 +134,11 @@ function CreativeService() {
     <SectionContainer data-aos="fade-up">
       {/* Heading */}
       <HeadingContainer data-aos="fade-up">
-        <span>What We Offer</span>
+              <OrangeSpan data-aos="zoom-in">What We Offer</OrangeSpan>
         <h2>Creative Design Solutions</h2>
-        <p>
+          <Paragraph>
           Our Creative Design Solutions encompass branding, UI/UX, and graphic design, ensuring a cohesive visual identity across all platforms. We craft engaging and intuitive designs hat not only captivate users but also drive conversions. Our Approach combines creativity with strategic insights to elevate your brand in digital landscape.
-        </p>
+       </Paragraph>
       </HeadingContainer>
 
       {/* FLEX LAYOUT */}
