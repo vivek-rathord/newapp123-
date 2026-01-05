@@ -106,7 +106,7 @@ background: "linear-gradient(45deg, rgba(0,0,0,0.6), rgba(258,255,255,0.3))",
     transition: 'opacity 0.5s ease',
   },
     [theme.breakpoints.down('md')]: {
-    padding: '180px 20px 30px', // reduce padding 
+    padding: '180px 10px 30px', // reduce padding 
     minHeight: '350px',          
   },
   [theme.breakpoints.down('sm')]: {
@@ -125,6 +125,7 @@ const CardTitle = styled(Typography)(({ theme }) => ({
    [theme.breakpoints.down('sm')]: {
     fontSize:"20px",
   },
+ 
 }));
 
 const CardText = styled(Typography)(({ theme }) => ({

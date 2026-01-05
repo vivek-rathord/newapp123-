@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 // import { Link } from "react-router-dom";
-import { Box, Typography, Button, styled } from "@mui/material";
+import { Box, Typography, Button, keyframes, styled } from "@mui/material";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -10,6 +10,11 @@ const themeColors = {
   darkGray: '#575757',
   pureWhite: '#FFFFFF',
 };
+const pulse = keyframes`
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+`;
 
 const HeroContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -38,22 +43,15 @@ const HeroContainer = styled(Box)(({ theme }) => ({
 const OrangeSpan = styled(Typography)(({ theme }) => ({
   backgroundColor: themeColors.orangeColor,
   color: themeColors.pureWhite,
-  padding: '8px 20px',
-  borderRadius: '109px',
-  fontSize: '10px',
-  letterSpacing: '0.24px',
-  fontWeight: '500',
-  display: 'inline-block',
-  marginBottom: '20px',
-  animation: 'pulse 2s infinite ease-in-out',
-  '@keyframes pulse': {
-    '0%': { transform: 'scale(1)' },
-    '50%': { transform: 'scale(1.05)' },
-    '100%': { transform: 'scale(1)' },
-  },
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '13px',
-    marginBottom: '10px',
+  padding: "5px 20px",
+  borderRadius: "109px",
+  fontSize: "14px",
+  letterSpacing: "2%",
+  fontWeight: "500",
+  display: "inline-block",
+  animation: `${pulse} 2s infinite ease-in-out`,
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "13px",
   }
 }));
 

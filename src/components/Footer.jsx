@@ -39,6 +39,10 @@ const FooterWrapper = styled(Box)(({ theme }) => ({
      [theme.breakpoints.down('sm')]: {
       justifyContent:"flex-start",
       padding:"0px",
+    },
+      [theme.breakpoints.down('md')]: {
+      justifyContent:"flex-start",
+      padding:"0px",
     }
 }));
 
@@ -59,6 +63,7 @@ const FooterLink = styled(Link)(({ theme }) => ({
   fontSize: "14px",
   fontWeight: "400",
   transition: "all 0.3s ease",
+ width: 'fit-content',
   "&:hover": {
     textUnderlineOffset: "10px",
     color: themeColors.orangeColor,
@@ -126,6 +131,11 @@ const Copyright = styled(Box)(({ theme }) => ({
   marginTop: "80px",
   fontSize: "16px",
   color: themeColors.deepBlack,
+     [theme.breakpoints.down('sm')]: {
+      padding:'0px',
+        textAlign: "left",
+
+    }
 }));
 
 function Footer() {
