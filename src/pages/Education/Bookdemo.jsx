@@ -14,19 +14,18 @@ import {
   Backdrop
 } from "@mui/material";
 
-// IMPORTANT: Ensure you have installed icons: npm install @mui/icons-material
+// ICONS
 import CloseIcon from "@mui/icons-material/Close";
 import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
 import BedtimeOutlinedIcon from "@mui/icons-material/BedtimeOutlined";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 
 export default function BookDemoClass() {
-  const [open, setOpen] = useState(false); 
+  const [open, setOpen] = useState(false);
 
-  // Form State
   const [formData, setFormData] = useState({
     name: "",
-    course: "Auto CAD", // Default as per image
+    course: "Auto CAD",
     date: "",
     phone: "",
     email: "",
@@ -36,10 +35,10 @@ export default function BookDemoClass() {
 
   const [isMorningDisabled, setIsMorningDisabled] = useState(false);
 
-  // Time Logic: Disable morning if after 12 PM
   useEffect(() => {
     if (open) {
       const currentHour = new Date().getHours();
+      // Disable morning if it's 12 PM or later
       if (currentHour >= 12) {
         setIsMorningDisabled(true);
       } else {
@@ -76,36 +75,47 @@ export default function BookDemoClass() {
     setOpen(false);
   };
 
-  // --- Styles ---
+  // --- PROFESSIONAL STYLES ---
   const labelStyle = {
-    fontWeight: "700",
-    color: "#222",
-    fontSize: "15px",
-    marginBottom: "8px",
+    fontWeight: "600",
+    color: "#333",
+    fontSize: "14px",
+    marginBottom: "6px",
     display: "block",
-    fontFamily: "sans-serif",
+    fontFamily: "'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
   };
 
   const inputStyle = {
     "& .MuiOutlinedInput-root": {
-      backgroundColor: "#fff",
-      borderRadius: "6px",
-      "& fieldset": { borderColor: "#ddd", borderWidth: "1px" },
-      "&:hover fieldset": { borderColor: "#bbb" },
-      "&.Mui-focused fieldset": { borderColor: "#FF5722", borderWidth: "1px" },
+      backgroundColor: "#fff", // Clean white background
+      borderRadius: "8px",     // Modern rounded corners
+      transition: "all 0.2s ease-in-out",
+      "& fieldset": { 
+        borderColor: "#E0E0E0", // Light grey border
+        borderWidth: "1px" 
+      },
+      "&:hover fieldset": { 
+        borderColor: "#999"    // Darker grey on hover
+      },
+      "&.Mui-focused fieldset": { 
+        borderColor: "#FF5722", // Orange on focus
+        borderWidth: "2px",
+        boxShadow: "0 0 5px rgba(255, 87, 34, 0.2)" // Subtle glow
+      },
     },
     "& .MuiInputBase-input": {
-      padding: "10px 14px",
-      fontSize: "14px",
-      color: "#444",
-      "&::placeholder": { color: "#999", opacity: 1 },
+      padding: "12px 14px",
+      fontSize: "15px",
+      color: "#000",
+      fontWeight: "500",
+      "&::placeholder": { color: "#9E9E9E", opacity: 1 },
     },
   };
 
   return (
     <Box>
       {/* ==============================================
-          SECTION 1: HERO (Original Layout Restored)
+          HERO SECTION
          ============================================== */}
       <Box
         sx={{
@@ -117,69 +127,21 @@ export default function BookDemoClass() {
           textAlign: "center",
           backgroundColor: "#fff",
           padding: "20px",
-          fontFamily: "sans-serif",
         }}
       >
-        {/* Orange Pill */}
-        <Box
-          sx={{
-            backgroundColor: "#FF5722",
-            color: "white",
-            borderRadius: "50px",
-            padding: "6px 22px",
-            fontSize: "13px",
-            fontWeight: "600",
-            mb: 3,
-            letterSpacing: "0.5px",
-          }}
-        >
-          Free Demo Class
-        </Box>
-
-        {/* Heading */}
-        <Typography
-          variant="h2"
-          sx={{
-            fontWeight: "800",
-            color: "#111",
-            fontSize: { xs: "32px", md: "48px" },
-            lineHeight: 1.2,
-            mb: 3,
-            fontFamily: "sans-serif",
-          }}
-        >
-          Still Unsure? Try A Free <br /> Demo Class
+        <Typography variant="h3" sx={{ fontWeight: "800", mb: 3 }}>
+          Book Your Free Demo
         </Typography>
-
-        {/* Subtitle */}
-        <Typography
-          sx={{
-            color: "#444",
-            fontSize: "16px",
-            maxWidth: "750px",
-            lineHeight: 1.6,
-            mb: 5,
-            fontFamily: "sans-serif",
-          }}
-        >
-          Experience our teaching approach before making a commitment. Whether
-          you're exploring a new skill or planning your career path, our demo class
-          gives you a glimpse of how we teach, what you'll learn, and how we can
-          help you grow. No pressure—just real learning, right from the start.
-        </Typography>
-
-        {/* Main Action Button */}
         <Button
           onClick={() => setOpen(true)}
           disableElevation
+          variant="contained"
           sx={{
             backgroundColor: "#111",
             color: "white",
             padding: "14px 40px",
-            fontSize: "15px",
+            fontSize: "16px",
             borderRadius: "8px",
-            fontWeight: "500",
-            textTransform: "none",
             "&:hover": { backgroundColor: "#333" },
           }}
         >
@@ -188,7 +150,7 @@ export default function BookDemoClass() {
       </Box>
 
       {/* ==============================================
-          SECTION 2: POPUP FORM (Fixed 2-Column Grid)
+          MODAL POPUP
          ============================================== */}
       <Modal
         open={open}
@@ -204,8 +166,8 @@ export default function BookDemoClass() {
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
-              width: "95%",
-              maxWidth: "750px",
+              width: "90%",
+              maxWidth: "750px", // Perfect width for 2 columns
               outline: "none",
             }}
           >
@@ -213,30 +175,37 @@ export default function BookDemoClass() {
               elevation={0}
               sx={{
                 p: { xs: 3, md: 5 },
-                borderRadius: "8px",
+                borderRadius: "16px",
                 position: "relative",
                 maxHeight: "90vh",
                 overflowY: "auto",
                 backgroundColor: "#fff",
-                boxShadow: "0px 10px 40px rgba(0,0,0,0.2)",
+                boxShadow: "0px 20px 60px rgba(0,0,0,0.15)",
               }}
             >
-              {/* Close Button */}
+              {/* Close Icon */}
               <IconButton
                 onClick={() => setOpen(false)}
-                sx={{ position: "absolute", right: 12, top: 12, color: "#333" }}
+                sx={{
+                  position: "absolute",
+                  right: 15,
+                  top: 15,
+                  color: "#333",
+                  bgcolor: "#f5f5f5",
+                  "&:hover": { bgcolor: "#eee" }
+                }}
               >
                 <CloseIcon fontSize="small" />
               </IconButton>
 
-              {/* Form Header */}
               <Typography
                 align="center"
                 sx={{
                   color: "#FF5722",
-                  fontWeight: "700",
-                  fontSize: "24px",
+                  fontWeight: "800",
+                  fontSize: "26px",
                   mb: 4,
+                  mt: 1,
                   fontFamily: "sans-serif",
                 }}
               >
@@ -244,25 +213,21 @@ export default function BookDemoClass() {
               </Typography>
 
               <form onSubmit={handleSubmit}>
-                {/* GRID LAYOUT EXPLAINED:
-                   xs={12} md={6} -> Means on desktop it takes 50% (2 items per row).
-                   On mobile it stacks. If you want 2 items per row ALWAYS, change md={6} to xs={6}.
-                */}
                 <Grid container spacing={3}>
                   
-                  {/* --- ROW 1: Name & Select Course --- */}
-                  <Grid item xs={12} md={6}>
+                  {/* --- ROW 1: Name & Course --- */}
+                  <Grid item xs={12} sm={6}>
                     <label style={labelStyle}>Name</label>
                     <TextField
                       fullWidth
-                      placeholder="Your Number" // Kept specific placeholder
+                      placeholder="Your Number"
                       value={formData.name}
                       onChange={(e) => handleChange("name", e.target.value)}
                       sx={inputStyle}
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12} sm={6}>
                     <label style={labelStyle}>Select Course</label>
                     <TextField
                       select
@@ -278,8 +243,8 @@ export default function BookDemoClass() {
                     </TextField>
                   </Grid>
 
-                  {/* --- ROW 2: Select Date & Phone Number --- */}
-                  <Grid item xs={12} md={6}>
+                  {/* --- ROW 2: Date & Phone --- */}
+                  <Grid item xs={12} sm={6}>
                     <label style={labelStyle}>Select Date</label>
                     <TextField
                       fullWidth
@@ -290,14 +255,15 @@ export default function BookDemoClass() {
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">
-                            <CalendarTodayIcon sx={{ fontSize: 18, color: "#333" }} />
+                            {/* Calendar Icon - Explicitly Black */}
+                            <CalendarTodayIcon sx={{ fontSize: 20, color: "#222" }} />
                           </InputAdornment>
                         ),
                       }}
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12} sm={6}>
                     <label style={labelStyle}>Phone Number</label>
                     <TextField
                       fullWidth
@@ -309,7 +275,7 @@ export default function BookDemoClass() {
                   </Grid>
 
                   {/* --- ROW 3: Email & Address --- */}
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12} sm={6}>
                     <label style={labelStyle}>Email</label>
                     <TextField
                       fullWidth
@@ -320,7 +286,7 @@ export default function BookDemoClass() {
                     />
                   </Grid>
 
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12} sm={6}>
                     <label style={labelStyle}>Address</label>
                     <TextField
                       fullWidth
@@ -331,48 +297,65 @@ export default function BookDemoClass() {
                     />
                   </Grid>
 
-                  {/* --- ROW 4: Slots (Morning / Evening) --- */}
+                  {/* --- ROW 4: Slot Buttons --- */}
                   <Grid item xs={12}>
                     <label style={labelStyle}>Select Slot</label>
-                    <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
+                    <Box sx={{ display: "flex", gap: 2 }}>
                       
-                      {/* Morning Button with SUN Icon */}
+                      {/* Morning Button */}
                       <Button
                         variant="outlined"
                         startIcon={<WbSunnyOutlinedIcon />}
                         onClick={() => handleSlotChange("Morning")}
                         disabled={isMorningDisabled}
                         sx={{
+                          flex: 1, // Makes buttons equal width
+                          justifyContent: "center",
                           textTransform: "none",
+                          fontWeight: "600",
+                          padding: "12px",
+                          borderRadius: "8px",
+                          borderWidth: "1px",
+                          // Dynamic Styles based on selection
                           color: isMorningDisabled 
                             ? "#aaa" 
-                            : formData.slot === "Morning" ? "#FF5722" : "#888",
+                            : formData.slot === "Morning" ? "#FF5722" : "#333",
                           borderColor: isMorningDisabled 
                             ? "#eee" 
                             : formData.slot === "Morning" ? "#FF5722" : "#ddd",
-                          backgroundColor: isMorningDisabled ? "#f9f9f9" : "transparent",
-                          padding: "8px 24px",
-                          borderRadius: "6px",
+                          backgroundColor: isMorningDisabled 
+                            ? "#f9f9f9" 
+                            : formData.slot === "Morning" ? "rgba(255, 87, 34, 0.05)" : "white",
                           "&:hover": {
                             borderColor: isMorningDisabled ? "#eee" : "#FF5722",
+                            backgroundColor: isMorningDisabled ? "#f9f9f9" : "rgba(255, 87, 34, 0.1)",
                           },
                         }}
                       >
                         Morning
                       </Button>
 
-                      {/* Evening Button with MOON Icon */}
+                      {/* Evening Button */}
                       <Button
                         variant="outlined"
                         startIcon={<BedtimeOutlinedIcon />}
                         onClick={() => handleSlotChange("Evening")}
                         sx={{
+                          flex: 1, // Makes buttons equal width
+                          justifyContent: "center",
                           textTransform: "none",
-                          color: formData.slot === "Evening" ? "#FF5722" : "#888",
+                          fontWeight: "600",
+                          padding: "12px",
+                          borderRadius: "8px",
+                          borderWidth: "1px",
+                          // Dynamic Styles
+                          color: formData.slot === "Evening" ? "#FF5722" : "#333",
                           borderColor: formData.slot === "Evening" ? "#FF5722" : "#ddd",
-                          padding: "8px 24px",
-                          borderRadius: "6px",
-                          "&:hover": { borderColor: "#FF5722" },
+                          backgroundColor: formData.slot === "Evening" ? "rgba(255, 87, 34, 0.05)" : "white",
+                          "&:hover": { 
+                            borderColor: "#FF5722",
+                            backgroundColor: "rgba(255, 87, 34, 0.1)",
+                          },
                         }}
                       >
                         Evening
@@ -380,29 +363,34 @@ export default function BookDemoClass() {
                     </Box>
 
                     {isMorningDisabled && (
-                      <Typography sx={{ color: "red", fontSize: "12px", mt: 1 }}>
+                      <Typography sx={{ color: "red", fontSize: "12px", mt: 1, ml: 1 }}>
                         * This time is not available
                       </Typography>
                     )}
                   </Grid>
                 </Grid>
 
-                {/* --- Submit Button (Centered) --- */}
-                <Box sx={{ display: "flex", justifyContent: "center", mt: 4, width: "100%" }}>
+                {/* --- Submit Button --- */}
+                <Box sx={{ display: "flex", justifyContent: "center", mt: 5 }}>
                   <Button
                     type="submit"
                     disableElevation
                     variant="contained"
                     sx={{
-                      backgroundColor: "#FF5722", // Orange
+                      backgroundColor: "#FF5722",
                       color: "white",
-                      fontWeight: "500",
-                      padding: "12px 40px",
-                      fontSize: "15px",
-                      borderRadius: "6px",
+                      fontWeight: "700",
+                      letterSpacing: "0.5px",
+                      padding: "14px 60px",
+                      fontSize: "16px",
+                      borderRadius: "8px",
                       textTransform: "none",
-                      minWidth: "200px",
-                      "&:hover": { backgroundColor: "#F4511E" },
+                      width: { xs: "100%", sm: "auto" },
+                      boxShadow: "0 4px 14px 0 rgba(255,87,34,0.39)",
+                      "&:hover": { 
+                        backgroundColor: "#F4511E",
+                        boxShadow: "0 6px 20px rgba(255,87,34,0.23)" 
+                      },
                     }}
                   >
                     Submit Your Details
