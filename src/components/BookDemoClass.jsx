@@ -108,7 +108,7 @@ export default function BookDemoClass() {
               left: "50%",
               transform: "translate(-50%, -50%)",
               width: "95%",
-              maxWidth: "850px", // Wide enough for 2 columns
+              maxWidth: "950px", // Wide enough for 2 columns
               outline: "none",
             }}
           >
@@ -290,3 +290,5 @@ export default function BookDemoClass() {
     </Box>
   );
 }
+
+//  here the  code  in mobile all field are show in center wiht  full widht   full resposnive dont chnage in the   dekstop and pc and laptop 

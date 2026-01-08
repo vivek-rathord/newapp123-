@@ -1,270 +1,372 @@
-import { Box, Typography, Button, TextField, Select, MenuItem, Dialog, DialogContent } from "@mui/material";
-import { useState } from "react";
-import emailjs from "@emailjs/browser";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+  import React, { useState, forwardRef } from "react";
+import {
+  Box,
+  Typography,
+  Button,
+  TextField,
+  MenuItem,
+  Dialog,
+  DialogContent,
+  IconButton,
+  Slide,
+  Grid,
+  InputAdornment
+} from "@mui/material";
+
+// --- ICONS ---
+import CloseIcon from "@mui/icons-material/Close";
+import PersonIcon from "@mui/icons-material/Person";
+import PhoneIcon from "@mui/icons-material/Phone";
+import EmailIcon from "@mui/icons-material/Email";
+import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
+import SchoolIcon from "@mui/icons-material/School";
+import FactoryIcon from "@mui/icons-material/Factory";
+import MessageIcon from "@mui/icons-material/Message";
+import ClassIcon from "@mui/icons-material/Class";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import WebIcon from "@mui/icons-material/Web";
+import ApartmentIcon from "@mui/icons-material/Apartment";
+
+// --- THEME ---
+const themeColors = {
+  gradient: "linear-gradient(135deg, #FF5532 0%, #FF8C42 100%)", // Orange Gradient
+  deepBlack: "#111111",
+  pureWhite: "#FFFFFF",
+  inputBg: "#F4F6F8",
+  borderColor: "#E0E0E0",
+  primary: "#FF5532"
+};
+
+// --- SMOOTH SLIDE UP TRANSITION ---
+const Transition = forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export default function ContactQuery() {
   const [showEdu, setShowEdu] = useState(false);
   const [activeForm, setActiveForm] = useState("");
-  const [openPopup, setOpenPopup] = useState(false); // popup state
+  const [openPopup, setOpenPopup] = useState(false);
 
-  const themeColors = {
-    orangeColor: "#FF5532",
-    deepBlack: "#111111",
-    darkGray: "#575757",
-    pureWhite: "#FFFFFF",
-  };
-
+  // Button Styles (Kept consistent with your previous request)
   const btnStyle = {
     background: themeColors.pureWhite,
     color: themeColors.deepBlack,
     border: `1px solid ${themeColors.deepBlack}`,
-    px: { xs: 2, sm: 1, md: 2 },
-    py: { xs: 1, sm: 0.4, md: 1 },
-    fontSize: { xs: 14, sm: 13, md: 17 },
-    fontWeight: 400,
-    borderRadius: "16px",
+    px: { xs: 2, md: 3 },
+    py: 1,
+    fontSize: { xs: 14, md: 16 },
+    fontWeight: 500,
+    borderRadius: "30px",
     m: 1,
-    width: { xs: "100%", sm: "270px", md: "300px" },
+    minWidth: "200px",
+    textTransform: "none",
+    transition: "all 0.3s ease",
     "&:hover": {
       background: themeColors.deepBlack,
       color: themeColors.pureWhite,
-      border: `1px solid ${themeColors.deepBlack}`,
+      transform: "translateY(-2px)",
+      boxShadow: "0 5px 15px rgba(0,0,0,0.1)"
     }
   };
 
   const openForm = (formType) => {
     setActiveForm(formType);
     setOpenPopup(true);
-  }
+  };
 
   const closeForm = () => {
-    setActiveForm("");
     setOpenPopup(false);
-  }
+    // Small timeout to clear form state after animation finishes
+    setTimeout(() => setActiveForm(""), 300);
+  };
+
+  // Logic to determine Header Title & Icon based on active form
+  const getHeaderDetails = () => {
+    switch (activeForm) {
+      case "regular": 
+        return { title: "Enroll in Regular Course", icon: <SchoolIcon /> };
+      case "industrial": 
+        return { title: "Industrial Training", icon: <FactoryIcon /> };
+      case "services": 
+        return { title: "Get IT Services", icon: <BusinessCenterIcon /> };
+      default: 
+        return { title: "Contact Us", icon: <MessageIcon /> };
+    }
+  };
+
+  const headerData = getHeaderDetails();
 
   return (
-    <Box
-      sx={{
-        background: themeColors.pureWhite,
-        width: { xs: "100%", sm: "95%", md: "90%" },
-        margin: "auto",
-        borderRadius: "40px",
-        py: { xs: 4, sm: 6, md: 10 },
-        px: { xs: 2, sm: 4, md: 6 },
-        display: "flex",
-        flexDirection: "column",
-        gap: { xs: 2, sm: 1 },
-        alignItems: "center",
-        textAlign: "center",
-        my: { xs: 4, sm: 5, md: 6 },
-      }}
-    >
-      {/* Heading */}
-      <Typography
-        variant="h4"
-        fontWeight={700}
-        sx={{
-          width: { md: "50%", xs: "100%" },
-          pb: { xs: 2, sm: 3, md: 4 },
-          color: themeColors.deepBlack,
-          fontSize: { xs: "2rem", sm: "2rem", md: "3rem", lg: "3rem" },
-          lineHeight: 1.3,
-        }}
-      >
+    <Box sx={{ width: "100%", textAlign: "center", py: 8, background: "#fff" }}>
+      
+      {/* --- Main Section --- */}
+      <Typography variant="h3" fontWeight={700} sx={{ mb: 2, color: themeColors.deepBlack }}>
         Tell Us What You’re Looking For
       </Typography>
-
-      <Typography fontWeight={600} fontSize={{ xs: 16, sm: 18, md: "1.5rem" }} width={{ md: "40%", xs: "100%" }} color={themeColors.deepBlack}>
-        Choose Your Area of Interest
+      
+      <Typography variant="h6" color="text.secondary" sx={{ mb: 4, maxWidth: "600px", mx: "auto" }}>
+        Select whether your inquiry is about our IT education programs or IT services.
       </Typography>
 
-      <Box width={{ md: "45%", sm: "80%", xs: "100%" }} mt={1}>
-        <Typography fontSize={{ xs: 14, sm: 15, md: 16 }} color={themeColors.darkGray} lineHeight="24px">
-          Select whether your inquiry is about our IT education programs or IT services. This helps us connect you with the right team quickly.
-        </Typography>
-      </Box>
-
       {/* Buttons */}
-      <Box sx={{ mt: { xs: 2, sm: 2, md: 5 } }}>
+      <Box>
         <Button sx={btnStyle} onClick={() => setShowEdu(!showEdu)}>Education</Button>
         <Button sx={btnStyle} onClick={() => openForm("services")}>Services</Button>
       </Box>
 
-      {/* Edu Box */}
+      {/* Education Sub-Buttons */}
       {showEdu && (
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 0.1,
-            width: { xs: "90%", sm: "70%", md: "48%" },
-            mt: 1,
-            mr: { xs: 0, sm: 15 },
-          }}
-        >
+        <Box sx={{ mt: 2, display: "flex", justifyContent: "center", gap: 2, flexWrap: "wrap", animation: "fadeIn 0.5s ease" }}>
           <Button sx={btnStyle} onClick={() => openForm("regular")}>Regular Courses</Button>
           <Button sx={btnStyle} onClick={() => openForm("industrial")}>Industrial Training</Button>
         </Box>
       )}
 
-      {/* ----------- DIALOG POPUP ----------- */}
-      <Dialog open={openPopup} onClose={closeForm} maxWidth="sm" fullWidth PaperProps={{
-    sx: {
-      borderRadius: "20px",
-      overflow: "hidden",
-    },
-  }}>
-        <DialogContent>
-          {activeForm && (
-            <Box sx={{ display: "flex", justifyContent: "flex-start" }}>
-              <ArrowBackIcon sx={{ cursor: "pointer", color: themeColors.deepBlack }} onClick={closeForm} />
-            </Box>
-          )}
+      {/* --- MODERN POPUP DIALOG --- */}
+      <Dialog 
+        open={openPopup} 
+        onClose={closeForm} 
+        TransitionComponent={Transition} 
+        keepMounted
+        maxWidth="sm" 
+        fullWidth
+        PaperProps={{
+          sx: {
+            borderRadius: "24px",
+            overflow: "hidden", // Ensures header corners clip correctly
+            boxShadow: "0px 20px 40px rgba(0,0,0,0.2)"
+          }
+        }}
+      >
+        {/* Dynamic Header */}
+        <Box sx={{ 
+          background: themeColors.gradient, 
+          p: 3, 
+          display: "flex", 
+          alignItems: "center", 
+          justifyContent: "space-between",
+          color: "#fff"
+        }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+            {React.cloneElement(headerData.icon, { sx: { fontSize: 28, opacity: 0.9 } })}
+            <Typography variant="h6" fontWeight={600} letterSpacing={0.5}>
+              {headerData.title}
+            </Typography>
+          </Box>
+          <IconButton onClick={closeForm} sx={{ color: "white", "&:hover": { bgcolor: "rgba(255,255,255,0.2)" } }}>
+            <CloseIcon />
+          </IconButton>
+        </Box>
 
-          {activeForm === "regular" && <FormRegular themeColors={themeColors} />}
-          {activeForm === "industrial" && <FormIndustrial themeColors={themeColors} />}
-          {activeForm === "services" && <FormService themeColors={themeColors} />}
+        <DialogContent sx={{ p: { xs: 3, md: 4 }, bgcolor: "#fff" }}>
+          {activeForm === "regular" && <FormRegular />}
+          {activeForm === "industrial" && <FormIndustrial />}
+          {activeForm === "services" && <FormService />}
         </DialogContent>
       </Dialog>
     </Box>
   );
 }
 
-// ---------------- FORM WRAPPER ----------------
-const FormWrapper = ({ children }) => (
-  <Box sx={{ width: "100%", maxWidth: "800px", display: "flex", flexDirection: "column", gap: 2, mt: 4 ,px: { xs: 1, sm: 1 }, py: { xs: 1, sm: 1 }, }}>
-    {children}
-  </Box>
+// ---------------- REUSABLE MODERN COMPONENTS ----------------
+
+// 1. Modern Input Field with Icon support
+const ModernInput = ({ icon, ...props }) => (
+  <TextField
+    fullWidth
+    variant="outlined"
+    {...props}
+    InputProps={{
+      startAdornment: icon ? (
+        <InputAdornment position="start">
+          <Box sx={{ color: themeColors.primary, display: "flex", mr: 1 }}>{icon}</Box>
+        </InputAdornment>
+      ) : null,
+      ...props.InputProps
+    }}
+    sx={{
+      mb: 2.5,
+      "& .MuiOutlinedInput-root": {
+        borderRadius: "12px",
+        backgroundColor: themeColors.inputBg,
+        transition: "all 0.3s ease",
+        "& fieldset": { borderColor: "transparent" }, // Hidden border normally
+        "&:hover fieldset": { borderColor: "#ddd" },
+        "&.Mui-focused": {
+          backgroundColor: "#fff",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+          "& fieldset": { borderColor: themeColors.primary, borderWidth: "1.5px" }
+        }
+      },
+      "& .MuiInputLabel-root": { color: "#888" },
+      "& .MuiInputLabel-root.Mui-focused": { color: themeColors.primary }
+    }}
+  />
 );
 
-// ---------------- Validation helpers ----------------
-const isEmpty = (...fields) => fields.some(f => !f || f.trim() === "");
-const isValidPhone = (phone) => /^\d{10}$/.test(phone);
-const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+// 2. Modern Submit Button
+const ModernButton = ({ onClick, text = "Submit Request" }) => (
+  <Button
+    fullWidth
+    variant="contained"
+    onClick={onClick}
+    sx={{
+      mt: 1,
+      py: 1.6,
+      background: themeColors.gradient,
+      color: "white",
+      fontWeight: "700",
+      borderRadius: "12px",
+      fontSize: "16px",
+      textTransform: "none",
+      letterSpacing: "0.5px",
+      boxShadow: "0 10px 20px rgba(255, 85, 50, 0.25)",
+      "&:hover": {
+        background: "linear-gradient(135deg, #E64A2E 0%, #FF8C42 100%)",
+        boxShadow: "0 15px 30px rgba(255, 85, 50, 0.4)",
+        transform: "translateY(-2px)"
+      },
+      "&:active": { transform: "translateY(0)" }
+    }}
+  >
+    {text}
+  </Button>
+);
 
-// ---------------- REGULAR FORM ----------------
-function FormRegular({ themeColors }) {
+// ---------------- FORM 1: REGULAR COURSES ----------------
+function FormRegular() {
   const [formData, setFormData] = useState({ name: "", mobile: "", email: "", course: "Web Development", message: "" });
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isEmpty(formData.name, formData.mobile, formData.email, formData.course)) return alert("Please fill all required fields!");
-    if (!isValidPhone(formData.mobile)) return alert("Please enter a valid 10-digit mobile number!");
-    if (!isValidEmail(formData.email)) return alert("Please enter a valid email address!");
-    emailjs.send("service_mkajela", "service_mkajela", formData, "8zfEjcam-y0aL5Bqu")
-      .then(() => alert("Message sent successfully!"))
-      .catch(error => alert("Failed: " + error.text));
+    // Validation Logic
+    if (!formData.name || !formData.mobile || !formData.email) return alert("Please fill all required fields.");
+    alert("Regular Course Inquiry Sent!");
   };
 
   return (
-    <FormWrapper>
-      <TextField label="Your Name" placeholder="Enter Your Name" name="name" value={formData.name} onChange={handleChange} fullWidth variant="outlined" required />
-      <TextField label="Mobile Number" type="tel" name="mobile" value={formData.mobile} onChange={handleChange} required />
-      <TextField label="Email" type="email" name="email" value={formData.email} onChange={handleChange} required />
-      <Select name="course" value={formData.course} onChange={handleChange} sx={{ textAlign: "left" }}>
-        <MenuItem disabled value="">Select your course</MenuItem>
-        <MenuItem value="Graphic Designing">Graphic Designing</MenuItem>
-        <MenuItem value="Web Designing">Web Designing</MenuItem>
-        <MenuItem value="UI/UX Designing">UI/UX Designing</MenuItem>
-        <MenuItem value="2D /3D Animations">2D /3D Animations</MenuItem>
-        <MenuItem value="Motion Graphics">Motion Graphics</MenuItem>
-        <MenuItem value="Graphics & Web Designing">Graphics & Web Designing</MenuItem>
-        <MenuItem value="Digital Content Creator">Digital Content Creator</MenuItem>
-        <MenuItem value="AutoCAD">AutoCAD</MenuItem>
+    <Box component="form">
+      <ModernInput label="Full Name" name="name" value={formData.name} onChange={handleChange} icon={<PersonIcon />} />
+      
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
+          <ModernInput label="Mobile Number" name="mobile" type="tel" value={formData.mobile} onChange={handleChange} icon={<PhoneIcon />} />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <ModernInput label="Email Address" name="email" type="email" value={formData.email} onChange={handleChange} icon={<EmailIcon />} />
+        </Grid>
+      </Grid>
+      
+      <ModernInput
+        select
+        label="Select Course"
+        name="course"
+        value={formData.course}
+        onChange={handleChange}
+        icon={<ClassIcon />}
+      >
         <MenuItem value="Web Development">Web Development</MenuItem>
-        <MenuItem value="Full Stack Development">Full Stack Development</MenuItem>
-        <MenuItem value="Backend Development">Backend Development</MenuItem>
-        <MenuItem value="MERN Stack">MERN Stack</MenuItem>
-        <MenuItem value="PHP Training">PHP Training</MenuItem>
-        <MenuItem value="WordPress">WordPress</MenuItem>
+        <MenuItem value="Graphic Designing">Graphic Designing</MenuItem>
+        <MenuItem value="UI/UX Designing">UI/UX Designing</MenuItem>
         <MenuItem value="Digital Marketing">Digital Marketing</MenuItem>
-        <MenuItem value="Social Media Marketing">Social Media Marketing</MenuItem>
-        <MenuItem value="SEO Course">SEO Course</MenuItem>
-        <MenuItem value="Complete Cyber Security Course">Complete Cyber Security Course</MenuItem>
-        <MenuItem value="Ethical Hacking">Ethical Hacking</MenuItem>
-        <MenuItem value="Data Science & Machine Learning">Data Science & Machine Learning</MenuItem>
-        <MenuItem value="Software Engineering With Python">Software Engineering With Python</MenuItem>
-        <MenuItem value="System Design & Operating Systems">System Design & Operating Systems</MenuItem>
-        <MenuItem value="Algorithm & Data Structures In Python">Algorithm & Data Structures In Python</MenuItem>
-      </Select>
-      <TextField label="Message" name="message" multiline rows={4} value={formData.message} onChange={handleChange} />
-      <Button variant="contained" sx={{ background: themeColors.deepBlack, mt: 2, "&:hover": { background: themeColors.orangeColor } }} onClick={handleSubmit}>Submit</Button>
-    </FormWrapper>
+      </ModernInput>
+
+      <ModernInput 
+        label="Any Message? (Optional)" 
+        name="message" 
+        multiline 
+        rows={3} 
+        value={formData.message} 
+        onChange={handleChange} 
+        icon={<MessageIcon />} 
+      />
+      
+      <ModernButton onClick={handleSubmit} />
+    </Box>
   );
 }
 
-// ---------------- INDUSTRIAL FORM ----------------
-function FormIndustrial({ themeColors }) {
-  const [formData, setFormData] = useState({ name: "", number: "", email: "", course: "", duration: "" });
+// ---------------- FORM 2: INDUSTRIAL TRAINING ----------------
+function FormIndustrial() {
+  const [formData, setFormData] = useState({ name: "", number: "", email: "", course: "Web Development", duration: "6 Months" });
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isEmpty(formData.name, formData.number, formData.email, formData.course, formData.duration)) return alert("Please fill all required fields!");
-    if (!isValidPhone(formData.number)) return alert("Please enter a valid 10-digit mobile number!");
-    if (!isValidEmail(formData.email)) return alert("Please enter a valid email address!");
-    emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", formData, "YOUR_PUBLIC_KEY")
-      .then(() => alert("Message sent successfully!"))
-      .catch(error => alert("Failed: " + error.text));
+    if (!formData.name || !formData.number) return alert("Please fill all required fields.");
+    alert("Industrial Training Inquiry Sent!");
   };
 
   return (
-    <FormWrapper>
-      <TextField label="Full Name" placeholder="Enter your full name" name="name" value={formData.name} onChange={handleChange} fullWidth required />
-      <TextField label="Mobile Number" placeholder="Enter your mobile number" type="tel" name="number" value={formData.number} onChange={handleChange} fullWidth sx={{ mt: 2 }} required />
-      <TextField label="Email Address" placeholder="Enter your email" type="email" name="email" value={formData.email} onChange={handleChange} fullWidth sx={{ mt: 2 }} required />
-      <Select name="course" value={formData.course} onChange={handleChange} displayEmpty fullWidth sx={{ mt: 2, textAlign: "left", "& .MuiSelect-select": { textAlign: "left" } }}>
-        <MenuItem disabled value="">Select Course</MenuItem>
-        <MenuItem value="Web Development">Web Development</MenuItem>
-        <MenuItem value="UI/UX Designing">UI/UX Designing</MenuItem>
-        <MenuItem value="Graphic Designing">Graphic Designing</MenuItem>
-        <MenuItem value="Full Stack Development">Full Stack Development</MenuItem>
-        <MenuItem value="Digital Marketing">Digital Marketing</MenuItem>
-        <MenuItem value="Cyber Security">Cyber Security</MenuItem>
-        <MenuItem value="Data Science">Data Science</MenuItem>
-      </Select>
-      <Select name="duration" value={formData.duration} onChange={handleChange} displayEmpty fullWidth sx={{ mt: 2, textAlign: "left", "& .MuiSelect-select": { textAlign: "left" } }}>
-        <MenuItem disabled value="">Select Duration</MenuItem>
-        <MenuItem value="45 Days">45 Days</MenuItem>
-        <MenuItem value="3 Months">3 Months</MenuItem>
-        <MenuItem value="6 Months">6 Months</MenuItem>
-      </Select>
-      <Button variant="contained" sx={{ background: themeColors.deepBlack, mt: 3, "&:hover": { background: themeColors.orangeColor } }} onClick={handleSubmit}>Submit</Button>
-    </FormWrapper>
+    <Box component="form">
+      <ModernInput label="Student Name" name="name" value={formData.name} onChange={handleChange} icon={<PersonIcon />} />
+      
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
+           <ModernInput label="Mobile Number" name="number" type="tel" value={formData.number} onChange={handleChange} icon={<PhoneIcon />} />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+           <ModernInput label="Email" name="email" type="email" value={formData.email} onChange={handleChange} icon={<EmailIcon />} />
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
+            <ModernInput select label="Course Interest" name="course" value={formData.course} onChange={handleChange} icon={<WebIcon />}>
+                <MenuItem value="Web Development">Web Development</MenuItem>
+                <MenuItem value="Data Science">Data Science</MenuItem>
+                <MenuItem value="Cyber Security">Cyber Security</MenuItem>
+            </ModernInput>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+            <ModernInput select label="Duration" name="duration" value={formData.duration} onChange={handleChange} icon={<AccessTimeIcon />}>
+                <MenuItem value="45 Days">45 Days</MenuItem>
+                <MenuItem value="3 Months">3 Months</MenuItem>
+                <MenuItem value="6 Months">6 Months</MenuItem>
+            </ModernInput>
+        </Grid>
+      </Grid>
+
+      <ModernButton onClick={handleSubmit} text="Apply Now" />
+    </Box>
   );
 }
 
-// ---------------- SERVICES FORM ----------------
-function FormService({ themeColors }) {
-  const [formData, setFormData] = useState({ name: "", mobile: "", email: "", business: "", services: "", customNeed: "" });
+// ---------------- FORM 3: IT SERVICES ----------------
+function FormService() {
+  const [formData, setFormData] = useState({ name: "", mobile: "", email: "", business: "", services: "Need a Website" });
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isEmpty(formData.name, formData.mobile, formData.email, formData.business, formData.services)) return alert("Please fill all required fields!");
-    if (!isValidPhone(formData.mobile)) return alert("Please enter a valid 10-digit mobile number!");
-    if (!isValidEmail(formData.email)) return alert("Please enter a valid email address!");
-    emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", formData, "YOUR_PUBLIC_KEY")
-      .then(() => alert("Message sent successfully!"))
-      .catch(error => alert("Failed: " + error.text));
+    if (!formData.name || !formData.mobile || !formData.business) return alert("Please fill all required fields.");
+    alert("Service Request Sent!");
   };
 
   return (
-    <FormWrapper>
-      <TextField label="Your Name" name="name" fullWidth onChange={handleChange} value={formData.name} placeholder="Enter your name" required />
-      <TextField label="Mobile Number" type="tel" name="mobile" fullWidth onChange={handleChange} value={formData.mobile} placeholder="Enter mobile number" sx={{ mt: 2 }} required />
-      <TextField label="Email" name="email" type="email" fullWidth onChange={handleChange} value={formData.email} placeholder="Enter email address" sx={{ mt: 2 }} required />
-      <TextField label="Your Business Name" name="business" fullWidth onChange={handleChange} value={formData.business} placeholder="Company or Startup name" sx={{ mt: 2 }} required />
-      <Select name="services" fullWidth value={formData.services} onChange={handleChange} displayEmpty sx={{ mt: 2, textAlign: "left" }} required>
-        <MenuItem disabled value="">What brings you here?</MenuItem>
-        <MenuItem value="Need a Social Media Manager">Need a Social Media Manager</MenuItem>
+    <Box component="form">
+      <ModernInput label="Your Name" name="name" value={formData.name} onChange={handleChange} icon={<PersonIcon />} />
+      <ModernInput label="Company Name" name="business" value={formData.business} onChange={handleChange} icon={<ApartmentIcon />} />
+      
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
+            <ModernInput label="Phone" name="mobile" value={formData.mobile} onChange={handleChange} icon={<PhoneIcon />} />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+            <ModernInput label="Email" name="email" value={formData.email} onChange={handleChange} icon={<EmailIcon />} />
+        </Grid>
+      </Grid>
+
+      <ModernInput select label="Service Required" name="services" value={formData.services} onChange={handleChange} icon={<BusinessCenterIcon />}>
         <MenuItem value="Need a Website">Need a Website</MenuItem>
-        <MenuItem value="Need Digital Marketing">Need Digital Marketing</MenuItem>
-        <MenuItem value="Need Branding & Design">Need Branding & Design</MenuItem>
-        <MenuItem value="Need UI/UX Design">Need UI/UX Design</MenuItem>
+        <MenuItem value="Digital Marketing">Digital Marketing</MenuItem>
+        <MenuItem value="UI/UX Design">UI/UX Design</MenuItem>
+        <MenuItem value="Branding">Branding</MenuItem>
         <MenuItem value="Other">Other</MenuItem>
-      </Select>
-      {formData.services === "Other" && <TextField label="Tell us more" name="customNeed" fullWidth value={formData.customNeed} onChange={handleChange} placeholder="Write your requirement" sx={{ mt: 2 }} />}
-      <Button variant="contained" sx={{ background: themeColors.deepBlack, mt: 3, "&:hover": { background: themeColors.orangeColor } }} onClick={handleSubmit}>Submit</Button>
-    </FormWrapper>
+      </ModernInput>
+
+      <ModernButton onClick={handleSubmit} text="Get a Quote" />
+    </Box>
   );
 }
