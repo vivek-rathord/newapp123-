@@ -3,15 +3,15 @@ import {
   Box,
   Button,
   Typography,
-  TextField,
   Paper,
   IconButton,
   Grid,
-  MenuItem,
-  InputAdornment,
   Modal,
   Fade,
-  Backdrop
+  Backdrop,
+  InputBase, // Using InputBase for custom CSS look
+  Select,
+  MenuItem
 } from "@mui/material";
 
 // ICONS
@@ -21,20 +21,21 @@ import BedtimeOutlinedIcon from "@mui/icons-material/BedtimeOutlined";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 
 export default function BookDemoClass() {
-  const [open, setOpen] = useState(false);
-
+  const [open, setOpen] = useState(false); 
+  
   const [formData, setFormData] = useState({
     name: "",
-    course: "Auto CAD",
-    date: "",
-    phone: "",
     email: "",
-    address: "",
+    phone: "",
+    course: "Graphic Designing",
+    date: "",
     slot: "",
+    address: "",
   });
 
   const [isMorningDisabled, setIsMorningDisabled] = useState(false);
 
+  // Time Logic
   useEffect(() => {
     if (open) {
       const currentHour = new Date().getHours();
@@ -48,7 +49,6 @@ export default function BookDemoClass() {
   }, [open]);
 
   const courses = [
-    "Auto CAD",
     "Graphic Designing",
     "Web Development",
     "Digital Marketing",
@@ -72,51 +72,74 @@ export default function BookDemoClass() {
     }
     console.log("Form submitted:", formData);
     alert("Details Submitted Successfully!");
-    setOpen(false);
+    
+    // RELOAD PAGE
+    window.location.reload();
   };
 
-  // --- PROFESSIONAL STYLES ---
+  // --- CUSTOM CSS STYLES (Mapped to JS) ---
+  const customColors = {
+    primary: "#FB8454", // Orange Active
+    border: "#CCCCCC",
+    placeholder: "#AAAAAA",
+    text: "#333333"
+  };
+
   const labelStyle = {
-    fontWeight: "600",
-    color: "#333",
-    fontSize: "14px",
-    marginBottom: "6px",
     display: "block",
-    fontFamily: "'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+    color: customColors.text,
+    fontWeight: "700",
+    marginBottom: "8px",
+    fontSize: "15px",
+    fontFamily: "sans-serif"
   };
 
-  const inputStyle = {
-    "& .MuiOutlinedInput-root": {
-      backgroundColor: "#fff", // Clean white background
-      borderRadius: "8px",     // Modern rounded corners
-      transition: "all 0.2s ease-in-out",
-      "& fieldset": { 
-        borderColor: "#E0E0E0", // Light grey border
-        borderWidth: "1px" 
-      },
-      "&:hover fieldset": { 
-        borderColor: "#999"    // Darker grey on hover
-      },
-      "&.Mui-focused fieldset": { 
-        borderColor: "#FF5722", // Orange on focus
-        borderWidth: "2px",
-        boxShadow: "0 0 5px rgba(255, 87, 34, 0.2)" // Subtle glow
-      },
-    },
+  // 38px Height Input Style
+  const inputSx = {
     "& .MuiInputBase-input": {
-      padding: "12px 14px",
-      fontSize: "15px",
-      color: "#000",
-      fontWeight: "500",
-      "&::placeholder": { color: "#9E9E9E", opacity: 1 },
+      height: "38px", // Fixed Height
+      padding: "0 16px",
+      boxSizing: "border-box",
+      borderRadius: "6px",
+      border: `1px solid ${customColors.border}`,
+      color: customColors.text,
+      fontSize: "14px",
+      backgroundColor: "white",
+      transition: "all 0.3s ease",
+      "&::placeholder": { color: customColors.placeholder, opacity: 1 },
+      "&:focus": {
+        borderColor: customColors.text,
+        borderWidth: "1px",
+        outline: `1px solid ${customColors.text}`
+      }
     },
+    width: "100%"
+  };
+
+  const selectSx = {
+    height: "38px",
+    borderRadius: "6px",
+    border: `1px solid ${customColors.border}`,
+    color: customColors.text,
+    fontSize: "14px",
+    "& .MuiSelect-select": {
+        padding: "0 16px",
+        display: "flex",
+        alignItems: "center",
+        height: "100% !important",
+    },
+    "& fieldset": { border: "none" }, 
+    "&:focus-within": {
+       borderColor: customColors.text,
+       outline: `1px solid ${customColors.text}`
+    }
   };
 
   return (
     <Box>
       {/* ==============================================
-          HERO SECTION
-         ============================================== */}
+          HERO SECTION (UNCHANGED)
+          ============================================== */}
       <Box
         sx={{
           minHeight: "100vh",
@@ -127,31 +150,36 @@ export default function BookDemoClass() {
           textAlign: "center",
           backgroundColor: "#fff",
           padding: "20px",
+          fontFamily: "sans-serif",
         }}
       >
-        <Typography variant="h3" sx={{ fontWeight: "800", mb: 3 }}>
-          Book Your Free Demo
+        <Box sx={{ backgroundColor: "#FF5722", color: "white", borderRadius: "50px", padding: "6px 22px", fontSize: "13px", fontWeight: "600", mb: 3, letterSpacing: "0.5px" }}>
+          Free Demo Class
+        </Box>
+
+        <Typography variant="h2" sx={{ fontWeight: "800", color: "#111", fontSize: { xs: "32px", md: "48px" }, lineHeight: 1.2, mb: 3, fontFamily: "sans-serif" }}>
+          Still Unsure? Try A Free <br /> Demo Class
         </Typography>
+
+        <Typography sx={{ color: "#444", fontSize: "16px", maxWidth: "750px", lineHeight: 1.6, mb: 5, fontFamily: "sans-serif" }}>
+          Experience our teaching approach before making a commitment. Whether
+          you're exploring a new skill or planning your career path, our demo class
+          gives you a glimpse of how we teach, what you'll learn, and how we can
+          help you grow. No pressure—just real learning, right from the start.
+        </Typography>
+
         <Button
           onClick={() => setOpen(true)}
           disableElevation
-          variant="contained"
-          sx={{
-            backgroundColor: "#111",
-            color: "white",
-            padding: "14px 40px",
-            fontSize: "16px",
-            borderRadius: "8px",
-            "&:hover": { backgroundColor: "#333" },
-          }}
+          sx={{ backgroundColor: "#111", color: "white", padding: "14px 40px", fontSize: "15px", borderRadius: "8px", fontWeight: "500", textTransform: "none", "&:hover": { backgroundColor: "#333" } }}
         >
           Book A Demo Class
         </Button>
       </Box>
 
       {/* ==============================================
-          MODAL POPUP
-         ============================================== */}
+            POPUP form
+          ============================================== */}
       <Modal
         open={open}
         onClose={() => setOpen(false)}
@@ -166,231 +194,187 @@ export default function BookDemoClass() {
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
-              width: "90%",
-              maxWidth: "750px", // Perfect width for 2 columns
+              width: "100%",
+              maxWidth: "680px",
               outline: "none",
             }}
           >
+            {/* --- UPDATED FORM UI --- */}
             <Paper
               elevation={0}
               sx={{
                 p: { xs: 3, md: 5 },
-                borderRadius: "16px",
+                borderRadius: "20px", // Updated to match CSS
                 position: "relative",
                 maxHeight: "90vh",
                 overflowY: "auto",
                 backgroundColor: "#fff",
-                boxShadow: "0px 20px 60px rgba(0,0,0,0.15)",
+                boxShadow: "0px 10px 40px rgba(0,0,0,0.2)",
               }}
             >
-              {/* Close Icon */}
               <IconButton
                 onClick={() => setOpen(false)}
-                sx={{
-                  position: "absolute",
-                  right: 15,
-                  top: 15,
-                  color: "#333",
-                  bgcolor: "#f5f5f5",
-                  "&:hover": { bgcolor: "#eee" }
-                }}
+                sx={{ position: "absolute", right: 12, top: 12, color: "#333", padding: "4px" }}
               >
                 <CloseIcon fontSize="small" />
               </IconButton>
 
-              <Typography
-                align="center"
-                sx={{
-                  color: "#FF5722",
-                  fontWeight: "800",
-                  fontSize: "26px",
-                  mb: 4,
-                  mt: 1,
-                  fontFamily: "sans-serif",
-                }}
-              >
+              <Typography align="center" sx={{ color: "#FF5722", fontWeight: "700", fontSize: "24px", mb: 4, fontFamily: "sans-serif" }}>
                 Book Your Demo Class
               </Typography>
 
               <form onSubmit={handleSubmit}>
                 <Grid container spacing={3}>
                   
-                  {/* --- ROW 1: Name & Course --- */}
-                  <Grid item xs={12} sm={6}>
+                  {/* Row 1 */}
+                  <Grid item xs={12} md={6}>
                     <label style={labelStyle}>Name</label>
-                    <TextField
+                    <InputBase
                       fullWidth
-                      placeholder="Your Number"
+                      placeholder="Your Name"
                       value={formData.name}
                       onChange={(e) => handleChange("name", e.target.value)}
-                      sx={inputStyle}
+                      sx={inputSx}
                     />
                   </Grid>
 
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={12} md={6}>
                     <label style={labelStyle}>Select Course</label>
-                    <TextField
-                      select
+                    <Select
                       fullWidth
                       value={formData.course}
                       onChange={(e) => handleChange("course", e.target.value)}
-                      sx={inputStyle}
-                      SelectProps={{ displayEmpty: true }}
+                      sx={selectSx}
+                      displayEmpty
                     >
                       {courses.map((c) => (
                         <MenuItem key={c} value={c}>{c}</MenuItem>
                       ))}
-                    </TextField>
+                    </Select>
                   </Grid>
 
-                  {/* --- ROW 2: Date & Phone --- */}
-                  <Grid item xs={12} sm={6}>
+                  {/* Row 2 */}
+                  <Grid item xs={12} md={6}>
                     <label style={labelStyle}>Select Date</label>
-                    <TextField
+                    <InputBase
                       fullWidth
                       type="date"
                       value={formData.date}
                       onChange={(e) => handleChange("date", e.target.value)}
-                      sx={inputStyle}
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            {/* Calendar Icon - Explicitly Black */}
-                            <CalendarTodayIcon sx={{ fontSize: 20, color: "#222" }} />
-                          </InputAdornment>
-                        ),
-                      }}
+                      sx={inputSx}
                     />
                   </Grid>
 
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={12} md={6}>
                     <label style={labelStyle}>Phone Number</label>
-                    <TextField
+                    <InputBase
                       fullWidth
                       placeholder="77788-89999"
                       value={formData.phone}
                       onChange={(e) => handleChange("phone", e.target.value)}
-                      sx={inputStyle}
+                      sx={inputSx}
                     />
                   </Grid>
 
-                  {/* --- ROW 3: Email & Address --- */}
-                  <Grid item xs={12} sm={6}>
+                  {/* Row 3 */}
+                  <Grid item xs={12} md={6}>
                     <label style={labelStyle}>Email</label>
-                    <TextField
+                    <InputBase
                       fullWidth
                       placeholder="your@gmail.com"
                       value={formData.email}
                       onChange={(e) => handleChange("email", e.target.value)}
-                      sx={inputStyle}
+                      sx={inputSx}
                     />
                   </Grid>
 
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={12} md={6}>
                     <label style={labelStyle}>Address</label>
-                    <TextField
+                    <InputBase
                       fullWidth
                       placeholder="Your full address"
                       value={formData.address}
                       onChange={(e) => handleChange("address", e.target.value)}
-                      sx={inputStyle}
+                      sx={inputSx}
                     />
                   </Grid>
 
-                  {/* --- ROW 4: Slot Buttons --- */}
+                  {/* Row 4: SLOTS with Icons & CSS Style */}
                   <Grid item xs={12}>
                     <label style={labelStyle}>Select Slot</label>
-                    <Box sx={{ display: "flex", gap: 2 }}>
+                    <Box sx={{ display: "flex", gap: "10px", marginTop: "5px" }}>
                       
                       {/* Morning Button */}
-                      <Button
-                        variant="outlined"
-                        startIcon={<WbSunnyOutlinedIcon />}
+                      <button
+                        type="button"
                         onClick={() => handleSlotChange("Morning")}
                         disabled={isMorningDisabled}
-                        sx={{
-                          flex: 1, // Makes buttons equal width
-                          justifyContent: "center",
-                          textTransform: "none",
-                          fontWeight: "600",
-                          padding: "12px",
+                        style={{
+                          display: "flex",
+                          gap: "8px",
+                          alignItems: "center",
                           borderRadius: "8px",
-                          borderWidth: "1px",
-                          // Dynamic Styles based on selection
-                          color: isMorningDisabled 
-                            ? "#aaa" 
-                            : formData.slot === "Morning" ? "#FF5722" : "#333",
-                          borderColor: isMorningDisabled 
-                            ? "#eee" 
-                            : formData.slot === "Morning" ? "#FF5722" : "#ddd",
-                          backgroundColor: isMorningDisabled 
-                            ? "#f9f9f9" 
-                            : formData.slot === "Morning" ? "rgba(255, 87, 34, 0.05)" : "white",
-                          "&:hover": {
-                            borderColor: isMorningDisabled ? "#eee" : "#FF5722",
-                            backgroundColor: isMorningDisabled ? "#f9f9f9" : "rgba(255, 87, 34, 0.1)",
-                          },
+                          border: isMorningDisabled ? "1px solid #eee" : "1px solid #CCCCCC",
+                          padding: "8px 20px",
+                          fontSize: "14px",
+                          fontFamily: "sans-serif",
+                          cursor: isMorningDisabled ? "not-allowed" : "pointer",
+                          transition: "all 0.3s ease",
+                          backgroundColor: isMorningDisabled ? "#f9f9f9" : (formData.slot === "Morning" ? customColors.primary : "transparent"),
+                          color: isMorningDisabled ? "#ccc" : (formData.slot === "Morning" ? "white" : "#AAAAAA"),
                         }}
                       >
+                        <WbSunnyOutlinedIcon sx={{ fontSize: 18 }} />
                         Morning
-                      </Button>
+                      </button>
 
                       {/* Evening Button */}
-                      <Button
-                        variant="outlined"
-                        startIcon={<BedtimeOutlinedIcon />}
+                      <button
+                        type="button"
                         onClick={() => handleSlotChange("Evening")}
-                        sx={{
-                          flex: 1, // Makes buttons equal width
-                          justifyContent: "center",
-                          textTransform: "none",
-                          fontWeight: "600",
-                          padding: "12px",
+                        style={{
+                          display: "flex",
+                          gap: "8px",
+                          alignItems: "center",
                           borderRadius: "8px",
-                          borderWidth: "1px",
-                          // Dynamic Styles
-                          color: formData.slot === "Evening" ? "#FF5722" : "#333",
-                          borderColor: formData.slot === "Evening" ? "#FF5722" : "#ddd",
-                          backgroundColor: formData.slot === "Evening" ? "rgba(255, 87, 34, 0.05)" : "white",
-                          "&:hover": { 
-                            borderColor: "#FF5722",
-                            backgroundColor: "rgba(255, 87, 34, 0.1)",
-                          },
+                          border: "1px solid #CCCCCC",
+                          padding: "8px 20px",
+                          fontSize: "14px",
+                          fontFamily: "sans-serif",
+                          cursor: "pointer",
+                          transition: "all 0.3s ease",
+                          backgroundColor: formData.slot === "Evening" ? customColors.primary : "transparent",
+                          color: formData.slot === "Evening" ? "white" : "#AAAAAA",
                         }}
                       >
+                        <BedtimeOutlinedIcon sx={{ fontSize: 18 }} />
                         Evening
-                      </Button>
+                      </button>
                     </Box>
 
                     {isMorningDisabled && (
-                      <Typography sx={{ color: "red", fontSize: "12px", mt: 1, ml: 1 }}>
+                      <Typography sx={{ color: "red", fontSize: "12px", mt: 1, fontWeight: 500 }}>
                         * This time is not available
                       </Typography>
                     )}
                   </Grid>
                 </Grid>
 
-                {/* --- Submit Button --- */}
+                {/* Submit Button */}
                 <Box sx={{ display: "flex", justifyContent: "center", mt: 5 }}>
                   <Button
                     type="submit"
                     disableElevation
                     variant="contained"
                     sx={{
-                      backgroundColor: "#FF5722",
+                      backgroundColor: customColors.primary,
                       color: "white",
-                      fontWeight: "700",
-                      letterSpacing: "0.5px",
-                      padding: "14px 60px",
-                      fontSize: "16px",
-                      borderRadius: "8px",
+                      fontWeight: "500",
+                      padding: "10px 40px",
+                      fontSize: "15px",
+                      borderRadius: "6px",
                       textTransform: "none",
-                      width: { xs: "100%", sm: "auto" },
-                      boxShadow: "0 4px 14px 0 rgba(255,87,34,0.39)",
-                      "&:hover": { 
-                        backgroundColor: "#F4511E",
-                        boxShadow: "0 6px 20px rgba(255,87,34,0.23)" 
-                      },
+                      "&:hover": { backgroundColor: "#e66e3e" }
                     }}
                   >
                     Submit Your Details
