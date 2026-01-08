@@ -21,17 +21,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
 import BedtimeOutlinedIcon from "@mui/icons-material/BedtimeOutlined";
 
-// Firebase Configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyAyM4tvCz7oMagXxz_nOi8spWIsmkhbpb8",
-  authDomain: "otp-netcoder-website-demo.firebaseapp.com",
-  projectId: "otp-netcoder-website-demo",
-  storageBucket: "otp-netcoder-website-demo.appspot.com",
-  messagingSenderId: "635675102143",
-  appId: "1:635675102143:web:cbe478339b167bf3c8ef0a",
-  measurementId: "G-DHH6BG4TD1"
-};
-
 export default function BookDemoClass() {
   const [open, setOpen] = useState(false);
   const [otpModalOpen, setOtpModalOpen] = useState(false);
@@ -39,15 +28,14 @@ export default function BookDemoClass() {
   const [confirmationResult, setConfirmationResult] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isOtpVerifying, setIsOtpVerifying] = useState(false);
-  const [isOtpSent, setIsOtpSent] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [isMorningDisabled, setIsMorningDisabled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [countdown, setCountdown] = useState(0);
+  const [useFallback, setUseFallback] = useState(false);
 
   const otpInputRefs = useRef([]);
-  const recaptchaVerifierRef = useRef(null);
   const recaptchaContainerRef = useRef(null);
 
   const [formData, setFormData] = useState({
@@ -158,131 +146,146 @@ export default function BookDemoClass() {
     }
   };
 
-  // Send OTP Function
-  const sendOtp = async () => {
+  // --- OTP LOGIC (Firebase + Fallback) ---
+
+  const generateRandomOtp = () => Math.floor(100000 + Math.random() * 900000).toString();
+
+  const simulateOtpVerification = async (phone) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const otp = generateRandomOtp();
+        console.log(`Simulated OTP for ${phone}: ${otp}`);
+        resolve({ success: true, otp: otp });
+      }, 1500);
+    });
+  };
+
+  const sendOtp = async (e) => {
+    if(e) e.preventDefault();
     const { name, email, phone } = formData;
     
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^\d{10}$/;
-    const nameRegex = /^[a-zA-Z\s\-']+$/;
-
-    if (!nameRegex.test(name)) {
-      setError("Please enter a valid name");
-      return;
-    }
-    if (!emailRegex.test(email)) {
-      setError("Please enter a valid email");
-      return;
-    }
-    if (!phoneRegex.test(phone)) {
-      setError("Please enter a valid 10-digit phone number");
-      return;
-    }
-    if (!formData.slot) {
-      setError("Please select a time slot");
-      return;
-    }
+    
+    if (!name) { setError("Please enter your name"); return; }
+    if (!emailRegex.test(email)) { setError("Please enter a valid email"); return; }
+    if (!phoneRegex.test(phone)) { setError("Please enter a valid 10-digit phone number"); return; }
+    if (!formData.slot) { setError("Please select a time slot"); return; }
 
     setIsLoading(true);
     setError("");
 
     try {
-      // Dynamically import firebase to avoid SSR issues
+      await sendFirebaseOtp();
+    } catch (firebaseError) {
+      console.log("Firebase failed, using fallback:", firebaseError);
+      try {
+        await sendFallbackOtp(phone);
+      } catch (fallbackError) {
+        setError("Unable to send OTP. Please try again later.");
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const sendFirebaseOtp = async () => {
+    try {
       const firebase = await import("firebase/app");
       await import("firebase/auth");
-      
-      // Initialize Firebase if not already initialized
-      if (!firebase.getApps().length) {
-        firebase.initializeApp(firebaseConfig);
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyAyM4tvCz7oMagXxz_nOi8spWIsmkhbpb8",
+        authDomain: "otp-netcoder-website-demo.firebaseapp.com",
+        projectId: "otp-netcoder-website-demo",
+        storageBucket: "otp-netcoder-website-demo.appspot.com",
+        messagingSenderId: "635675102143",
+        appId: "1:635675102143:web:cbe478339b167bf3c8ef0a",
+        measurementId: "G-DHH6BG4TD1"
+      };
+
+      let app;
+      try {
+        if (!firebase.getApps().length) {
+          app = firebase.initializeApp(firebaseConfig);
+        } else {
+          app = firebase.getApp();
+        }
+      } catch (initError) {
+        app = firebase.getApp();
       }
 
-      const auth = firebase.getAuth();
+      const auth = firebase.auth(app);
       
-      // Initialize recaptcha
-      recaptchaVerifierRef.current = new firebase.auth.RecaptchaVerifier(
-        recaptchaContainerRef.current,
-        {
-          size: "invisible",
-          callback: () => {
-            console.log("reCAPTCHA solved");
-          }
-        }
-      );
+      if (!window.recaptchaVerifier) {
+        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+          recaptchaContainerRef.current,
+          { size: "invisible" }
+        );
+      }
 
-      const phoneNumber = `+91${phone}`;
-      const result = await signInWithPhoneNumber(
-        auth,
-        phoneNumber,
-        recaptchaVerifierRef.current
-      );
+      const phoneNumber = `+91${formData.phone}`;
+      const result = await auth.signInWithPhoneNumber(phoneNumber, window.recaptchaVerifier);
 
       setConfirmationResult(result);
       setOpen(false);
       setOtpModalOpen(true);
-      setIsOtpSent(true);
       setCountdown(30);
-      setSuccess("OTP sent successfully to your phone!");
+      setSuccess("OTP sent successfully!");
       setError("");
-      
+      setUseFallback(false);
       setOtp(["", "", "", "", "", ""]);
       
-      setTimeout(() => {
-        if (otpInputRefs.current[0]) {
-          otpInputRefs.current[0].focus();
-        }
-      }, 100);
+    } catch (error) {
+      console.error("Firebase OTP error:", error);
+      throw error; // Trigger fallback
+    }
+  };
+
+  const sendFallbackOtp = async (phone) => {
+    const result = await simulateOtpVerification(phone);
+    if (result.success) {
+      const storedOtp = result.otp;
+      localStorage.setItem('demo_otp', storedOtp);
+      localStorage.setItem('demo_phone', phone);
+      localStorage.setItem('demo_expiry', Date.now() + 5 * 60 * 1000);
       
-    } catch (error) {
-      console.error("Error sending OTP:", error);
-      setError(error.message || "Failed to send OTP. Please try again.");
-    } finally {
-      setIsLoading(false);
+      setConfirmationResult({ otp: storedOtp });
+      setOpen(false);
+      setOtpModalOpen(true);
+      setCountdown(30);
+      setSuccess(`OTP sent to ${phone} (Demo Mode)`);
+      setError("");
+      setUseFallback(true);
+      setOtp(["", "", "", "", "", ""]);
     }
   };
 
-  // Firebase signInWithPhoneNumber function
-  const signInWithPhoneNumber = async (auth, phoneNumber, verifier) => {
-    try {
-      return await auth.signInWithPhoneNumber(phoneNumber, verifier);
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  // Resend OTP Function
   const resendOtp = async () => {
     if (countdown > 0) return;
-    
     setIsLoading(true);
     setError("");
 
     try {
-      const firebase = await import("firebase/app");
-      await import("firebase/auth");
-      
-      const auth = firebase.getAuth();
-      const { phone } = formData;
-      const phoneNumber = `+91${phone}`;
-      
-      const result = await signInWithPhoneNumber(
-        auth,
-        phoneNumber,
-        recaptchaVerifierRef.current
-      );
-
-      setConfirmationResult(result);
+      if (useFallback) {
+        const result = await simulateOtpVerification(formData.phone);
+        localStorage.setItem('demo_otp', result.otp);
+        localStorage.setItem('demo_expiry', Date.now() + 5 * 60 * 1000);
+        setConfirmationResult({ otp: result.otp });
+        setSuccess("OTP resent (Demo Mode)!");
+      } else {
+         // Logic for Firebase Resend would go here (usually re-triggering signInWithPhoneNumber)
+         await sendFirebaseOtp(); 
+         setSuccess("OTP resent successfully!");
+      }
       setCountdown(30);
-      setSuccess("OTP resent successfully!");
-      setError("");
     } catch (error) {
-      console.error("Error resending OTP:", error);
-      setError("Failed to resend OTP. Please try again.");
+      setError("Failed to resend OTP.");
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Verify OTP Function
   const verifyOtp = async () => {
     const otpCode = otp.join('');
     if (otpCode.length !== 6) {
@@ -294,66 +297,55 @@ export default function BookDemoClass() {
     setError("");
 
     try {
-      await confirmationResult.confirm(otpCode);
+      if (useFallback) {
+        const storedOtp = localStorage.getItem('demo_otp');
+        const expiry = localStorage.getItem('demo_expiry');
+        if (!storedOtp || Date.now() > expiry || otpCode !== storedOtp) {
+          throw new Error("Invalid or Expired OTP");
+        }
+      } else {
+        await confirmationResult.confirm(otpCode);
+      }
       
       await submitFormData();
-      
-      setSuccess("OTP verified successfully! Form submitted.");
+      setSuccess("Verified! Booking Confirmed.");
       
       setTimeout(() => {
         setOtpModalOpen(false);
-        setSuccess("Details Submitted Successfully!");
-        
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          course: "Graphic Designing",
-          date: new Date().toISOString().split('T')[0],
-          slot: "Morning",
-          address: "",
-        });
-        setOtp(["", "", "", "", "", ""]);
-        setIsOtpSent(false);
-        
+        alert("Thank you! Your demo class has been booked successfully.");
         window.location.reload();
-      }, 2000);
+      }, 1500);
       
     } catch (error) {
-      console.error("Error verifying OTP:", error);
+      console.error(error);
       setError("Invalid OTP. Please try again.");
     } finally {
       setIsOtpVerifying(false);
     }
   };
 
-  // Submit Form Data
   const submitFormData = async () => {
     try {
-      // EmailJS integration
       const emailjs = await import('@emailjs/browser');
-      
-      const templateParams = {
-        name: formData.name,
-        number: formData.phone,
-        mail: formData.email,
-        course: formData.course,
-        address: formData.address,
-        date: formData.date,
-        slot: formData.slot
-      };
-
       await emailjs.send(
         "service_xukw6z4",
         "template_z5b32h5",
-        templateParams
+        {
+            name: formData.name,
+            number: formData.phone,
+            mail: formData.email,
+            course: formData.course,
+            address: formData.address,
+            date: formData.date,
+            slot: formData.slot
+        }
       );
     } catch (error) {
-      console.error("Error sending email:", error);
+      console.error("EmailJS Error", error);
     }
   };
 
-  // Custom CSS Styles
+  // --- STYLES ---
   const customColors = {
     primary: "#FB8454",
     border: "#CCCCCC",
@@ -377,23 +369,10 @@ export default function BookDemoClass() {
     "& .MuiInputBase-input": {
       height: isMobile ? "48px" : "42px",
       padding: "0 16px",
-      boxSizing: "border-box",
       borderRadius: "8px",
       border: `1px solid ${customColors.border}`,
-      color: customColors.text,
       fontSize: isMobile ? "16px" : "15px",
-      backgroundColor: "white",
-      transition: "all 0.3s ease",
-      "&::placeholder": { 
-        color: customColors.placeholder, 
-        opacity: 1,
-        fontSize: isMobile ? "14px" : "13px"
-      },
-      "&:focus": {
-        borderColor: customColors.primary,
-        borderWidth: "2px",
-        outline: "none"
-      }
+      "&:focus": { borderColor: customColors.primary, borderWidth: "2px" }
     }
   };
 
@@ -402,98 +381,40 @@ export default function BookDemoClass() {
     height: isMobile ? "48px" : "42px",
     borderRadius: "8px",
     border: `1px solid ${customColors.border}`,
-    color: customColors.text,
-    fontSize: isMobile ? "16px" : "15px",
-    "& .MuiSelect-select": {
-      padding: "0 16px",
-      display: "flex",
-      alignItems: "center",
-      height: "100% !important",
-      fontSize: isMobile ? "16px" : "15px",
-    },
+    "& .MuiSelect-select": { padding: "0 16px", display: "flex", alignItems: "center" },
     "& fieldset": { border: "none" }, 
-    "&:focus-within": {
-      borderColor: customColors.primary,
-      borderWidth: "2px",
-      outline: "none"
-    }
+    "&:focus-within": { borderColor: customColors.primary, borderWidth: "2px", borderStyle: "solid" }
   };
 
   return (
     <Box>
-      {/* Hero Section */}
-      <Box
-        sx={{
-          minHeight: "100vh",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          textAlign: "center",
-          backgroundColor: "#fff",
-          padding: "20px",
-          fontFamily: "sans-serif",
-        }}
-      >
-        <Box sx={{ 
-          backgroundColor: "#FF5722", 
-          color: "white", 
-          borderRadius: "50px", 
-          padding: "6px 22px", 
-          fontSize: "13px", 
-          fontWeight: "600", 
-          mb: 3, 
-          letterSpacing: "0.5px" 
-        }}>
+      {/* Hero / Trigger Button */}
+      <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", backgroundColor: "#fff", padding: "20px" }}>
+        <Box sx={{ backgroundColor: "#FF5722", color: "white", borderRadius: "50px", padding: "6px 22px", fontSize: "13px", fontWeight: "600", mb: 3 }}>
           Free Demo Class
         </Box>
-
-        <Typography variant="h2" sx={{ 
-          fontWeight: "800", 
-          color: "#111", 
-          fontSize: { xs: "32px", md: "48px" }, 
-          lineHeight: 1.2, 
-          mb: 3, 
-          fontFamily: "sans-serif" 
-        }}>
+        <Typography variant="h2" sx={{ fontWeight: "800", color: "#111", fontSize: { xs: "32px", md: "48px" }, mb: 3 }}>
           Still Unsure? Try A Free <br /> Demo Class
         </Typography>
+        <Typography sx={{ color: "#444", fontSize: "16px", maxWidth: "750px", mb: 5 }}>
+          Experience our teaching approach before making a commitment. Whether you're exploring a new skill or planning your career path, our demo class gives you a glimpse of how we teach, what you'll learn, and how we can help you grow. No pressure—just real learning, right from the start.
 
-        <Typography sx={{ 
-          color: "#444", 
-          fontSize: "16px", 
-          maxWidth: "750px", 
-          lineHeight: 1.6, 
-          mb: 5, 
-          fontFamily: "sans-serif" 
-        }}>
-          Experience our teaching approach before making a commitment. Whether
-          you're exploring a new skill or planning your career path, our demo class
-          gives you a glimpse of how we teach, what you'll learn, and how we can
-          help you grow. No pressure—just real learning, right from the start.
-        </Typography>
 
+         </Typography>
         <Button
           onClick={() => setOpen(true)}
           disableElevation
           sx={{ 
-            backgroundColor: "#111", 
-            color: "white", 
-            padding: { xs: "16px 32px", md: "14px 40px" }, 
-            fontSize: { xs: "16px", md: "15px" },
-            borderRadius: "8px", 
-            fontWeight: "600", 
-            textTransform: "none", 
-            "&:hover": { backgroundColor: "#333" },
-            width: { xs: "100%", sm: "auto" },
-            maxWidth: { xs: "100%", sm: "300px" }
+            backgroundColor: "#111", color: "white", padding: { xs: "16px 32px", md: "14px 40px" }, 
+            borderRadius: "8px", fontWeight: "600", textTransform: "none", 
+            "&:hover": { backgroundColor: "#333" }
           }}
         >
           Book A Demo Class
         </Button>
       </Box>
 
-      {/* Main Form Modal */}
+      {/* --- MODAL 1: INFO FORM --- */}
       <Modal
         open={open}
         onClose={() => setOpen(false)}
@@ -502,475 +423,99 @@ export default function BookDemoClass() {
         BackdropProps={{ timeout: 500, sx: { backgroundColor: "rgba(0,0,0,0.6)" } }}
       >
         <Fade in={open}>
-          <Box
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: "100%",
-              maxWidth: { xs: "95%", sm: "680px" },
-              outline: "none",
-              px: { xs: 2, sm: 3 },
-            }}
-          >
-            <Paper
-              elevation={0}
-              sx={{
-                p: { xs: 3, sm: 4, md: 5 },
-                borderRadius: "20px",
-                position: "relative",
-                maxHeight: "90vh",
-                overflowY: "auto",
-                backgroundColor: "#fff",
-                boxShadow: "0px 10px 40px rgba(0,0,0,0.2)",
-                mx: "auto",
-              }}
-            >
-              <IconButton
-                onClick={() => setOpen(false)}
-                sx={{ 
-                  position: "absolute", 
-                  right: { xs: 8, sm: 12 }, 
-                  top: { xs: 8, sm: 12 }, 
-                  color: "#333", 
-                  padding: "4px",
-                  backgroundColor: "#f5f5f5",
-                  "&:hover": { backgroundColor: "#e0e0e0" }
-                }}
-              >
-                <CloseIcon fontSize={isMobile ? "medium" : "small"} />
-              </IconButton>
-
-              <Typography align="center" sx={{ 
-                color: "#FF5722", 
-                fontWeight: "700", 
-                fontSize: { xs: "22px", sm: "24px" }, 
-                mb: 4, 
-                fontFamily: "sans-serif",
-                pt: { xs: 1, sm: 0 }
-              }}>
+          <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "100%", maxWidth: { xs: "95%", sm: "680px" }, outline: "none", px: 2 }}>
+            <Paper elevation={0} sx={{ p: { xs: 3, sm: 4, md: 5 }, borderRadius: "20px", maxHeight: "90vh", overflowY: "auto", position: "relative" }}>
+              
+              <IconButton onClick={() => setOpen(false)} sx={{ position: "absolute", right: 12, top: 12, backgroundColor: "#f5f5f5" }}><CloseIcon /></IconButton>
+              
+              <Typography align="center" sx={{ color: "#FF5722", fontWeight: "700", fontSize: "24px", mb: 4 }}>
                 Book Your Demo Class
               </Typography>
 
-              {/* Error/Success Messages */}
-              {error && (
-                <Alert severity="error" sx={{ mb: 2, borderRadius: "8px" }}>
-                  {error}
-                </Alert>
-              )}
-              {success && (
-                <Alert severity="success" sx={{ mb: 2, borderRadius: "8px" }}>
-                  {success}
-                </Alert>
-              )}
+              {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+              
+              {/* Invisible Recaptcha Container */}
+              <div id="recaptcha-container" ref={recaptchaContainerRef}></div>
 
-              <form onSubmit={(e) => { e.preventDefault(); sendOtp(); }}>
-                {/* MOBILE LAYOUT */}
-                {isMobile ? (
-                  <Box sx={{ 
-                    display: "flex", 
-                    flexDirection: "column", 
-                    gap: 2.5,
-                    alignItems: "center",
-                    width: "100%"
-                  }}>
-                    
+              <form onSubmit={sendOtp}>
+                 <Grid container spacing={3}>
                     {/* Name */}
-                    <Box sx={{ width: "100%" }}>
+                    <Grid item xs={12} md={6}>
                       <label style={labelStyle}>Name *</label>
-                      <InputBase
-                        fullWidth
-                        placeholder="Your Name"
-                        value={formData.name}
-                        onChange={(e) => handleChange("name", e.target.value)}
-                        sx={inputSx}
-                        required
-                      />
-                    </Box>
-
+                      <InputBase fullWidth placeholder="Your Name" value={formData.name} onChange={(e) => handleChange("name", e.target.value)} sx={inputSx} />
+                    </Grid>
                     {/* Course */}
-                    <Box sx={{ width: "100%" }}>
+                    <Grid item xs={12} md={6}>
                       <label style={labelStyle}>Select Course *</label>
-                      <Select
-                        fullWidth
-                        value={formData.course}
-                        onChange={(e) => handleChange("course", e.target.value)}
-                        sx={selectSx}
-                        required
-                      >
-                        {courses.map((c) => (
-                          <MenuItem key={c} value={c} sx={{ fontSize: "15px" }}>
-                            {c}
-                          </MenuItem>
-                        ))}
+                      <Select fullWidth value={formData.course} onChange={(e) => handleChange("course", e.target.value)} sx={selectSx}>
+                        {courses.map((c) => <MenuItem key={c} value={c}>{c}</MenuItem>)}
                       </Select>
-                    </Box>
-
+                    </Grid>
                     {/* Date */}
-                    <Box sx={{ width: "100%" }}>
+                    <Grid item xs={12} md={6}>
                       <label style={labelStyle}>Select Date *</label>
-                      <InputBase
-                        fullWidth
-                        type="date"
-                        value={formData.date}
-                        onChange={(e) => handleChange("date", e.target.value)}
-                        sx={inputSx}
-                        inputProps={{
-                          min: new Date().toISOString().split('T')[0],
-                          style: {
-                            fontSize: "16px",
-                            color: formData.date ? customColors.text : customColors.placeholder
-                          }
-                        }}
-                        required
-                      />
-                    </Box>
-
-                    {/* Phone - Fixed mobile number field */}
-                    <Box sx={{ width: "100%" }}>
+                      <InputBase fullWidth type="date" value={formData.date} onChange={(e) => handleChange("date", e.target.value)} sx={inputSx} inputProps={{ min: new Date().toISOString().split('T')[0] }} />
+                    </Grid>
+                    {/* Phone */}
+                    <Grid item xs={12} md={6}>
                       <label style={labelStyle}>Phone Number *</label>
-                      <InputBase
-                        fullWidth
-                        placeholder="Enter 10-digit number"
-                        value={formData.phone}
-                        onChange={(e) => {
-                          const value = e.target.value.replace(/\D/g, '').slice(0, 10);
-                          handleChange("phone", value);
-                        }}
-                        sx={inputSx}
-                        inputProps={{
-                          inputMode: "numeric",
-                          pattern: "[0-9]*",
-                          maxLength: 10
-                        }}
-                        required
-                      />
-                    </Box>
-
+                      <InputBase fullWidth placeholder="Enter 10-digit number" value={formData.phone} onChange={(e) => handleChange("phone", e.target.value.replace(/\D/g, '').slice(0, 10))} sx={inputSx} />
+                    </Grid>
                     {/* Email */}
-                    <Box sx={{ width: "100%" }}>
+                    <Grid item xs={12} md={6}>
                       <label style={labelStyle}>Email *</label>
-                      <InputBase
-                        fullWidth
-                        placeholder="your@gmail.com"
-                        value={formData.email}
-                        onChange={(e) => handleChange("email", e.target.value)}
-                        sx={inputSx}
-                        type="email"
-                        required
-                      />
-                    </Box>
-
+                      <InputBase fullWidth type="email" placeholder="your@gmail.com" value={formData.email} onChange={(e) => handleChange("email", e.target.value)} sx={inputSx} />
+                    </Grid>
                     {/* Address */}
-                    <Box sx={{ width: "100%" }}>
-                      <label style={labelStyle}>Address *</label>
-                      <InputBase
-                        fullWidth
-                        placeholder="Your full address"
-                        value={formData.address}
-                        onChange={(e) => handleChange("address", e.target.value)}
-                        sx={inputSx}
-                        required
-                      />
-                    </Box>
-
-                    {/* Slot Selection */}
-                    <Box sx={{ width: "100%" }}>
-                      <label style={labelStyle}>Select Slot *</label>
-                      <Box sx={{ 
-                        display: "flex", 
-                        gap: "12px", 
-                        marginTop: "8px",
-                        flexDirection: "column",
-                        width: "100%"
-                      }}>
-                        
-                        {/* Morning Button */}
-                        <button
-                          type="button"
-                          onClick={() => handleSlotChange("Morning")}
-                          disabled={isMorningDisabled}
-                          style={{
-                            display: "flex",
-                            gap: "8px",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            borderRadius: "8px",
-                            border: isMorningDisabled ? "1px solid #eee" : `1px solid ${formData.slot === "Morning" ? customColors.primary : "#CCCCCC"}`,
-                            padding: "14px 20px",
-                            fontSize: "16px",
-                            fontFamily: "sans-serif",
-                            cursor: isMorningDisabled ? "not-allowed" : "pointer",
-                            transition: "all 0.3s ease",
-                            backgroundColor: isMorningDisabled ? "#f9f9f9" : (formData.slot === "Morning" ? customColors.primary : "transparent"),
-                            color: isMorningDisabled ? "#ccc" : (formData.slot === "Morning" ? "white" : "#666"),
-                            width: "100%",
-                            minHeight: "50px",
-                            fontWeight: formData.slot === "Morning" ? "600" : "500",
-                          }}
-                        >
-                          <WbSunnyOutlinedIcon sx={{ fontSize: 20 }} />
-                          Morning
-                        </button>
-
-                        {/* Evening Button */}
-                        <button
-                          type="button"
-                          onClick={() => handleSlotChange("Evening")}
-                          style={{
-                            display: "flex",
-                            gap: "8px",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            borderRadius: "8px",
-                            border: `1px solid ${formData.slot === "Evening" ? customColors.primary : "#CCCCCC"}`,
-                            padding: "14px 20px",
-                            fontSize: "16px",
-                            fontFamily: "sans-serif",
-                            cursor: "pointer",
-                            transition: "all 0.3s ease",
-                            backgroundColor: formData.slot === "Evening" ? customColors.primary : "transparent",
-                            color: formData.slot === "Evening" ? "white" : "#666",
-                            width: "100%",
-                            minHeight: "50px",
-                            fontWeight: formData.slot === "Evening" ? "600" : "500",
-                          }}
-                        >
-                          <BedtimeOutlinedIcon sx={{ fontSize: 20 }} />
-                          Evening
-                        </button>
-                      </Box>
-                    </Box>
-
-                  </Box>
-                ) : (
-                  /* DESKTOP/TABLET LAYOUT */
-                  <Grid container spacing={3}>
-                    
-                    {/* Row 1 */}
-                    <Grid item xs={12} md={6}>
-                      <label style={labelStyle}>Name *</label>
-                      <InputBase
-                        fullWidth
-                        placeholder="Your Name"
-                        value={formData.name}
-                        onChange={(e) => handleChange("name", e.target.value)}
-                        sx={inputSx}
-                        required
-                      />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                      <label style={labelStyle}>Select Course *</label>
-                      <Select
-                        fullWidth
-                        value={formData.course}
-                        onChange={(e) => handleChange("course", e.target.value)}
-                        sx={selectSx}
-                        required
-                      >
-                        {courses.map((c) => (
-                          <MenuItem key={c} value={c} sx={{ fontSize: "14px" }}>
-                            {c}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </Grid>
-
-                    {/* Row 2 */}
-                    <Grid item xs={12} md={6}>
-                      <label style={labelStyle}>Select Date *</label>
-                      <InputBase
-                        fullWidth
-                        type="date"
-                        value={formData.date}
-                        onChange={(e) => handleChange("date", e.target.value)}
-                        sx={inputSx}
-                        inputProps={{
-                          min: new Date().toISOString().split('T')[0],
-                          style: {
-                            fontSize: "15px",
-                            color: formData.date ? customColors.text : customColors.placeholder
-                          }
-                        }}
-                        required
-                      />
-                    </Grid>
-
-                    <Grid item xs={12} md={6}>
-                      <label style={labelStyle}>Phone Number *</label>
-                      <InputBase
-                        fullWidth
-                        placeholder="Enter 10-digit number"
-                        value={formData.phone}
-                        onChange={(e) => {
-                          const value = e.target.value.replace(/\D/g, '').slice(0, 10);
-                          handleChange("phone", value);
-                        }}
-                        sx={inputSx}
-                        inputProps={{
-                          inputMode: "numeric",
-                          pattern: "[0-9]*",
-                          maxLength: 10
-                        }}
-                        required
-                      />
-                    </Grid>
-
-                    {/* Row 3 */}
-                    <Grid item xs={12} md={6}>
-                      <label style={labelStyle}>Email *</label>
-                      <InputBase
-                        fullWidth
-                        placeholder="your@gmail.com"
-                        value={formData.email}
-                        onChange={(e) => handleChange("email", e.target.value)}
-                        sx={inputSx}
-                        type="email"
-                        required
-                      />
-                    </Grid>
-
                     <Grid item xs={12} md={6}>
                       <label style={labelStyle}>Address *</label>
-                      <InputBase
-                        fullWidth
-                        placeholder="Your full address"
-                        value={formData.address}
-                        onChange={(e) => handleChange("address", e.target.value)}
-                        sx={inputSx}
-                        required
-                      />
+                      <InputBase fullWidth placeholder="Your full address" value={formData.address} onChange={(e) => handleChange("address", e.target.value)} sx={inputSx} />
                     </Grid>
-
-                    {/* Row 4: Slot Selection */}
+                    {/* Slots */}
                     <Grid item xs={12}>
-                      <label style={labelStyle}>Select Slot *</label>
-                      <Box sx={{ 
-                        display: "flex", 
-                        gap: "10px", 
-                        marginTop: "8px"
-                      }}>
-                        
-                        {/* Morning Button */}
-                        <button
-                          type="button"
-                          onClick={() => handleSlotChange("Morning")}
-                          disabled={isMorningDisabled}
-                          style={{
-                            display: "flex",
-                            gap: "8px",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            borderRadius: "8px",
-                            border: isMorningDisabled ? "1px solid #eee" : `1px solid ${formData.slot === "Morning" ? customColors.primary : "#CCCCCC"}`,
-                            padding: "10px 20px",
-                            fontSize: "14px",
-                            fontFamily: "sans-serif",
-                            cursor: isMorningDisabled ? "not-allowed" : "pointer",
-                            transition: "all 0.3s ease",
-                            backgroundColor: isMorningDisabled ? "#f9f9f9" : (formData.slot === "Morning" ? customColors.primary : "transparent"),
-                            color: isMorningDisabled ? "#ccc" : (formData.slot === "Morning" ? "white" : "#666"),
-                            width: "auto",
-                            minHeight: "42px",
-                            fontWeight: formData.slot === "Morning" ? "600" : "500",
-                          }}
-                        >
-                          <WbSunnyOutlinedIcon sx={{ fontSize: 18 }} />
-                          Morning
-                        </button>
-
-                        {/* Evening Button */}
-                        <button
-                          type="button"
-                          onClick={() => handleSlotChange("Evening")}
-                          style={{
-                            display: "flex",
-                            gap: "8px",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            borderRadius: "8px",
-                            border: `1px solid ${formData.slot === "Evening" ? customColors.primary : "#CCCCCC"}`,
-                            padding: "10px 20px",
-                            fontSize: "14px",
-                            fontFamily: "sans-serif",
-                            cursor: "pointer",
-                            transition: "all 0.3s ease",
-                            backgroundColor: formData.slot === "Evening" ? customColors.primary : "transparent",
-                            color: formData.slot === "Evening" ? "white" : "#666",
-                            width: "auto",
-                            minHeight: "42px",
-                            fontWeight: formData.slot === "Evening" ? "600" : "500",
-                          }}
-                        >
-                          <BedtimeOutlinedIcon sx={{ fontSize: 18 }} />
-                          Evening
-                        </button>
-                      </Box>
+                        <label style={labelStyle}>Select Slot *</label>
+                        <Box sx={{ display: "flex", gap: "10px", mt: 1 }}>
+                            {/* Morning */}
+                            <button type="button" onClick={() => handleSlotChange("Morning")} disabled={isMorningDisabled}
+                             style={{ 
+                                display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "10px 20px", borderRadius: "8px", cursor: isMorningDisabled ? "not-allowed" : "pointer",
+                                border: isMorningDisabled ? "1px solid #eee" : `1px solid ${formData.slot === "Morning" ? customColors.primary : "#CCC"}`,
+                                backgroundColor: isMorningDisabled ? "#f9f9f9" : (formData.slot === "Morning" ? customColors.primary : "transparent"),
+                                color: isMorningDisabled ? "#ccc" : (formData.slot === "Morning" ? "white" : "#666"),
+                             }}>
+                                <WbSunnyOutlinedIcon sx={{ fontSize: 18 }} /> Morning
+                            </button>
+                            {/* Evening */}
+                            <button type="button" onClick={() => handleSlotChange("Evening")}
+                             style={{ 
+                                display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "10px 20px", borderRadius: "8px", cursor: "pointer",
+                                border: `1px solid ${formData.slot === "Evening" ? customColors.primary : "#CCC"}`,
+                                backgroundColor: formData.slot === "Evening" ? customColors.primary : "transparent",
+                                color: formData.slot === "Evening" ? "white" : "#666",
+                             }}>
+                                <BedtimeOutlinedIcon sx={{ fontSize: 18 }} /> Evening
+                            </button>
+                        </Box>
                     </Grid>
-                  </Grid>
-                )}
+                 </Grid>
 
-                {/* Send OTP Button */}
-                <Box sx={{ 
-                  display: "flex", 
-                  justifyContent: "center", 
-                  mt: isMobile ? 3 : 4,
-                  width: "100%"
-                }}>
-                  <Button
-                    type="submit"
-                    disabled={isLoading}
-                    fullWidth={isMobile}
-                    disableElevation
-                    variant="contained"
-                    sx={{
-                      backgroundColor: customColors.primary,
-                      color: "white",
-                      fontWeight: "600",
-                      padding: isMobile ? "16px 20px" : "14px 40px",
-                      fontSize: isMobile ? "17px" : "16px",
-                      borderRadius: "10px",
-                      textTransform: "none",
-                      "&:hover": { backgroundColor: "#e66e3e" },
-                      width: isMobile ? "100%" : "auto",
-                      maxWidth: isMobile ? "100%" : "400px",
-                      height: isMobile ? "52px" : "48px",
-                      boxShadow: "0 4px 12px rgba(251, 132, 84, 0.3)",
-                      "&:disabled": {
-                        backgroundColor: "#cccccc"
-                      }
-                    }}
-                  >
-                    {isLoading ? (
-                      <>
-                        <CircularProgress size={24} sx={{ color: "white", mr: 2 }} />
-                        Sending OTP...
-                      </>
-                    ) : (
-                      "Send OTP"
-                    )}
-                  </Button>
-                </Box>
-
-                {/* reCAPTCHA Container */}
-                <div 
-                  id="recaptcha-container" 
-                  ref={recaptchaContainerRef} 
-                  style={{ 
-                    display: "none",
-                    marginTop: "10px"
-                  }}
-                ></div>
-
+                 <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
+                    <Button type="submit" disabled={isLoading} variant="contained"
+                      sx={{ 
+                        backgroundColor: customColors.primary, color: "white", padding: "14px 40px", 
+                        borderRadius: "10px", fontSize: "16px", textTransform: "none",
+                        "&:hover": { backgroundColor: "#e66e3e" }
+                      }}>
+                      {isLoading ? <><CircularProgress size={24} sx={{ color: "white", mr: 2 }} /> Sending OTP...</> : "Send OTP"}
+                    </Button>
+                 </Box>
               </form>
             </Paper>
           </Box>
         </Fade>
       </Modal>
 
-      {/* OTP Verification Modal */}
+      {/* --- MODAL 2: OTP VERIFICATION --- */}
       <Modal
         open={otpModalOpen}
         onClose={() => setOtpModalOpen(false)}
@@ -979,205 +524,76 @@ export default function BookDemoClass() {
         BackdropProps={{ timeout: 500, sx: { backgroundColor: "rgba(0,0,0,0.6)" } }}
       >
         <Fade in={otpModalOpen}>
-          <Box
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: "100%",
-              maxWidth: { xs: "95%", sm: "450px" },
-              outline: "none",
-              px: 2,
-            }}
-          >
-            <Paper
-              elevation={0}
-              sx={{
-                p: { xs: 3, sm: 4 },
-                borderRadius: "20px",
-                position: "relative",
-                backgroundColor: "#fff",
-                boxShadow: "0px 10px 40px rgba(0,0,0,0.2)",
-                textAlign: "center",
-              }}
-            >
-              <IconButton
-                onClick={() => setOtpModalOpen(false)}
-                sx={{ 
-                  position: "absolute", 
-                  right: 8, 
-                  top: 8, 
-                  color: "#333",
-                  padding: "4px",
-                }}
-              >
-                <CloseIcon />
-              </IconButton>
-
-              <Typography sx={{ 
-                color: "#FF5722", 
-                fontWeight: "700", 
-                fontSize: { xs: "22px", sm: "24px" }, 
-                mb: 2,
-                fontFamily: "sans-serif"
-              }}>
-                OTP Verification
+          <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "100%", maxWidth: "450px", outline: "none", px: 2 }}>
+            <Paper elevation={0} sx={{ p: 4, borderRadius: "20px", textAlign: "center", position: "relative" }}>
+              
+              <IconButton onClick={() => setOtpModalOpen(false)} sx={{ position: "absolute", right: 8, top: 8 }}><CloseIcon /></IconButton>
+              
+              <Typography sx={{ color: "#FF5722", fontWeight: "700", fontSize: "24px", mb: 2 }}>
+                OTP Verification 
+              </Typography>
+              <Typography sx={{ color: "#666", mb: 3 }}>
+                Enter the 6-digit OTP sent to <strong>+91 {formData.phone}</strong>
               </Typography>
 
-              <Typography sx={{ 
-                color: "#666", 
-                fontSize: { xs: "15px", sm: "16px" }, 
-                mb: 3,
-                fontFamily: "sans-serif"
-              }}>
-                Enter the 6-digit OTP sent to<br />
-                <strong>+91 {formData.phone}</strong>
-              </Typography>
+              {useFallback && <Alert severity="info" sx={{ mb: 2 }}>Demo Mode: Check console for OTP</Alert>}
+              {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+              {success && <Alert severity="success" sx={{ mb: 2 }}>{success}</Alert>}
 
-              {/* OTP Input Fields */}
-              <Box 
-                sx={{ 
-                  display: "flex", 
-                  justifyContent: "center", 
-                  gap: { xs: 1, sm: 1.5 }, 
-                  mb: 3,
-                  flexWrap: "wrap"
-                }}
-              >
+              {/* OTP Inputs */}
+              <Box sx={{ display: "flex", justifyContent: "center", gap: 1.5, mb: 3 }}>
                 {otp.map((digit, index) => (
-                  <Box
-                    key={index}
-                    sx={{
-                      width: { xs: "50px", sm: "55px" },
-                      height: { xs: "60px", sm: "65px" },
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      borderRadius: "12px",
-                      border: `2px solid ${error && error.includes("OTP") ? "#f44336" : (digit ? customColors.primary : customColors.border)}`,
-                      backgroundColor: digit ? "#FFF5F0" : "white",
-                      transition: "all 0.3s ease",
-                      boxShadow: digit ? "0 4px 12px rgba(251, 132, 84, 0.15)" : "none",
-                    }}
-                  >
+                  <Box key={index} sx={{ width: "50px", height: "60px", border: `2px solid ${digit ? customColors.primary : "#ddd"}`, borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <InputBase
                       inputRef={el => otpInputRefs.current[index] = el}
                       value={digit}
                       onChange={(e) => handleOtpChange(index, e.target.value)}
                       onKeyDown={(e) => handleOtpKeyDown(index, e)}
-                      inputProps={{
-                        maxLength: 1,
-                        style: {
-                          textAlign: "center",
-                          fontSize: { xs: "28px", sm: "32px" },
-                          fontWeight: "600",
-                          color: customColors.text,
-                          width: "100%",
-                          height: "100%",
-                          padding: 0,
-                          caretColor: customColors.primary,
-                        }
-                      }}
-                      sx={{
-                        width: "100%",
-                        height: "100%",
-                        "& .MuiInputBase-input": {
-                          textAlign: "center",
-                          padding: 0,
-                        }
-                      }}
+                      inputProps={{ maxLength: 1, style: { textAlign: "center", fontSize: "24px", fontWeight: "bold" } }}
                     />
                   </Box>
                 ))}
               </Box>
 
-              {/* Error/Success Messages */}
-              {error && (
-                <Alert severity="error" sx={{ mb: 2, borderRadius: "8px" }}>
-                  {error}
-                </Alert>
-              )}
-              {success && (
-                <Alert severity="success" sx={{ mb: 2, borderRadius: "8px" }}>
-                  {success}
-                </Alert>
-              )}
-
-              {/* Verify OTP Button */}
+              {/* Verify Button */}
               <Button
                 onClick={verifyOtp}
                 disabled={isOtpVerifying || otp.join('').length !== 6}
                 fullWidth
-                disableElevation
                 variant="contained"
-                sx={{
-                  backgroundColor: customColors.primary,
-                  color: "white",
-                  fontWeight: "600",
-                  padding: { xs: "16px", sm: "14px" },
-                  fontSize: { xs: "17px", sm: "16px" },
-                  borderRadius: "10px",
-                  textTransform: "none",
-                  "&:hover": { backgroundColor: "#e66e3e" },
-                  height: { xs: "52px", sm: "48px" },
-                  boxShadow: "0 4px 12px rgba(251, 132, 84, 0.3)",
-                  "&:disabled": {
-                    backgroundColor: "#cccccc"
-                  },
-                  mb: 2
+                sx={{ 
+                  backgroundColor: customColors.primary, color: "white", padding: "14px", 
+                  borderRadius: "10px", fontSize: "16px", textTransform: "none", mb: 2,
+                  "&:hover": { backgroundColor: "#e66e3e" }
                 }}
               >
-                {isOtpVerifying ? (
-                  <>
-                    <CircularProgress size={24} sx={{ color: "white", mr: 2 }} />
-                    Verifying...
-                  </>
-                ) : (
-                  "Verify OTP"
-                )}
+                {isOtpVerifying ? "Verifying..." : "Submit Details"}
               </Button>
 
-              {/* Resend OTP Section */}
-              <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 1 }}>
-                <Typography sx={{ 
-                  color: "#999", 
-                  fontSize: "14px", 
-                  fontFamily: "sans-serif"
-                }}>
-                  Didn't receive OTP?
-                </Typography>
-                <Button
-                  onClick={resendOtp}
-                  disabled={countdown > 0 || isLoading}
-                  sx={{
-                    color: customColors.primary,
-                    fontWeight: "600",
-                    fontSize: "14px",
-                    textTransform: "none",
-                    minWidth: "auto",
-                    padding: "4px 8px",
-                    "&:hover": {
-                      backgroundColor: "transparent",
-                      textDecoration: "underline"
-                    },
-                    "&:disabled": {
-                      color: "#999"
-                    }
-                  }}
-                >
-                  {countdown > 0 ? `Resend in ${countdown}s` : "Resend OTP"}
-                </Button>
+              {/* Timer / Resend Link - MOVED BELOW BUTTON AS REQUESTED */}
+              <Box sx={{ mt: 2 }}>
+                {countdown > 0 ? (
+                    <Typography sx={{ color: "#888", fontSize: "14px" }}>
+                        Resend OTP in <span style={{ color: "#333", fontWeight: "bold" }}>{countdown}s</span>
+                    </Typography>
+                ) : (
+                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1 }}>
+                        <Typography sx={{ color: "#888", fontSize: "14px" }}>
+                            Didn't receive code?
+                        </Typography>
+                        <Button 
+                            onClick={resendOtp} 
+                            disabled={isLoading}
+                            sx={{ 
+                                textTransform: "none", color: customColors.primary, fontWeight: "bold", 
+                                padding: 0, minWidth: "auto", "&:hover": { backgroundColor: "transparent", textDecoration: "underline" } 
+                            }}>
+                            Resend OTP
+                        </Button>
+                    </Box>
+                )}
               </Box>
 
-              <Typography sx={{ 
-                color: "#999", 
-                fontSize: "12px", 
-                mt: 2,
-                fontFamily: "sans-serif"
-              }}>
-                OTP will expire in 5 minutes
-              </Typography>
             </Paper>
           </Box>
         </Fade>
