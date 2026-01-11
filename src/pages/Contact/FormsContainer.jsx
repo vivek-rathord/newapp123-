@@ -46,7 +46,7 @@ export default function ContactQuery() {
   const [activeForm, setActiveForm] = useState(null); 
   const [openPopup, setOpenPopup] = useState(false);
 
-  // --- ORIGINAL BUTTON STYLES (Restored) ---
+  // --- ORIGINAL BUTTON STYLES ---
   const btnStyle = {
     background: themeConfig.pureWhite,
     color: themeConfig.deepBlack,
@@ -106,7 +106,7 @@ export default function ContactQuery() {
         my: { xs: 4, sm: 5, md: 6 },
       }}
     >
-      {/* --- ORIGINAL TEXT AND BUTTONS (Restored) --- */}
+      {/* --- ORIGINAL TEXT AND BUTTONS --- */}
       <Typography
         variant="h4"
         fontWeight={700}
@@ -114,7 +114,7 @@ export default function ContactQuery() {
           width: { md: "50%", xs: "100%" },
           pb: { xs: 2, sm: 3, md: 4 },
           color: themeConfig.deepBlack,
-          fontSize: { xs: "2rem", sm: "2rem", md: "3rem", lg: "3rem" },
+          fontSize: { xs: "1.8rem", sm: "2rem", md: "3rem" }, // Responsive Font
           lineHeight: 1.3,
         }}
       >
@@ -132,9 +132,11 @@ export default function ContactQuery() {
       </Box>
 
       {/* Buttons */}
-      <Box sx={{ mt: { xs: 2, sm: 2, md: 5 } }}>
-        <Button sx={btnStyle} onClick={() => setShowEdu(!showEdu)}>Education</Button>
-        <Button sx={btnStyle} onClick={() => openForm("services")}>Services</Button>
+      <Box sx={{ mt: { xs: 3, sm: 2, md: 5 }, width: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <Box sx={{ display: "flex", flexDirection: { xs: "column", sm: "row" }, gap: 1, width: "100%", justifyContent: "center", alignItems: "center" }}>
+            <Button sx={btnStyle} onClick={() => setShowEdu(!showEdu)}>Education</Button>
+            <Button sx={btnStyle} onClick={() => openForm("services")}>Services</Button>
+        </Box>
       </Box>
 
       {/* Edu Box */}
@@ -142,11 +144,12 @@ export default function ContactQuery() {
         <Box
           sx={{
             display: "flex",
-            flexDirection: "column",
-            gap: 0.1,
-            width: { xs: "90%", sm: "70%", md: "48%" },
+            flexDirection: { xs: "column", sm: "row" }, // Stack on mobile
+            justifyContent: "center",
+            alignItems: "center",
+            gap: 1,
+            width: "100%",
             mt: 1,
-            mr: { xs: 0, sm: 15 },
           }}
         >
           <Button sx={btnStyle} onClick={() => openForm("regular")}>Regular Courses</Button>
@@ -167,8 +170,9 @@ export default function ContactQuery() {
             overflow: "hidden",
             boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
             display: "flex",
-            flexDirection: { xs: "column", md: "row" },
-            maxHeight: "95vh"
+            flexDirection: { xs: "column", md: "row" }, // Column on Mobile, Row on Desktop
+            maxHeight: { xs: "90vh", md: "85vh" },
+            m: { xs: 2, md: 3 }
           }
         }}
       >
@@ -179,34 +183,52 @@ export default function ContactQuery() {
               width: { xs: "100%", md: "40%" },
               background: themeConfig.gradient,
               color: "#fff",
-              p: 5,
+              p: { xs: 3, md: 5 }, // Less padding on mobile
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
-              position: "relative"
+              alignItems: { xs: "center", md: "flex-start" }, // Center align on mobile
+              textAlign: { xs: "center", md: "left" }, // Center text on mobile
+              position: "relative",
+              flexShrink: 0
             }}>
-               <IconButton onClick={closeForm} sx={{ position: "absolute", top: 10, right: 10, color: "white", display: { md: "none" } }}>
+               {/* Close Button Mobile */}
+               <IconButton onClick={closeForm} sx={{ position: "absolute", top: 8, right: 8, color: "white", display: { md: "none" } }}>
                  <CloseIcon />
                </IconButton>
 
-               <Box sx={{ mb: 3, p: 2, bgcolor: "rgba(255,255,255,0.15)", borderRadius: "16px", width: "fit-content", backdropFilter: "blur(10px)" }}>
-                 {React.cloneElement(headerData.icon, { sx: { fontSize: 40 } })}
+               <Box sx={{ 
+                   mb: 2, 
+                   p: 2, 
+                   bgcolor: "rgba(255,255,255,0.15)", 
+                   borderRadius: "16px", 
+                   width: "fit-content", 
+                   backdropFilter: "blur(10px)" 
+               }}>
+                 {React.cloneElement(headerData.icon, { sx: { fontSize: { xs: 30, md: 40 } } })}
                </Box>
                
-               <Typography variant="h4" fontWeight={700} sx={{ mb: 1, lineHeight: 1.2 }}>
+               <Typography variant="h4" fontWeight={700} sx={{ mb: 1, lineHeight: 1.2, fontSize: { xs: "1.5rem", md: "2.125rem" } }}>
                  {headerData.title}
                </Typography>
                
-               <Box sx={{ width: "50px", height: "4px", bgcolor: "#fff", borderRadius: "2px", mb: 3, opacity: 0.5 }} />
+               <Box sx={{ width: "50px", height: "4px", bgcolor: "#fff", borderRadius: "2px", mb: 2, opacity: 0.5 }} />
 
-               <Typography variant="body1" sx={{ opacity: 0.9, lineHeight: 1.6 }}>
+               <Typography variant="body1" sx={{ opacity: 0.9, lineHeight: 1.6, fontSize: { xs: "0.9rem", md: "1rem" }, display: { xs: "none", sm: "block" } }}>
                  Please fill out the form accurately. Our team will review your details and connect with you shortly.
                </Typography>
             </Box>
 
             {/* Right Form Area */}
-            <Box sx={{ width: { xs: "100%", md: "60%" }, p: { xs: 3, md: 5 }, position: "relative", overflowY: "auto" }}>
-              <IconButton onClick={closeForm} sx={{ position: "absolute", top: 20, right: 20, color: "#94a3b8", display: { xs: "none", md: "flex" } }}>
+            <Box sx={{ 
+                width: { xs: "100%", md: "60%" }, 
+                p: { xs: 3, md: 5 }, 
+                position: "relative", 
+                overflowY: "auto", // Enable scrolling
+                flexGrow: 1
+            }}>
+              {/* Close Button Desktop */}
+              <IconButton onClick={closeForm} sx={{ position: "absolute", top: 15, right: 15, color: "#94a3b8", display: { xs: "none", md: "flex" } }}>
                 <CloseIcon />
               </IconButton>
               
@@ -223,7 +245,7 @@ export default function ContactQuery() {
   );
 }
 
-// ---------------- REUSABLE UI COMPONENTS (New Modern Style) ----------------
+// ---------------- REUSABLE UI COMPONENTS (Responsive) ----------------
 
 // Modern Input Field
 const ModernField = ({ icon, placeholder, ...props }) => (
@@ -239,9 +261,9 @@ const ModernField = ({ icon, placeholder, ...props }) => (
       ) : null,
     }}
     sx={{
-      mb: 3,
+      mb: 2, // Slightly tighter spacing
       "& .MuiFilledInput-root": {
-        backgroundColor: "#F8FAFC", // Very Light Gray
+        backgroundColor: "#F8FAFC",
         borderRadius: "12px",
         border: "1px solid transparent",
         paddingTop: "10px", 
@@ -253,7 +275,7 @@ const ModernField = ({ icon, placeholder, ...props }) => (
           borderColor: themeConfig.primary,
           boxShadow: "0 0 0 4px rgba(255, 85, 50, 0.1)"
         },
-        "& input": { padding: "12px 0 12px" },
+        "& input": { padding: "12px 0 12px", fontSize: "14px" }, // Adjusted padding/font
         "& input::placeholder": { color: "#94a3b8", opacity: 1, fontSize: "14px" }
       },
       "& .MuiInputLabel-root": { display: "none" } 
@@ -263,7 +285,7 @@ const ModernField = ({ icon, placeholder, ...props }) => (
 
 // Label Helper
 const FieldLabel = ({ children }) => (
-    <Typography variant="subtitle2" fontWeight={600} color="#334155" sx={{ mb: 1, ml: 0.5 }}>
+    <Typography variant="subtitle2" fontWeight={600} color="#334155" sx={{ mb: 0.5, ml: 0.5, fontSize: "14px" }}>
         {children}
     </Typography>
 );
@@ -294,7 +316,7 @@ const ActionButton = ({ label }) => (
   </Button>
 );
 
-// ---------------- FORMS (Modern Layout) ----------------
+// ---------------- FORMS (Responsive Grid) ----------------
 
 function RegularForm() {
   const [data, setData] = useState({ name: "", phone: "", email: "", course: "Web Development" });
@@ -305,7 +327,8 @@ function RegularForm() {
       <FieldLabel>Full Name</FieldLabel>
       <ModernField placeholder="e.g. Rahul Sharma" name="name" value={data.name} onChange={handleChange} icon={<PersonOutlineIcon />} />
       
-      <Grid container spacing={2}>
+      {/* Stack on mobile (xs=12), side-by-side on tablet+ (sm=6) */}
+      <Grid container spacing={{ xs: 0, sm: 2 }}>
         <Grid item xs={12} sm={6}>
            <FieldLabel>Phone Number</FieldLabel>
            <ModernField placeholder="e.g. 98765 43210" name="phone" type="tel" value={data.phone} onChange={handleChange} icon={<PhoneIphoneIcon />} />
@@ -365,7 +388,7 @@ function ServicesForm() {
       <FieldLabel>Company / Business Name</FieldLabel>
       <ModernField placeholder="e.g. Tech Solutions Pvt Ltd" name="businessName" value={data.businessName} onChange={handleChange} icon={<DomainIcon />} />
       
-      <Grid container spacing={2}>
+      <Grid container spacing={{ xs: 0, sm: 2 }}>
         <Grid item xs={12} sm={6}>
             <FieldLabel>Your Name</FieldLabel>
             <ModernField name="name" placeholder="e.g. Mr. Singh" icon={<PersonOutlineIcon />} />

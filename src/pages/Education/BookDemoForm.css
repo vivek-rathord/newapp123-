@@ -1,0 +1,372 @@
+.book-demo-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  z-index: 1300;
+  background: transparent;
+}
+
+.book-demo {
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  position: relative;
+  box-shadow: 0px 20px 60px rgba(0,0,0,0.1);
+}
+
+.book-demo h2 {
+  text-align: center;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.book-demo h2 span {
+  position: relative;
+}
+
+.book-demo h2 span::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: #FB8454;
+}
+
+.book-demo form input,
+.book-demo form label,
+.book-demo form select {
+  display: block;
+  width: 100%;
+}
+
+.book-demo form .main-inputs {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.book-demo form .main-inputs div {
+  flex-grow: 1;
+  flex-basis: 300px;
+}
+
+.book-demo form label {
+  display: block;
+  color: #333;
+  font-weight: 700;
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+.book-demo form input {
+  height: 38px;
+  border: 1px solid #CCCCCC;
+  border-radius: 6px;
+  color: #333;
+  padding-left: 16px;
+  padding-right: 16px;
+  font-size: 15px;
+}
+
+.book-demo form select:focus,
+.book-demo form input:focus {
+  color: #333;
+  border-color: #333;
+  outline: none;
+}
+
+.book-demo form input::placeholder {
+  color: #AAAAAA;
+}
+
+.book-demo form select {
+  height: 38px;
+  border: 1px solid #CCCCCC;
+  border-radius: 6px;
+  padding-left: 16px;
+  padding-right: 16px;
+  font-size: 15px;
+  background: white;
+}
+
+.book-demo form select::placeholder {
+  color: #AAAAAA;
+}
+
+.book-demo-slot {
+  margin-top: 22px;
+}
+
+.book-demo-slot-btn {
+  display: flex;
+  gap: 10px;
+}
+
+.book-demo-slot-btn button {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background: none;
+  border-radius: 8px;
+  border: 1px solid #CCCCCC;
+  color: #AAAAAA;
+  padding: 8px 20px;
+  cursor: pointer;
+  stroke: #aaa;
+  transition: all 0.3s ease;
+  font-size: 15px;
+}
+
+.book-demo-slot-btn .active-btn {
+  background-color: #FB8454;
+  color: white;
+  stroke: white;
+  border-color: #FB8454;
+}
+
+.book-demo-submit {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.book-demo-submit .color-btn {
+  background-color: #FB8454;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 40px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.book-demo-submit .color-btn:hover {
+  background-color: #e66e3e;
+}
+
+.book-demo-submit .color-btn:disabled {
+  background-color: #CCCCCC;
+  cursor: not-allowed;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  background: none;
+  border: none;
+  z-index: 10;
+}
+
+.close-btn:hover {
+  transform: scale(1.1);
+}
+
+.close-btn.clicked {
+  transform: rotate(360deg);
+}
+
+.verify_war {
+  color: #ff4444;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 10px;
+  min-height: 20px;
+}
+
+/* OTP Modal Styles */
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1400;
+}
+
+.otp {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  position: relative;
+  min-width: 350px;
+  max-width: 90%;
+}
+
+.otp h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.otpNumber {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.otpNumber input {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  font-size: 20px;
+  border: 1px solid #CCCCCC;
+  border-radius: 6px;
+}
+
+.otpNumber input:focus {
+  border-color: #333;
+  outline: none;
+}
+
+.otpNumber input:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+.error-msg {
+  text-align: center;
+  margin-bottom: 15px;
+  min-height: 20px;
+}
+
+.error-msg-span {
+  color: #ff4444;
+  font-size: 14px;
+}
+
+.otpPara {
+  text-align: center;
+  color: #666;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+#recaptcha-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.otp-btn-verify {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 20px;
+  font-size: 15px;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+span{
+     color: black;
+      font-size: 18px;
+}
+.otp-btn-verify:hover {
+  background-color: #388E3C;
+}
+
+.otp-btn-verify:disabled {
+  background-color: #CCCCCC;
+  cursor: not-allowed;
+}
+
+/* Media Queries */
+@media screen and (max-width: 1284px) {
+  .book-demo {
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .book-demo-modal {
+    width: 95%;
+  }
+  
+  .book-demo {
+    padding: 30px 20px;
+  }
+  
+  .book-demo form .main-inputs {
+    gap: 20px;
+  }
+  
+  .book-demo form .main-inputs div {
+    flex-basis: 100%;
+  }
+  
+  .book-demo-slot-btn {
+    flex-direction: column;
+  }
+  
+  .otp {
+    padding: 30px 20px;
+    min-width: 300px;
+  }
+  
+  .otpNumber {
+    gap: 5px;
+  }
+  
+  .otpNumber input {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .book-demo {
+    padding: 25px 15px;
+  }
+  
+  .book-demo h2 {
+    font-size: 20px;
+  }
+  
+  .book-demo form input,
+  .book-demo form select {
+    height: 44px;
+    font-size: 16px;
+  }
+  
+  .otp {
+    padding: 20px 15px;
+  }
+  
+  .otp h3 {
+    font-size: 18px;
+  }
+}
+
+/* Hide number input arrows */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}

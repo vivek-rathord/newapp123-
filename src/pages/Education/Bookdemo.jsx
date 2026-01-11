@@ -1,603 +1,724 @@
- import React, { useState, useEffect, useRef } from "react";
-import {
-  Box,
+  import React, { useState, useEffect, useRef } from "react";
+import { 
+  Container, 
+  Box, 
+  Typography, 
   Button,
-  Typography,
-  Paper,
-  IconButton,
-  Grid,
   Modal,
-  Fade,
   Backdrop,
-  InputBase,
-  Select,
-  MenuItem,
-  Alert,
-  CircularProgress
+  Fade
 } from "@mui/material";
+import "./BookDemoForm.css";
 
-// ICONS
-import CloseIcon from "@mui/icons-material/Close";
-import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
-import BedtimeOutlinedIcon from "@mui/icons-material/BedtimeOutlined";
+// Use the compat version for consistency with your original code
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
 
-export default function BookDemoClass() {
-  const [open, setOpen] = useState(false);
+ const firebaseConfig = {
+  apiKey: "AIzaSyAR51HBee8dlrGE6o_ZGoehCwO2WUzHqzQ",
+  authDomain: "otp-netcoder-website-demo.firebaseapp.com",
+  projectId: "otp-netcoder-website-demo",
+  storageBucket: "otp-netcoder-website-demo.firebasestorage.app",
+  messagingSenderId: "635675102143",
+  appId: "1:635675102143:web:700387648a02f9a3c8ef0a",
+  measurementId: "G-Y2BKC0PXQQ"
+};
+
+
+// Initialize Firebase ONLY ONCE
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+} else {
+  firebase.app(); // if already initialized, use that one
+}
+
+const BookDemoClass = () => {
+  const [formOpen, setFormOpen] = useState(false);
   const [otpModalOpen, setOtpModalOpen] = useState(false);
-  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-  const [confirmationResult, setConfirmationResult] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isOtpVerifying, setIsOtpVerifying] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-  const [isMorningDisabled, setIsMorningDisabled] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const [countdown, setCountdown] = useState(0);
-  const [useFallback, setUseFallback] = useState(false);
-
-  const otpInputRefs = useRef([]);
-  const recaptchaContainerRef = useRef(null);
-
+  const [courses, setCourses] = useState([
+    "Web Development",
+    "Graphic Designing", 
+    "Digital Marketing",
+    "UI/UX Design",
+    "Mobile App Development",
+    "Data Science",
+    "Python Programming"
+  ]);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
-    course: "Graphic Designing",
-    date: new Date().toISOString().split('T')[0],
-    slot: "Morning",
+    number: "",
+    course: "",
+    date: "",
     address: "",
+    slot: "Morning"
   });
+  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const [verifyWarning, setVerifyWarning] = useState("");
+  const [otpError, setOtpError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [otpSent, setOtpSent] = useState(false);
+  const [verificationCompleted, setVerificationCompleted] = useState(false);
+  
+  const otpInputsRef = useRef([]);
+  const recaptchaVerifierRef = useRef(null);
+  const confirmationResultRef = useRef(null);
 
-  // Check if mobile
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // Time Logic for disabling morning slot
-  useEffect(() => {
-    if (open && formData.date === new Date().toISOString().split('T')[0]) {
-      const currentHour = new Date().getHours();
-      setIsMorningDisabled(currentHour >= 12);
-    } else {
-      setIsMorningDisabled(false);
-    }
-  }, [open, formData.date]);
-
-  // Countdown timer for resend OTP
-  useEffect(() => {
-    if (countdown > 0) {
-      const timer = setTimeout(() => setCountdown(countdown - 1), 1000);
-      return () => clearTimeout(timer);
-    }
-  }, [countdown]);
-
-  // Set minimum date
-  useEffect(() => {
+    // Set minimum date to today
     const today = new Date();
     const yyyy = today.getFullYear();
     const mm = String(today.getMonth() + 1).padStart(2, '0');
     const dd = String(today.getDate()).padStart(2, '0');
     const minDate = `${yyyy}-${mm}-${dd}`;
     
-    if (!formData.date || formData.date < minDate) {
-      setFormData(prev => ({ ...prev, date: minDate }));
+    setFormData(prev => ({ ...prev, date: minDate }));
+  }, []);
+
+  // Load reCAPTCHA script
+  useEffect(() => {
+    if (!window.grecaptcha) {
+      const script = document.createElement('script');
+      script.src = 'https://www.google.com/recaptcha/api.js';
+      script.async = true;
+      script.defer = true;
+      script.onload = () => {
+        console.log("reCAPTCHA loaded");
+      };
+      document.head.appendChild(script);
     }
   }, []);
 
-  const courses = [
-    "Graphic Designing",
-    "Web Development",
-    "Digital Marketing",
-    "UI/UX Design",
-  ];
-
-  const handleChange = (field, value) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-    setError("");
-    setSuccess("");
+  const handleOpenForm = () => {
+    setFormOpen(true);
+    setVerificationCompleted(false);
+    setOtpSent(false);
   };
 
-  const handleSlotChange = (slot) => {
-    if (slot === "Morning" && isMorningDisabled) return;
+  const handleCloseForm = () => {
+    setFormOpen(false);
+    setVerifyWarning("");
+  };
+
+  const handleCloseOtpModal = () => {
+    setOtpModalOpen(false);
+    setOtpError("");
+    setOtpSent(false);
+    setOtp(["", "", "", "", "", ""]);
+    confirmationResultRef.current = null;
     
-    const today = new Date().toISOString().split('T')[0];
-    const currentHour = new Date().getHours();
-    
-    if (slot === "Morning" && formData.date === today && currentHour >= 12) {
-      setError("❌ You cannot book Morning slot after 12:00 PM for today's date.");
+    // Clear recaptcha
+    if (recaptchaVerifierRef.current) {
+      try {
+        recaptchaVerifierRef.current.clear();
+      } catch (error) {
+        console.error("Error clearing recaptcha:", error);
+      }
+      recaptchaVerifierRef.current = null;
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const shiftSlot = (slot) => {
+    const dateInput = formData.date;
+    const today = new Date();
+    const todayStr = today.toISOString().split('T')[0];
+    const currentHour = today.getHours();
+
+    if (slot === "Morning" && dateInput === todayStr && currentHour >= 12) {
+      setVerifyWarning("❌ You cannot book Morning slot after 12:00 PM for today's date.");
       return;
     }
-    
-    setFormData((prev) => ({ ...prev, slot: slot }));
-    setSuccess(`✔ Slot selected: ${slot}`);
-    setError("");
+
+    setFormData(prev => ({ ...prev, slot }));
+    setVerifyWarning(`✔ Slot selected: ${slot}`);
   };
 
-  // OTP Input Handling
   const handleOtpChange = (index, value) => {
-    if (!/^\d*$/.test(value)) return;
+    // Only allow numbers and limit to 1 digit
+    const numericValue = value.replace(/\D/g, '').slice(0, 1);
     
     const newOtp = [...otp];
-    newOtp[index] = value.slice(0, 1);
+    newOtp[index] = numericValue;
     setOtp(newOtp);
 
-    if (value && index < 5 && otpInputRefs.current[index + 1]) {
-      otpInputRefs.current[index + 1].focus();
+    // Auto-focus next input
+    if (numericValue && index < 5) {
+      setTimeout(() => {
+        otpInputsRef.current[index + 1]?.focus();
+      }, 10);
+    }
+
+    // Handle backspace
+    if (!numericValue && index > 0) {
+      setTimeout(() => {
+        otpInputsRef.current[index - 1]?.focus();
+      }, 10);
     }
   };
 
   const handleOtpKeyDown = (index, e) => {
-    if (e.key === 'Backspace') {
-      if (!otp[index] && index > 0) {
-        const newOtp = [...otp];
-        newOtp[index - 1] = "";
-        setOtp(newOtp);
-        otpInputRefs.current[index - 1].focus();
-      } else if (otp[index]) {
-        const newOtp = [...otp];
-        newOtp[index] = "";
-        setOtp(newOtp);
-      }
+    if (e.key === 'Backspace' && !otp[index] && index > 0) {
+      otpInputsRef.current[index - 1]?.focus();
     }
   };
 
-  // --- OTP LOGIC (Firebase + Fallback) ---
-
-  const generateRandomOtp = () => Math.floor(100000 + Math.random() * 900000).toString();
-
-  const simulateOtpVerification = async (phone) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const otp = generateRandomOtp();
-        console.log(`Simulated OTP for ${phone}: ${otp}`);
-        resolve({ success: true, otp: otp });
-      }, 1500);
-    });
-  };
-
-  const sendOtp = async (e) => {
-    if(e) e.preventDefault();
-    const { name, email, phone } = formData;
-    
+  const validateForm = () => {
+    const { name, email, number } = formData;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^\d{10}$/;
+    const nameRegex = /^[a-zA-Z\s\-']+$/;
+
+    if (!name || !email || !number) {
+      setVerifyWarning("Please fill all required fields");
+      return false;
+    }
+
+    if (!nameRegex.test(name)) {
+      setVerifyWarning("Please enter a valid name");
+      return false;
+    }
     
-    if (!name) { setError("Please enter your name"); return; }
-    if (!emailRegex.test(email)) { setError("Please enter a valid email"); return; }
-    if (!phoneRegex.test(phone)) { setError("Please enter a valid 10-digit phone number"); return; }
-    if (!formData.slot) { setError("Please select a time slot"); return; }
-
-    setIsLoading(true);
-    setError("");
-
-    try {
-      await sendFirebaseOtp();
-    } catch (firebaseError) {
-      console.log("Firebase failed, using fallback:", firebaseError);
-      try {
-        await sendFallbackOtp(phone);
-      } catch (fallbackError) {
-        setError("Unable to send OTP. Please try again later.");
-      }
-    } finally {
-      setIsLoading(false);
+    if (!emailRegex.test(email)) {
+      setVerifyWarning("Please enter a valid email address");
+      return false;
     }
+    
+    if (!phoneRegex.test(number.replace(/\D/g, ''))) {
+      setVerifyWarning("Please enter a valid 10-digit phone number");
+      return false;
+    }
+
+    return true;
   };
 
-  const sendFirebaseOtp = async () => {
-    try {
-      const firebase = await import("firebase/app");
-      await import("firebase/auth");
-
-      const firebaseConfig = {
-        apiKey: "AIzaSyAyM4tvCz7oMagXxz_nOi8spWIsmkhbpb8",
-        authDomain: "otp-netcoder-website-demo.firebaseapp.com",
-        projectId: "otp-netcoder-website-demo",
-        storageBucket: "otp-netcoder-website-demo.appspot.com",
-        messagingSenderId: "635675102143",
-        appId: "1:635675102143:web:cbe478339b167bf3c8ef0a",
-        measurementId: "G-DHH6BG4TD1"
-      };
-
-      let app;
-      try {
-        if (!firebase.getApps().length) {
-          app = firebase.initializeApp(firebaseConfig);
-        } else {
-          app = firebase.getApp();
-        }
-      } catch (initError) {
-        app = firebase.getApp();
-      }
-
-      const auth = firebase.auth(app);
-      
-      if (!window.recaptchaVerifier) {
-        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
-          recaptchaContainerRef.current,
-          { size: "invisible" }
-        );
-      }
-
-      const phoneNumber = `+91${formData.phone}`;
-      const result = await auth.signInWithPhoneNumber(phoneNumber, window.recaptchaVerifier);
-
-      setConfirmationResult(result);
-      setOpen(false);
-      setOtpModalOpen(true);
-      setCountdown(30);
-      setSuccess("OTP sent successfully!");
-      setError("");
-      setUseFallback(false);
-      setOtp(["", "", "", "", "", ""]);
-      
-    } catch (error) {
-      console.error("Firebase OTP error:", error);
-      throw error; // Trigger fallback
-    }
-  };
-
-  const sendFallbackOtp = async (phone) => {
-    const result = await simulateOtpVerification(phone);
-    if (result.success) {
-      const storedOtp = result.otp;
-      localStorage.setItem('demo_otp', storedOtp);
-      localStorage.setItem('demo_phone', phone);
-      localStorage.setItem('demo_expiry', Date.now() + 5 * 60 * 1000);
-      
-      setConfirmationResult({ otp: storedOtp });
-      setOpen(false);
-      setOtpModalOpen(true);
-      setCountdown(30);
-      setSuccess(`OTP sent to ${phone} (Demo Mode)`);
-      setError("");
-      setUseFallback(true);
-      setOtp(["", "", "", "", "", ""]);
-    }
-  };
-
-  const resendOtp = async () => {
-    if (countdown > 0) return;
-    setIsLoading(true);
-    setError("");
-
-    try {
-      if (useFallback) {
-        const result = await simulateOtpVerification(formData.phone);
-        localStorage.setItem('demo_otp', result.otp);
-        localStorage.setItem('demo_expiry', Date.now() + 5 * 60 * 1000);
-        setConfirmationResult({ otp: result.otp });
-        setSuccess("OTP resent (Demo Mode)!");
-      } else {
-         // Logic for Firebase Resend would go here (usually re-triggering signInWithPhoneNumber)
-         await sendFirebaseOtp(); 
-         setSuccess("OTP resent successfully!");
-      }
-      setCountdown(30);
-    } catch (error) {
-      setError("Failed to resend OTP.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const verifyOtp = async () => {
-    const otpCode = otp.join('');
-    if (otpCode.length !== 6) {
-      setError("Please enter the 6-digit OTP");
+  const sendOtp = async () => {
+    if (!validateForm()) {
       return;
     }
 
-    setIsOtpVerifying(true);
-    setError("");
-
-    try {
-      if (useFallback) {
-        const storedOtp = localStorage.getItem('demo_otp');
-        const expiry = localStorage.getItem('demo_expiry');
-        if (!storedOtp || Date.now() > expiry || otpCode !== storedOtp) {
-          throw new Error("Invalid or Expired OTP");
+    setVerifyWarning("");
+    setIsLoading(true);
+    
+    // Open OTP modal first
+    setFormOpen(false);
+    setOtpModalOpen(true);
+    
+    // Wait for modal to render
+    setTimeout(() => {
+      try {
+        console.log("Starting OTP process...");
+        
+        // Clear existing recaptcha
+        if (recaptchaVerifierRef.current) {
+          try {
+            recaptchaVerifierRef.current.clear();
+          } catch (error) {
+            // Ignore clear errors
+          }
         }
-      } else {
-        await confirmationResult.confirm(otpCode);
+        
+        // Get or create reCAPTCHA container
+        let container = document.getElementById('recaptcha-container');
+        if (!container) {
+          container = document.createElement('div');
+          container.id = 'recaptcha-container';
+          container.style.display = 'none';
+          document.body.appendChild(container);
+        }
+        
+        console.log("Creating reCAPTCHA verifier...");
+        
+        // Create reCAPTCHA verifier - EXACTLY like your original code
+        recaptchaVerifierRef.current = new firebase.auth.RecaptchaVerifier(
+          "recaptcha-container",
+          {
+            'size': 'normal',
+            'callback': function(response) {
+              console.log("reCAPTCHA verified:", response);
+              // After reCAPTCHA is solved, send OTP
+              phoneAuth();
+            },
+            'expired-callback': function() {
+              console.log("reCAPTCHA expired");
+              setOtpError("Security check expired. Please try again.");
+            }
+          }
+        );
+        
+        console.log("Rendering reCAPTCHA...");
+        
+        // Render the reCAPTCHA
+        recaptchaVerifierRef.current.render().then(function(widgetId) {
+          console.log("reCAPTCHA rendered with widget ID:", widgetId);
+          // OTP will be sent when reCAPTCHA is verified via callback
+        }).catch(function(error) {
+          console.error("Error rendering reCAPTCHA:", error);
+          setIsLoading(false);
+          setOtpError("Security verification failed. Please refresh the page.");
+        });
+        
+      } catch (error) {
+        console.error("Error in sendOtp:", error);
+        setIsLoading(false);
+        setOtpError("Failed to initialize security verification.");
       }
-      
-      await submitFormData();
-      setSuccess("Verified! Booking Confirmed.");
-      
-      setTimeout(() => {
-        setOtpModalOpen(false);
-        alert("Thank you! Your demo class has been booked successfully.");
-        window.location.reload();
-      }, 1500);
-      
-    } catch (error) {
-      console.error(error);
-      setError("Invalid OTP. Please try again.");
-    } finally {
-      setIsOtpVerifying(false);
-    }
+    }, 300);
   };
 
-  const submitFormData = async () => {
-    try {
-      const emailjs = await import('@emailjs/browser');
-      await emailjs.send(
-        "service_xukw6z4",
-        "template_z5b32h5",
-        {
-            name: formData.name,
-            number: formData.phone,
-            mail: formData.email,
-            course: formData.course,
-            address: formData.address,
-            date: formData.date,
-            slot: formData.slot
+  const phoneAuth = () => {
+    setIsLoading(true);
+    setOtpError("");
+    
+    const phoneNumber = '+91' + formData.number.replace(/\D/g, '');
+    console.log("Sending OTP to:", phoneNumber);
+    
+    firebase.auth().signInWithPhoneNumber(phoneNumber, recaptchaVerifierRef.current)
+      .then(function(confirmationResult) {
+        console.log("OTP sent successfully");
+        confirmationResultRef.current = confirmationResult;
+        window.confirmationResult = confirmationResult; // For compatibility
+        setOtpSent(true);
+        setIsLoading(false);
+      })
+      .catch(function(error) {
+        console.error("Error sending OTP:", error);
+        setIsLoading(false);
+        
+        let errorMessage = "Failed to send OTP. Please try again.";
+        
+        if (error.code === 'auth/invalid-phone-number') {
+          errorMessage = "Invalid phone number format.";
+        } else if (error.code === 'auth/too-many-requests') {
+          errorMessage = "Too many attempts. Please try again later.";
+        } else if (error.code === 'auth/invalid-app-credential') {
+          errorMessage = "Firebase configuration error. Please contact support.";
+        } else if (error.code === 'auth/captcha-check-failed') {
+          errorMessage = "Security check failed. Please refresh and try again.";
         }
-      );
-    } catch (error) {
-      console.error("EmailJS Error", error);
+        
+        setOtpError(errorMessage);
+      });
+  };
+
+  const verifyOtp = () => {
+    const otpString = otp.join("");
+    
+    if (otpString.length !== 6) {
+      setOtpError("Please enter 6-digit OTP");
+      return;
     }
-  };
 
-  // --- STYLES ---
-  const customColors = {
-    primary: "#FB8454",
-    border: "#CCCCCC",
-    placeholder: "#AAAAAA",
-    text: "#333333"
-  };
-
-  const labelStyle = {
-    display: "block",
-    color: customColors.text,
-    fontWeight: "700",
-    marginBottom: "8px",
-    fontSize: isMobile ? "16px" : "15px",
-    fontFamily: "sans-serif",
-    textAlign: "left",
-    width: "100%"
-  };
-
-  const inputSx = {
-    width: "100%",
-    "& .MuiInputBase-input": {
-      height: isMobile ? "48px" : "42px",
-      padding: "0 16px",
-      borderRadius: "8px",
-      border: `1px solid ${customColors.border}`,
-      fontSize: isMobile ? "16px" : "15px",
-      "&:focus": { borderColor: customColors.primary, borderWidth: "2px" }
+    if (!confirmationResultRef.current) {
+      setOtpError("OTP session expired. Please request a new OTP.");
+      return;
     }
+
+    setIsLoading(true);
+    setOtpError("Verifying...");
+    
+    confirmationResultRef.current.confirm(otpString)
+      .then(function(result) {
+        // OTP verified successfully
+        console.log("OTP verified successfully, user:", result.user.uid);
+        setIsLoading(false);
+        setOtpError("✅ Phone number verified successfully!");
+        setVerificationCompleted(true);
+        
+        // Automatically submit after 2 seconds
+        setTimeout(() => {
+          handleCloseOtpModal();
+          submitForm();
+        }, 2000);
+        
+      })
+      .catch(function(error) {
+        console.error("Error verifying OTP:", error);
+        setIsLoading(false);
+        
+        let errorMessage = "Incorrect OTP. Please try again.";
+        if (error.code === 'auth/invalid-verification-code') {
+          errorMessage = "Incorrect OTP code.";
+        } else if (error.code === 'auth/code-expired') {
+          errorMessage = "OTP has expired. Please request a new OTP.";
+        }
+        
+        setOtpError(errorMessage);
+      });
   };
 
-  const selectSx = {
-    width: "100%",
-    height: isMobile ? "48px" : "42px",
-    borderRadius: "8px",
-    border: `1px solid ${customColors.border}`,
-    "& .MuiSelect-select": { padding: "0 16px", display: "flex", alignItems: "center" },
-    "& fieldset": { border: "none" }, 
-    "&:focus-within": { borderColor: customColors.primary, borderWidth: "2px", borderStyle: "solid" }
+  const submitForm = () => {
+    // Here you can add your form submission logic
+    console.log("Form data submitted:", formData);
+    
+    // You can integrate with EmailJS here
+    // emailjs.send("service_xukw6z4", "template_z5b32h5", {
+    //   name: formData.name,
+    //   number: formData.number,
+    //   mail: formData.email,
+    //   course: formData.course,
+    //   address: formData.address,
+    //   date: formData.date,
+    //   slot: formData.slot
+    // });
+    
+    // Show success message
+    alert("✅ Demo class booked successfully! We'll contact you soon.");
+    
+    // Reset form
+    resetForm();
   };
+
+  const resetForm = () => {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    const minDate = `${yyyy}-${mm}-${dd}`;
+    
+    setFormData({
+      name: "",
+      email: "",
+      number: "",
+      course: "",
+      date: minDate,
+      address: "",
+      slot: "Morning"
+    });
+    setOtp(["", "", "", "", "", ""]);
+    setVerifyWarning("");
+    setOtpError("");
+    setOtpSent(false);
+    setVerificationCompleted(false);
+    setIsLoading(false);
+  };
+
+  // Auto-focus first OTP input
+  useEffect(() => {
+    if (otpModalOpen && otpInputsRef.current[0] && otpSent) {
+      setTimeout(() => {
+        otpInputsRef.current[0].focus();
+      }, 100);
+    }
+  }, [otpModalOpen, otpSent]);
 
   return (
-    <Box>
-      {/* Hero / Trigger Button */}
-      <Box sx={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", backgroundColor: "#fff", padding: "20px" }}>
-        <Box sx={{ backgroundColor: "#FF5722", color: "white", borderRadius: "50px", padding: "6px 22px", fontSize: "13px", fontWeight: "600", mb: 3 }}>
+    <>
+      {/* Hero Section */}
+      <Container maxWidth="lg" sx={{ py: 8, textAlign: "center" }}>
+        <Box sx={{ 
+          backgroundColor: "#FF5722", 
+          color: "white", 
+          borderRadius: "50px", 
+          p: "6px 22px", 
+          fontSize: "13px", 
+          fontWeight: "600", 
+          mb: 3,
+          display: "inline-block"
+        }}>
           Free Demo Class
         </Box>
-        <Typography variant="h2" sx={{ fontWeight: "800", color: "#111", fontSize: { xs: "32px", md: "48px" }, mb: 3 }}>
+        
+        <Typography variant="h2" sx={{ 
+          fontWeight: "800", 
+          color: "#111", 
+          fontSize: { xs: "28px", sm: "36px", md: "48px" }, 
+          mb: 3,
+          lineHeight: 1.2
+        }}>
           Still Unsure? Try A Free <br /> Demo Class
         </Typography>
-        <Typography sx={{ color: "#444", fontSize: "16px", maxWidth: "750px", mb: 5 }}>
-          Experience our teaching approach before making a commitment. Whether you're exploring a new skill or planning your career path, our demo class gives you a glimpse of how we teach, what you'll learn, and how we can help you grow. No pressure—just real learning, right from the start.
-
-
-         </Typography>
+        
+        <Typography sx={{ 
+          color: "#444", 
+          fontSize: "16px", 
+          maxWidth: "750px", 
+          mb: 5,
+          mx: "auto"
+        }}>
+          Experience our teaching approach before making a commitment.
+        </Typography>
+        
         <Button
-          onClick={() => setOpen(true)}
+          onClick={handleOpenForm}
           disableElevation
           sx={{ 
-            backgroundColor: "#111", color: "white", padding: { xs: "16px 32px", md: "14px 40px" }, 
-            borderRadius: "8px", fontWeight: "600", textTransform: "none", 
+            backgroundColor: "#111", 
+            color: "white", 
+            p: "14px 40px", 
+            borderRadius: "8px", 
+            fontWeight: "600", 
+            fontSize: "16px",
             "&:hover": { backgroundColor: "#333" }
           }}
         >
           Book A Demo Class
         </Button>
-      </Box>
+      </Container>
 
-      {/* --- MODAL 1: INFO FORM --- */}
+      {/* Main Form Modal */}
       <Modal
-        open={open}
-        onClose={() => setOpen(false)}
+        open={formOpen}
+        onClose={handleCloseForm}
         closeAfterTransition
         BackdropComponent={Backdrop}
-        BackdropProps={{ timeout: 500, sx: { backgroundColor: "rgba(0,0,0,0.6)" } }}
+        BackdropProps={{ timeout: 500 }}
       >
-        <Fade in={open}>
-          <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "100%", maxWidth: { xs: "95%", sm: "680px" }, outline: "none", px: 2 }}>
-            <Paper elevation={0} sx={{ p: { xs: 3, sm: 4, md: 5 }, borderRadius: "20px", maxHeight: "90vh", overflowY: "auto", position: "relative" }}>
-              
-              <IconButton onClick={() => setOpen(false)} sx={{ position: "absolute", right: 12, top: 12, backgroundColor: "#f5f5f5" }}><CloseIcon /></IconButton>
-              
-              <Typography align="center" sx={{ color: "#FF5722", fontWeight: "700", fontSize: "24px", mb: 4 }}>
-                Book Your Demo Class
-              </Typography>
+        <Fade in={formOpen}>
+          <div className="book-demo-modal">
+            <div className="book-demo">
+              <span className="close-btn" onClick={handleCloseForm}>×</span>
+              <h2><span>Book Your Demo class</span></h2>
+              <form onSubmit={(e) => e.preventDefault()}>
+                <div className="main-inputs">
+                  <div>
+                    <label htmlFor="name">Name *</label>
+                    <input 
+                      type="text" 
+                      name="name" 
+                      id="name" 
+                      placeholder="Your Name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="course">Select Course *</label>
+                    <select 
+                      name="course" 
+                      id="course" 
+                      className="demo-courses"
+                      value={formData.course}
+                      onChange={handleInputChange}
+                      required
+                    >
+                      <option value="">Select a course</option>
+                      {courses.map((course, index) => (
+                        <option key={index} value={course}>{course}</option>
+                      ))}
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="date">Select Date *</label>
+                    <input 
+                      type="date" 
+                      name="date" 
+                      id="date" 
+                      value={formData.date}
+                      onChange={handleInputChange}
+                      min={new Date().toISOString().split('T')[0]}
+                      required
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="number">Phone Number *</label>
+                    <input 
+                      type="tel" 
+                      name="number" 
+                      id="number" 
+                      placeholder="77788-89999"
+                      value={formData.number}
+                      onChange={handleInputChange}
+                      maxLength={10}
+                      pattern="[0-9]{10}"
+                      required
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="email">Email *</label>
+                    <input 
+                      type="email" 
+                      name="email" 
+                      id="email" 
+                      placeholder="your@gmail.com"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="address">Address</label>
+                    <input 
+                      type="text" 
+                      name="address" 
+                      id="address" 
+                      placeholder="Your full address"
+                      value={formData.address}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
 
-              {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
-              
-              {/* Invisible Recaptcha Container */}
-              <div id="recaptcha-container" ref={recaptchaContainerRef}></div>
+                <div className="book-demo-slot">
+                  <label htmlFor="slot">Select Slot *</label>
+                  <div className="book-demo-slot-btn">
+                    <button 
+                      type="button"
+                      className={`btn1 ${formData.slot === "Morning" ? "active-btn" : ""}`}
+                      onClick={() => shiftSlot("Morning")}
+                    >
+                      <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9.66047 13.5123C11.7878 13.5123 13.5123 11.7878 13.5123 9.66047C13.5123 7.53316 11.7878 5.80863 9.66047 5.80863C7.53315 5.80863 5.80862 7.53316 5.80862 9.66047C5.80862 11.7878 7.53315 13.5123 9.66047 13.5123Z" strokeWidth="1.2" strokeMiterlimit="10" />
+                        <path d="M9.66043 1.3208V3.80876" strokeWidth="1.2" strokeMiterlimit="10" strokeLinecap="round" />
+                        <path d="M9.66043 15.5122V18.0002" strokeWidth="1.2" strokeMiterlimit="10" strokeLinecap="round" />
+                        <path d="M1.32108 9.66036H3.80885" strokeWidth="1.2" strokeMiterlimit="10" strokeLinecap="round" />
+                        <path d="M15.512 9.66036H17.9998" strokeWidth="1.2" strokeMiterlimit="10" strokeLinecap="round" />
+                        <path d="M3.76312 15.5573L5.52235 13.7983" strokeWidth="1.2" strokeMiterlimit="10" strokeLinecap="round" />
+                        <path d="M13.7982 5.52266L15.5574 3.76346" strokeWidth="1.2" strokeMiterlimit="10" strokeLinecap="round" />
+                        <path d="M15.5574 15.5573L13.7982 13.7983" strokeWidth="1.2" strokeMiterlimit="10" strokeLinecap="round" />
+                        <path d="M5.52235 5.52266L3.76312 3.76346" strokeWidth="1.2" strokeMiterlimit="10" strokeLinecap="round" />
+                      </svg>
+                      <span> Morning</span>
+                    </button>
+                    <button 
+                      type="button"
+                      className={`btn2 ${formData.slot === "Evening" ? "active-btn" : ""}`}
+                      onClick={() => shiftSlot("Evening")}
+                    >
+                      <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 8C18 4.13487 14.8661 1 11 1C7.13387 1 4 4.13343 4 7.99855" strokeWidth="1.2" strokeMiterlimit="10" />
+                        <path d="M1 8H21" strokeWidth="1.2" strokeMiterlimit="10" strokeLinecap="round" />
+                        <path d="M4 10.5H18" strokeWidth="1.2" strokeMiterlimit="10" strokeLinecap="round" />
+                        <path d="M7.5 13H14.5" strokeWidth="1.2" strokeMiterlimit="10" strokeLinecap="round" />
+                      </svg>
+                      <span> Evening</span>
+                    </button>
+                  </div>
+                </div>
 
-              <form onSubmit={sendOtp}>
-                 <Grid container spacing={3}>
-                    {/* Name */}
-                    <Grid item xs={12} md={6}>
-                      <label style={labelStyle}>Name *</label>
-                      <InputBase fullWidth placeholder="Your Name" value={formData.name} onChange={(e) => handleChange("name", e.target.value)} sx={inputSx} />
-                    </Grid>
-                    {/* Course */}
-                    <Grid item xs={12} md={6}>
-                      <label style={labelStyle}>Select Course *</label>
-                      <Select fullWidth value={formData.course} onChange={(e) => handleChange("course", e.target.value)} sx={selectSx}>
-                        {courses.map((c) => <MenuItem key={c} value={c}>{c}</MenuItem>)}
-                      </Select>
-                    </Grid>
-                    {/* Date */}
-                    <Grid item xs={12} md={6}>
-                      <label style={labelStyle}>Select Date *</label>
-                      <InputBase fullWidth type="date" value={formData.date} onChange={(e) => handleChange("date", e.target.value)} sx={inputSx} inputProps={{ min: new Date().toISOString().split('T')[0] }} />
-                    </Grid>
-                    {/* Phone */}
-                    <Grid item xs={12} md={6}>
-                      <label style={labelStyle}>Phone Number *</label>
-                      <InputBase fullWidth placeholder="Enter 10-digit number" value={formData.phone} onChange={(e) => handleChange("phone", e.target.value.replace(/\D/g, '').slice(0, 10))} sx={inputSx} />
-                    </Grid>
-                    {/* Email */}
-                    <Grid item xs={12} md={6}>
-                      <label style={labelStyle}>Email *</label>
-                      <InputBase fullWidth type="email" placeholder="your@gmail.com" value={formData.email} onChange={(e) => handleChange("email", e.target.value)} sx={inputSx} />
-                    </Grid>
-                    {/* Address */}
-                    <Grid item xs={12} md={6}>
-                      <label style={labelStyle}>Address *</label>
-                      <InputBase fullWidth placeholder="Your full address" value={formData.address} onChange={(e) => handleChange("address", e.target.value)} sx={inputSx} />
-                    </Grid>
-                    {/* Slots */}
-                    <Grid item xs={12}>
-                        <label style={labelStyle}>Select Slot *</label>
-                        <Box sx={{ display: "flex", gap: "10px", mt: 1 }}>
-                            {/* Morning */}
-                            <button type="button" onClick={() => handleSlotChange("Morning")} disabled={isMorningDisabled}
-                             style={{ 
-                                display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "10px 20px", borderRadius: "8px", cursor: isMorningDisabled ? "not-allowed" : "pointer",
-                                border: isMorningDisabled ? "1px solid #eee" : `1px solid ${formData.slot === "Morning" ? customColors.primary : "#CCC"}`,
-                                backgroundColor: isMorningDisabled ? "#f9f9f9" : (formData.slot === "Morning" ? customColors.primary : "transparent"),
-                                color: isMorningDisabled ? "#ccc" : (formData.slot === "Morning" ? "white" : "#666"),
-                             }}>
-                                <WbSunnyOutlinedIcon sx={{ fontSize: 18 }} /> Morning
-                            </button>
-                            {/* Evening */}
-                            <button type="button" onClick={() => handleSlotChange("Evening")}
-                             style={{ 
-                                display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "10px 20px", borderRadius: "8px", cursor: "pointer",
-                                border: `1px solid ${formData.slot === "Evening" ? customColors.primary : "#CCC"}`,
-                                backgroundColor: formData.slot === "Evening" ? customColors.primary : "transparent",
-                                color: formData.slot === "Evening" ? "white" : "#666",
-                             }}>
-                                <BedtimeOutlinedIcon sx={{ fontSize: 18 }} /> Evening
-                            </button>
-                        </Box>
-                    </Grid>
-                 </Grid>
+                <p className="verify_war">{verifyWarning}</p>
 
-                 <Box sx={{ mt: 4, display: 'flex', justifyContent: 'center' }}>
-                    <Button type="submit" disabled={isLoading} variant="contained"
-                      sx={{ 
-                        backgroundColor: customColors.primary, color: "white", padding: "14px 40px", 
-                        borderRadius: "10px", fontSize: "16px", textTransform: "none",
-                        "&:hover": { backgroundColor: "#e66e3e" }
-                      }}>
-                      {isLoading ? <><CircularProgress size={24} sx={{ color: "white", mr: 2 }} /> Sending OTP...</> : "Send OTP"}
-                    </Button>
-                 </Box>
+                <div className="book-demo-submit">
+                  <button 
+                    type="button" 
+                    className="color-btn" 
+                    onClick={sendOtp}
+                    disabled={isLoading}
+                  >
+                    {isLoading ? "Processing..." : "Submit Your Details"}
+                  </button>
+                </div>
               </form>
-            </Paper>
-          </Box>
+            </div>
+          </div>
         </Fade>
       </Modal>
 
-      {/* --- MODAL 2: OTP VERIFICATION --- */}
+      {/* OTP Verification Modal */}
       <Modal
         open={otpModalOpen}
-        onClose={() => setOtpModalOpen(false)}
+        onClose={handleCloseOtpModal}
         closeAfterTransition
         BackdropComponent={Backdrop}
-        BackdropProps={{ timeout: 500, sx: { backgroundColor: "rgba(0,0,0,0.6)" } }}
+        BackdropProps={{ timeout: 500 }}
       >
         <Fade in={otpModalOpen}>
-          <Box sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "100%", maxWidth: "450px", outline: "none", px: 2 }}>
-            <Paper elevation={0} sx={{ p: 4, borderRadius: "20px", textAlign: "center", position: "relative" }}>
-              
-              <IconButton onClick={() => setOtpModalOpen(false)} sx={{ position: "absolute", right: 8, top: 8 }}><CloseIcon /></IconButton>
-              
-              <Typography sx={{ color: "#FF5722", fontWeight: "700", fontSize: "24px", mb: 2 }}>
-                OTP Verification 
-              </Typography>
-              <Typography sx={{ color: "#666", mb: 3 }}>
-                Enter the 6-digit OTP sent to <strong>+91 {formData.phone}</strong>
-              </Typography>
+          <div className="background" id="otpModal">
+            <div className="otp">
+              <span className="close-btn" onClick={handleCloseOtpModal} style={{
+                position: "absolute",
+                top: "10px",
+                right: "15px",
+                fontSize: "22px",
+                fontWeight: "bold",
+                cursor: "pointer",
+                color: "#333"
+              }}>&times;</span>
 
-              {useFallback && <Alert severity="info" sx={{ mb: 2 }}>Demo Mode: Check console for OTP</Alert>}
-              {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
-              {success && <Alert severity="success" sx={{ mb: 2 }}>{success}</Alert>}
-
-              {/* OTP Inputs */}
-              <Box sx={{ display: "flex", justifyContent: "center", gap: 1.5, mb: 3 }}>
-                {otp.map((digit, index) => (
-                  <Box key={index} sx={{ width: "50px", height: "60px", border: `2px solid ${digit ? customColors.primary : "#ddd"}`, borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <InputBase
-                      inputRef={el => otpInputRefs.current[index] = el}
+              <form onSubmit={(e) => e.preventDefault()}>
+                <h3>Verify Mobile Number</h3>
+                
+                {!otpSent ? (
+                  <p style={{ textAlign: 'center', marginBottom: '20px', color: '#666' }}>
+                    Please complete the security check to receive OTP...
+                  </p>
+                ) : (
+                  <p style={{ textAlign: 'center', marginBottom: '20px', color: '#4CAF50' }}>
+                    ✅ OTP sent to +91{formData.number.replace(/\D/g, '')}
+                  </p>
+                )}
+                
+                <div className="otpNumber">
+                  {otp.map((digit, index) => (
+                    <input
+                      key={index}
+                      type="number"
                       value={digit}
                       onChange={(e) => handleOtpChange(index, e.target.value)}
                       onKeyDown={(e) => handleOtpKeyDown(index, e)}
-                      inputProps={{ maxLength: 1, style: { textAlign: "center", fontSize: "24px", fontWeight: "bold" } }}
+                      ref={(el) => otpInputsRef.current[index] = el}
+                      disabled={!otpSent || verificationCompleted}
+                      autoFocus={index === 0 && otpSent}
                     />
-                  </Box>
-                ))}
-              </Box>
-
-              {/* Verify Button */}
-              <Button
-                onClick={verifyOtp}
-                disabled={isOtpVerifying || otp.join('').length !== 6}
-                fullWidth
-                variant="contained"
-                sx={{ 
-                  backgroundColor: customColors.primary, color: "white", padding: "14px", 
-                  borderRadius: "10px", fontSize: "16px", textTransform: "none", mb: 2,
-                  "&:hover": { backgroundColor: "#e66e3e" }
-                }}
-              >
-                {isOtpVerifying ? "Verifying..." : "Submit Details"}
-              </Button>
-
-              {/* Timer / Resend Link - MOVED BELOW BUTTON AS REQUESTED */}
-              <Box sx={{ mt: 2 }}>
-                {countdown > 0 ? (
-                    <Typography sx={{ color: "#888", fontSize: "14px" }}>
-                        Resend OTP in <span style={{ color: "#333", fontWeight: "bold" }}>{countdown}s</span>
-                    </Typography>
-                ) : (
-                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1 }}>
-                        <Typography sx={{ color: "#888", fontSize: "14px" }}>
-                            Didn't receive code?
-                        </Typography>
-                        <Button 
-                            onClick={resendOtp} 
-                            disabled={isLoading}
-                            sx={{ 
-                                textTransform: "none", color: customColors.primary, fontWeight: "bold", 
-                                padding: 0, minWidth: "auto", "&:hover": { backgroundColor: "transparent", textDecoration: "underline" } 
-                            }}>
-                            Resend OTP
-                        </Button>
-                    </Box>
+                  ))}
+                </div>
+                
+                <div className="error-msg">
+                  <span className="error-msg-span">{otpError}</span>
+                </div>
+                
+                {!otpSent && (
+                  <p className="otpPara">Complete the security check to get OTP</p>
                 )}
-              </Box>
-
-            </Paper>
-          </Box>
+                
+                {/* Hidden reCAPTCHA container */}
+                <div id="recaptcha-container" style={{ 
+                  display: 'flex', 
+                  justifyContent: 'center', 
+                  margin: '15px 0' 
+                }}></div>
+                
+                <button 
+                  type="button" 
+                  className="otp-btn-verify" 
+                  onClick={verifyOtp}
+                  disabled={isLoading || verificationCompleted || !otpSent || otp.join("").length !== 6}
+                  style={verificationCompleted ? { 
+                    backgroundColor: '#4CAF50',
+                    cursor: 'default'
+                  } : {}}
+                >
+                  {isLoading ? "Processing..." : 
+                   verificationCompleted ? "✅ Verified Successfully!" : 
+                   "Verify OTP and Book Demo Class"}
+                </button>
+                
+                {otpSent && !verificationCompleted && !isLoading && (
+                  <p style={{ 
+                    textAlign: 'center', 
+                    marginTop: '15px', 
+                    fontSize: '12px', 
+                    color: '#666',
+                    cursor: 'pointer',
+                    textDecoration: 'underline'
+                  }}
+                  onClick={() => {
+                    if (!isLoading) {
+                      setOtpError("");
+                      setOtpSent(false);
+                      sendOtp();
+                    }
+                  }}>
+                    Didn't receive OTP? Click to resend
+                  </p>
+                )}
+              </form>
+            </div>
+          </div>
         </Fade>
       </Modal>
-    </Box>
+    </>
   );
-}
+};
+
+export default BookDemoClass;

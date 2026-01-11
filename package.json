@@ -17,7 +17,7 @@
     "@mui/material": "^7.3.5",
     "aos": "^2.3.4",
     "axios": "^1.13.2",
-    "firebase": "^12.7.0",
+    "firebase": "^9.0.0",
     "framer-motion": "^12.24.10",
     "lucide-react": "^0.562.0",
     "react": "^19.1.1",
